@@ -30,8 +30,8 @@ export function ProductCard({
       key={_id}
       className="flex-item"
       sx={{
-        width: { sm: "70%", md: "30%" },
-        maxWidth: { sm: "70%", md: "30%" },
+        width: { sm: "40%", md: "40%", lg: "25%", xl: "20%" },
+        maxWidth: { sm: "70%", md: "50%" },
         bgcolor: "background.paper",
       }}
     >
@@ -44,12 +44,15 @@ export function ProductCard({
         />
         <Grid container alignItems="center">
           <Grid item xs={12}>
-            <CardHeader bottom variant="h5" component="div">
-              {name}
+            <CardHeader bottom variant="h5" component="div" style={{color: 'black'}} >
+              {name} 
             </CardHeader>
           </Grid>
           <Grid item xs={12}>
-            <Typography bottom variant="h5" component="div">
+          <Typography bottom variant="h5" component="div">
+               {name}
+            </Typography>
+            <Typography bottom variant="h6" component="div" style={{paddingTop: 10}}>
               $ {price}
             </Typography>
           </Grid>
@@ -85,16 +88,16 @@ export function ProductCard({
               window.location = `/products/${_id}`;
             }}
           >
-            {" "}
-            View this product{" "}
+            
+            View this product
           </Button>
           <Button
             onClick={() =>
               addToCart({ name, _id, price, description, quantity: 1, image })
             }
           >
-            {" "}
-            Add to cart{" "}
+            
+            Add to cart
           </Button>
         </Stack>
       </Box>

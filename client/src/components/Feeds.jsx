@@ -87,6 +87,7 @@ const Feeds = () => {
                 image={product.image}
                 category={product.category}
                 addToCart={addToCart}
+              
               />
             ))}
           </Box>
