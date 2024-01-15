@@ -28,31 +28,11 @@ db.once('open', async () => {
     console.log('<-----------------------------------------------CATEGORIES SEEDED----------------------------------------------->');
 
     const products = await Product.insertMany([
-      {
-        name: "Fallout 4",
-        description: "Fallout 4 is a post-apocalyptic action role-playing video game developed by Bethesda Game Studios and published by Bethesda Softworks. It is the fifth major installment in the Fallout series and was released worldwide on November 10, 2015, for Microsoft Windows, PlayStation 4 and Xbox One.",
-        image: "https://upload.wikimedia.org/wikipedia/en/7/70/Fallout_4_cover_art.jpg",
-        price: 59.99,
-        category: categories[2]._id,
-      },
-      {
-        name: "The Elder Scrolls IV: Oblivion",
-        description: "The Elder Scrolls IV: Oblivion is an open world action role-playing video game developed by Bethesda Game Studios and published by Bethesda Softworks and the Take-Two Interactive division 2K Games. It is the fourth installment in The Elder Scrolls action fantasy series, following The Elder Scrolls III: Morrowind and preceding The Elder Scrolls V: Skyrim. The game was released for Microsoft Windows and Xbox 360 in March 2006, and on PlayStation 3 in March 2007, with a mobile version of the game released on May 2, 2006. Taking place within the fictional province of Cyrodiil, Oblivion's main story revolves around the player character's efforts to thwart a fanatical cult known as the \"Mythic Dawn\" that plans to open portal gates to a demonic realm known as \"Oblivion\".",
-        image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/The_Elder_Scrolls_IV_Oblivion_cover.png/220px-The_Elder_Scrolls_IV_Oblivion_cover.png",
-        price: 19.99,
-        category: categories[2]._id,
-      },
-      {
-        name: "The Elder Scrolls Online",
-        description: "The Elder Scrolls Online is a massively multiplayer online role-playing game (MMORPG) developed by ZeniMax Online Studios and published by Bethesda Softworks. It was released for Microsoft Windows and OS X in April 2014. It is a part of The Elder Scrolls series. The game is set in the continent of Tamriel and features a storyline indirectly connected with the other games in the Elder Scrolls franchise. It had been in development for seven years before its release in 2014. It initially received mixed reviews, but these improved significantly with the re-release and rebranding as The Elder Scrolls Online: Tamriel Unlimited, with critics praising the changes that were made.",
-        image: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Elder_Scrolls_Online_cover.png/220px-Elder_Scrolls_Online_cover.png",
-        price: 59.99,
-        category: categories[2]._id
-      },
+ 
       {
         name: "Fornite",
         description: "Fortnite is an online video game developed by Epic Games and released in 2017. It is available in three distinct game mode versions that otherwise share the same general gameplay and game engine: Fortnite: Save the World, a cooperative hybrid-tower defense-shooter-survival game for up to four players to fight off zombie-like creatures and defend objects with traps and fortifications they can build; Fortnite Battle Royale, a free-to-play battle royale game where up to 100 players fight to be the last person standing; and Fortnite Creative, where players are given complete freedom to create worlds and battle arenas. The first two game modes were released in 2017 as early access titles and Creative was released on December 6, 2018. Save the World is available only for Windows, macOS, PlayStation 4, and Xbox One, while Battle Royale and Creative released for all those platforms, and also for Nintendo Switch, iOS, and Android devices.",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/FortniteLogo.svg/250px-FortniteLogo.svg.png",
+        image: "https://pxbar.com/wp-content/uploads/2023/10/fortnite-background-lobby-683x1024.jpg",
         price: 10.00,
         category: categories[2]._id
       },
@@ -185,7 +165,7 @@ db.once('open', async () => {
       {
         name: "Galactic Conquest",
         description: "Embark on an epic journey across the cosmos as you lead a faction of Odyssey Warriors. Battle for control of distant planets, forge alliances, and unleash futuristic technologies in this immersive strategy game set in the far reaches of space.",
-        image: "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/g/galaxy-shooter-switch/hero",
+        image: "https://gamefaqs.gamespot.com/a/box/4/9/2/752492_front.jpg",
         price: 49.99,
         category: categories[6]._id,
       },
@@ -195,6 +175,26 @@ db.once('open', async () => {
         image: "https://frontier-drupal.s3-eu-west-1.amazonaws.com/production/frontier-corp/s3fs-public/press-releases/mastheads/AoS-RoR-keyart-1920x1080.jpg",
         price: 44.99,
         category: categories[7]._id,
+      },{
+        name: "Fallout 4",
+        description: "Fallout 4 is a post-apocalyptic action role-playing video game developed by Bethesda Game Studios and published by Bethesda Softworks. It is the fifth major installment in the Fallout series and was released worldwide on November 10, 2015, for Microsoft Windows, PlayStation 4 and Xbox One.",
+        image: "https://upload.wikimedia.org/wikipedia/en/7/70/Fallout_4_cover_art.jpg",
+        price: 59.99,
+        category: categories[2]._id,
+      },
+      {
+        name: "The Elder Scrolls IV: Oblivion",
+        description: "The Elder Scrolls IV: Oblivion is an open world action role-playing video game developed by Bethesda Game Studios and published by Bethesda Softworks and the Take-Two Interactive division 2K Games. It is the fourth installment in The Elder Scrolls action fantasy series, following The Elder Scrolls III: Morrowind and preceding The Elder Scrolls V: Skyrim. The game was released for Microsoft Windows and Xbox 360 in March 2006, and on PlayStation 3 in March 2007, with a mobile version of the game released on May 2, 2006. Taking place within the fictional province of Cyrodiil, Oblivion's main story revolves around the player character's efforts to thwart a fanatical cult known as the \"Mythic Dawn\" that plans to open portal gates to a demonic realm known as \"Oblivion\".",
+        image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/The_Elder_Scrolls_IV_Oblivion_cover.png/220px-The_Elder_Scrolls_IV_Oblivion_cover.png",
+        price: 19.99,
+        category: categories[2]._id,
+      },
+      {
+        name: "The Elder Scrolls Online",
+        description: "The Elder Scrolls Online is a massively multiplayer online role-playing game (MMORPG) developed by ZeniMax Online Studios and published by Bethesda Softworks. It was released for Microsoft Windows and OS X in April 2014. It is a part of The Elder Scrolls series. The game is set in the continent of Tamriel and features a storyline indirectly connected with the other games in the Elder Scrolls franchise. It had been in development for seven years before its release in 2014. It initially received mixed reviews, but these improved significantly with the re-release and rebranding as The Elder Scrolls Online: Tamriel Unlimited, with critics praising the changes that were made.",
+        image: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Elder_Scrolls_Online_cover.png/220px-Elder_Scrolls_Online_cover.png",
+        price: 59.99,
+        category: categories[2]._id
       },
       {
         name: "Chrono Clash",
