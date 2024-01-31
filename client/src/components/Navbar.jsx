@@ -10,7 +10,11 @@ import {
   Typography,
   Modal,
   Badge,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
 import React, { useState } from "react";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -19,6 +23,7 @@ import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import Cart from "./Cart";
 import { useStoreContext } from "../utils/GlobalState";
+import LiveSearch from "./LiveSearch";
 
 
 const StyledToolbar = styled(Toolbar)({
@@ -37,8 +42,6 @@ const Icons = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: "20px",
 }));
-
-
 
 function showLogin() {
   if (Auth.loggedIn()) {
@@ -64,16 +67,14 @@ function showLogin() {
   }
 }
 
-
 export const Navbar = ({ toggleCart, cart }) => {
   const [open, setOpenAccount] = useState(false);
   const [openModal, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [state, dispatch] = useStoreContext();
-  
+
   return (
-    
     <AppBar position="sticky" color="primary">
       <StyledToolbar>
         <Typography
@@ -90,34 +91,31 @@ export const Navbar = ({ toggleCart, cart }) => {
           BORING GAME SHOP
         </Typography>
         <VideogameAssetIcon sx={{ display: { sm: "none", xs: "block" } }} />
-        <Search>
-          <InputBase placeholder="search..." />
-        </Search>
+      
+          <LiveSearch/>
+
+
         <Icons>
+          {Auth.loggedIn() ? (
+            <Badge color="success" badgeContent=" " variant="dot">
+              <AccountBoxIcon
+                onClick={() => {
+                  setOpenAccount(true);
+                }}
+                color="action"
+              />
+            </Badge>
+          ) : (
+            <AccountBoxIcon
+              onClick={() => {
+                setOpenAccount(true);
+              }}
+              color="action"
+            />
+          )}
 
-        {Auth.loggedIn() ? (
-          <Badge color="success" badgeContent=" " variant="dot">
-          <AccountBoxIcon
-            onClick={() => {
-              setOpenAccount(true);
-            }}
-            color="action"
-          />
-        </Badge>
-        ) :(
-          <AccountBoxIcon
-            onClick={() => {
-              setOpenAccount(true);
-              
-            }}
-            color="action"
-          />
-        )}
-        
-
-          
           <Badge badgeContent={parseInt(state.cart.length)} color="error">
-            <ShoppingCartIcon color='action' onClick={handleOpen} />
+            <ShoppingCartIcon color="action" onClick={handleOpen} />
           </Badge>
           <Modal
             open={openModal}
