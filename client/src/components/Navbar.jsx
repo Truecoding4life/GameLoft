@@ -92,7 +92,7 @@ export const Navbar = ({ toggleCart, cart }) => {
         </Typography>
         <VideogameAssetIcon sx={{ display: { sm: "none", xs: "block" } }} />
       
-          <LiveSearch/>
+          <LiveSearch className='search-bar'/>
 
 
         <Icons>
