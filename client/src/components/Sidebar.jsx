@@ -15,16 +15,21 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { Link } from "react-router-dom";
+import LiveSearch from "./LiveSearch";
 
 export const Sidebar = ({ currentPage, handlePageChange }) => {
   return (
-    <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "none", md: "block" } }} >
+    <Box flex={1} p={2} id='side-bar' sx={{ display: { xs: "none", sm: "none", md: "block" } }} className='side-bar'>
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
+      <LiveSearch></LiveSearch>
+
+            </ListItem>
+          <ListItem disablePadding>
             <ListItemButton component="a" onClick={() => handlePageChange("Home")}>
               <ListItemIcon>
-                <HomeIcon />
+                <HomeIcon sx={{ color: 'white' }}/>
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItemButton>
@@ -32,7 +37,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" onClick={() => handlePageChange("Favorite")} >
               <ListItemIcon>
-                <StarRateIcon />
+                <StarRateIcon sx={{ color: 'white' }}/>
               </ListItemIcon>
               <ListItemText primary="Favorite" />
             </ListItemButton>
@@ -40,7 +45,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" onClick={() => handlePageChange("Coupons")} >
               <ListItemIcon>
-                <LocalOfferIcon />
+                <LocalOfferIcon sx={{ color: 'white' }}/>
               </ListItemIcon>
               <ListItemText primary="Coupons" />
             </ListItemButton>
@@ -50,7 +55,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <SettingsIcon />
+                  <SettingsIcon sx={{ color: 'white' }}/>
                 </ListItemIcon>
                 <ListItemText primary="Order history" />
               </ListItemButton>
@@ -59,7 +64,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
           <ListItem disablePadding>
             <ListItemButton component="a"onClick={() => handlePageChange("contact")} >
               <ListItemIcon>
-                <ContactMailIcon />
+                <ContactMailIcon sx={{ color: 'white' }} />
               </ListItemIcon>
               <ListItemText primary="Contact us" />
             </ListItemButton>
@@ -68,7 +73,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <Brightness2Icon />
+                <Brightness2Icon sx={{ color: 'white' }}/>
               </ListItemIcon>
               <Switch />{" "}
             </ListItemButton>

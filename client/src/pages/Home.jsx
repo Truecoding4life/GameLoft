@@ -41,12 +41,12 @@ const Home = () => {
   };
 
   return (
-    <Box>
+    <Box className='home-page'>
       <Navbar toggleCart={toggleCart} cart={state.cart} />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
+      <Stack direction="row" spacing={3} justifyContent="space-between">
         <Sidebar currentPage={currentPage} handlePageChange={handlePageChange} />
         <Box  flex={4} p={2} className="main-display" >{renderPage()}</Box> 
-       <RightBar />
+       
        
       </Stack>
     </Box>

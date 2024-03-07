@@ -75,15 +75,16 @@ function Signup() {
     
       return (
         
-          <ThemeProvider theme={defaultTheme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline  />
+          <Container component="main" id='signUp' maxWidth="xs">
             <Box
+              component="form"
               sx={{
-                marginTop: 8,
+            
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
+                
+
                 
               }}
             >
@@ -104,13 +105,15 @@ function Signup() {
                       fullWidth
                       id="firstName"
                       label="First Name"
-                      autoFocus
-                   
+                      
+                      sx={{ borderColor: 'white', borderRadius: 1  }}
+                     
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       required
+                      
                       fullWidth
                       id="lastName"
                       label="Last Name"
@@ -123,17 +126,20 @@ function Signup() {
                   <Grid item xs={12}>
                     <TextField
                       required
+                      
                       fullWidth
                       name="address"
                       label="Address"
                       id="address"
                       autoComplete="new-address"
-                    
+                      sx={{ input: { color: 'white', borderRadius: 1  } }}
+
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
                       required
+                      
                       fullWidth
                       name="city"
                       label="City"
@@ -145,6 +151,7 @@ function Signup() {
                   <Grid item xs={6}>
                     <TextField
                       required
+                      
                       fullWidth
                       name="state"
                       label="State"
@@ -156,6 +163,7 @@ function Signup() {
                   <Grid item xs={6}>
                     <TextField
                       required
+                      
                       fullWidth
                       name="zip"
                       label="Zipcode"
@@ -167,6 +175,7 @@ function Signup() {
                   <Grid item xs={12}>
                     <TextField
                       required
+                      
                       fullWidth
                       id="email"
                       label="Email Address"
@@ -215,7 +224,6 @@ function Signup() {
             </Box>
             {/* <Copyright sx={{ mt: 5 }}  marginRight={20}/> */}
           </Container>
-        </ThemeProvider>
       );
     }
 

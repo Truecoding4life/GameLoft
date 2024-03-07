@@ -74,7 +74,7 @@ const Feeds = () => {
 
   return (
     <>
-      <Box flex={4} p={2}>
+      <Box flex={3} p={3}>
         {state.products.length ? (
           <Box className="main-display">
             {state.products.map((product) => (

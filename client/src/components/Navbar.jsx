@@ -75,24 +75,23 @@ export const Navbar = ({ toggleCart, cart }) => {
   const [state, dispatch] = useStoreContext();
 
   return (
-    <AppBar position="sticky" color="primary">
+    <AppBar position="sticky" id='navbar'>
       <StyledToolbar>
         <Typography
           variant="h5"
           component="a"
           href="/"
           style={{
-            fontFamily: "Staatliches",
-            fontWeight: "bold",
+            fontFamily: "Poppins",
+            fontWeight: 300,
           }}
           id="branding"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          BORING GAME SHOP
+          GameLoft
         </Typography>
         <VideogameAssetIcon sx={{ display: { sm: "none", xs: "block" } }} />
       
-          <LiveSearch className='search-bar'/>
 
 
         <Icons>
@@ -107,6 +106,7 @@ export const Navbar = ({ toggleCart, cart }) => {
             </Badge>
           ) : (
             <AccountBoxIcon
+            sx={{ color: 'white' }}
               onClick={() => {
                 setOpenAccount(true);
               }}
@@ -115,7 +115,7 @@ export const Navbar = ({ toggleCart, cart }) => {
           )}
 
           <Badge badgeContent={parseInt(state.cart.length)} color="error">
-            <ShoppingCartIcon color="action" onClick={handleOpen} />
+            <ShoppingCartIcon sx={{ color: 'white' }} color="action" onClick={handleOpen} />
           </Badge>
           <Modal
             open={openModal}
