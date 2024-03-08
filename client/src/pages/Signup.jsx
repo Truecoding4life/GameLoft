@@ -77,7 +77,7 @@ function Signup() {
         
           <Container component="main" id='signUp' maxWidth="xs">
             <Box
-              component="form"
+             
               sx={{
             
                 display: 'flex',
@@ -88,11 +88,11 @@ function Signup() {
                 
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} >
+              <Avatar sx={{ m: 1, bgcolor: 'black' }} >
                 <LockOutlinedIcon />
         
               </Avatar>
-              <Typography component="h1" variant="h5" >
+              <Typography component="h1" variant="h5" color={'black'} >
                 Sign up
               </Typography>
               <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }} width={400} >
@@ -106,7 +106,6 @@ function Signup() {
                       id="firstName"
                       label="First Name"
                       
-                      sx={{ borderColor: 'white', borderRadius: 1  }}
                      
                     />
                   </Grid>
@@ -132,7 +131,6 @@ function Signup() {
                       label="Address"
                       id="address"
                       autoComplete="new-address"
-                      sx={{ input: { color: 'white', borderRadius: 1  } }}
 
                     />
                   </Grid>
@@ -196,12 +194,7 @@ function Signup() {
                       
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={<Checkbox value="allowExtraEmails" color="primary" />}
-                      label="I want to receive inspiration, marketing promotions and updates via email."
-                    />
-                  </Grid>
+                  
                 </Grid>
                 <Button
                   type="submit"
