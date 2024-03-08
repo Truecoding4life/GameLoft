@@ -17,6 +17,7 @@ import {
   MenuItem,
   FormHelperText,
   Button,
+  Rating,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
@@ -26,8 +27,10 @@ import { ADD_REVIEW } from "../utils/mutations";
 
 const OneProductPage = () => {
   const { id } = useParams();
+  const [ratingValue, setRating] = useState(null);
+
   const [rateSelect, setRateSelect] = useState("");
-  const  [addReview]  = useMutation(ADD_REVIEW);
+  const [addReview] = useMutation(ADD_REVIEW);
   const { data } = useQuery(QUERY_SINGLE_PRODUCT, {
     variables: { id: id },
   });
@@ -52,138 +55,82 @@ const OneProductPage = () => {
   };
 
   return (
-    <Box >
+    <Box>
       <Navbar />
-      <Box
-      padding={5}
-      width={'90%'}
-      height={'50%'}
-  
-     
-     
-      margin={'auto'}
-     
-      >
-    
-      {product ? (
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4} justifyContent="center" alignItems="center">
-            <img
-              src={product.image}
-              alt={product.name}
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "10px",
-              }}
-              
-            />
-          </Grid>
-
-          <Grid  item xs={12} md={8} spacing={4}>
-            <Grid container > 
-            
-            <Grid item xs={12}>
-               <Typography
-              variant="h4"
-              align="center"
-              id="productInfo"
-              sx={{ padding: 5 }}
+      <Box padding={5} width={"70%"} height={"50%"} margin={"auto"}>
+        {product ? (
+          <Grid container spacing={2}>
+            <Grid
+              item
+              sm={12}
+              md={3}
+              lg={3}
+              justifyContent="center"
+              alignItems="center"
             >
-              More Detail
-            </Typography>
-               </Grid>
-           
-            <Grid item xs={12} paddingInline={46} >
-              <Typography variant="h5"  > Description </Typography>
-              <Typography
-                variant="body2"
-                className="game-description-single-game"
+              <img
+                src={product.image}
+                alt={product.name}
+                styles={{borderRadius: 100}}
                
-              >
-                {product.description}
-              </Typography>
-            </Grid >
-            <Grid item xs={5} margin={'auto'} paddingTop={10}>
-              <TableContainer component={Paper}>
-                <Table
-                  stickyHeader
-                  aria-label="sticky table"
-                  
-                >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Review</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {product.reviews ? (
-                      product.reviews.map((review, index) => (
-                        <TableRow
-                          key={index}
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {review.user}
-                          </TableCell>
-                          <TableCell align="right">{review.rate}</TableCell>
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={1}>No Review</TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <FormControl sx={{ m: 1, width: "100%" }}>
-                <InputLabel id="demo-simple-select-helper-label">
-                  Rate
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="rateSelect"
-                  label="Rate"
-                  value={rateSelect}
-                  
-                  onChange={handleRateSelectChange}
-                >
-                  <MenuItem value="1">1</MenuItem>
-                  <MenuItem value="2">2</MenuItem>
-                  <MenuItem value="3">3</MenuItem>
-                  <MenuItem value="4">4</MenuItem>
-                  <MenuItem value="5">5</MenuItem>
-                </Select>
-                <FormHelperText>
-                  You will not be able to delete your review
-                </FormHelperText>
-              </FormControl>
+              />
+            </Grid>
 
-              <Button
-                variant="contained"
-                color="success"
-                onClick={handleFormSubmit}
-                sx={{ width: "100%" }}
-              >
-                Submit
-              </Button>
+            <Grid item sm={12} md={9} lg={9}>
+              <Grid container>
+                <Grid item sm={12} md={12} lg={12} sx={{ paddingInline: 5 }} >
+                  {" "}
+                  
+
+                 
+                  <Typography fontFamily={'Fredoka'} fontSize={20}>More Detail</Typography>
+                  <Typography fontFamily={'Poppins'} fontSize={23}> {product.name} </Typography>
+                  {ratingValue ? (
+                    <div>
+                      <Rating name="read-only" value={ratingValue} readOnly />
+                      <Typography component="legend" fontFamily={'Poppins'} fontSize={10}> Current rating</Typography>
+
+                    </div>
+                  ) : (
+                    <div>
+                      <Rating name="disabled" value={ratingValue} disabled />
+
+                      <Typography component="legend" fontFamily={'Poppins'} fontSize={14}>
+                        No rating given
+                      </Typography>
+                      <Typography fontFamily={'Poppins'} fontSize={10}>Rate now </Typography>
+                  <Rating
+                    name="simple-controlled"
+                    value={ratingValue}
+                    onChange={(event, newValue) => {
+                      setRating(newValue);
+                    }}
+                  />
+                    </div>
+                  )}
+                  
+                  <Typography fontFamily={'Poppins'} fontSize={15}> Description </Typography>
+                  <Typography
+                    variant="body2"
+                    fontFamily={'Poppins'} fontSize={13}
+                    sx={{sm: {maxWidth:300}, md: {maxWidth:500}}}
+                   
+                    maxHeight={500}
+                    overflow={'auto'}
+                   
+                  >
+                    {product.description}
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
-          </Grid>
-          <Grid item xs={12}></Grid>
-        </Grid>
-      ) : (
-        <Box>
-          <Typography variant="h4">No Product Found</Typography>
-        </Box>
-      )}
-</Box>
-
+        ) : (
+          <Box>
+            <Typography variant="h4">No Product Found</Typography>
+          </Box>
+        )} 
+      </Box>
     </Box>
   );
 };
