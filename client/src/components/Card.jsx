@@ -38,7 +38,7 @@ export function ProductCard({
       key={_id}
       className="flex-item shop-item"
       sx={{
-        width: { xs: '40%',sm: "20%", md: "27%", lg: "20%", xl: "20%" },
+        width: { xs: '40%',sm: "27%", md: "27%", lg: "20%", xl: "14%" },
         maxWidth: { sm: "70%", md: "50%" },
         borderRadius: 5,
         backgroundColor:'black',

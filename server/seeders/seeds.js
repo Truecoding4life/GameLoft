@@ -109,7 +109,7 @@ db.once('open', async () => {
       {
         name: "Starcraft 2",
         description: "StarCraft II: Wings of Liberty is a science fiction real-time strategy video game developed and published by Blizzard Entertainment. It was released worldwide in July 2010 for Microsoft Windows and Mac OS X. A sequel to the 1998 video game StarCraft and the Brood War expansion pack, the game is split into three installments: the base game, subtitled Wings of Liberty, an expansion pack, Heart of the Swarm, and a stand-alone expansion pack, Legacy of the Void.",
-        image: "https://images3.alphacoders.com/553/thumb-1920-553597.jpg",
+        image: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/28877b101249425.5f1a56032f2d6.png",
         price: 59.99,
         category: categories[3]._id
       },
@@ -130,7 +130,7 @@ db.once('open', async () => {
       {
         name: "NBA 2K21",
         description: "NBA 2K21 is a basketball simulation video game that was developed by Visual Concepts and published by 2K Sports, based on the National Basketball Association (NBA). It is the 22nd installment in the NBA 2K franchise and the successor to NBA 2K20. The game was released on September 4, 2020 for Microsoft Windows, Nintendo Switch, PlayStation 4, Xbox One, and Stadia, and will be released in November 2020 for PlayStation 5 and Xbox Series X and Series S.",
-        image: "https://upload.wikimedia.org/wikipedia/en/a/a2/NBA_2K21_-_Damian_Lilliard_cover_art.jpg",
+        image: "https://cdn.prgloo.com/media/dc18e0848746424098a596ed33e29e8b.jpg?width=1200&height=1800",
         price: 59.99,
         category: categories[4]._id
       },
@@ -151,7 +151,7 @@ db.once('open', async () => {
       {
         name: "Flight Simulator",
         description: "Microsoft Flight Simulator is a series of amateur flight simulator programs for Microsoft Windows operating systems, and earlier for MS-DOS and Classic Mac OS. It is one of the longest-running, best-known, and most comprehensive home flight simulator programs on the market. It was an early product in the Microsoft application portfolio and differed significantly from Microsoft's other software, which was largely business-oriented. At 25 years it is the longest-running software product line for Microsoft, predating Windows by three years. Microsoft Flight Simulator may be the longest-running PC game series of all time.",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/980310-N-7355H-003_Simulator_Training.jpg/220px-980310-N-7355H-003_Simulator_Training.jpg",
+        image: "https://www.gameshift.ir/images/games/7033468866/uiitaKOO9U.jpg",
         price: 59.99,
         category: categories[8]._id
       },
@@ -195,63 +195,7 @@ db.once('open', async () => {
         image: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Elder_Scrolls_Online_cover.png/220px-Elder_Scrolls_Online_cover.png",
         price: 59.99,
         category: categories[2]._id
-      },
-      {
-        name: "Chrono Clash",
-        description: "Command an army across time in Temporal Battlegrounds. Rewrite history by strategically deploying units from different eras. Explore diverse landscapes and engage in intense battles where the past, present, and future collide.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTosaWwZiucEvEI6VPLxGueHwmHxeZm_BCimQdD3eNYiU1ZYQhEtm18UsnSJVYvSr3jkJk&usqp=CAU",
-        price: 54.99,
-        category: categories[3]._id,
-      },
-      {
-        name: "Space Explorer VR",
-        description: "Immerse yourself in the cosmos with Space Explorer VR. Explore distant galaxies, discover alien civilizations, and uncover the mysteries of the universe. This virtual reality adventure takes you to places beyond imagination.",
-        image: "https://i.ytimg.com/vi/KfH_ZGdm-T8/maxresdefault.jpg",
-        price: 59.99,
-        category: categories[7]._id,
-      },
-      {
-        name: "Fantasy Quest: Kingdoms Collide",
-        description: "Embark on a quest through magical realms in Kingdoms Collide. As a hero chosen by prophecy, gather allies, face mythical beasts, and confront the forces of darkness threatening the fantasy world. Your decisions shape the destiny of the kingdom.",
-        image: "https://cache-eu.finalfantasy.com/uploads/content/file/2018/11/16/611/logo_ff14_5.0.jpg",
-        price: 49.99,
-        category: categories[0]._id,
-      },
-      {
-        name: "Aqua Rumble: Deep Sea Battles",
-        description: "Plunge into the depths of the ocean in Aqua Rumble. Engage in intense underwater battles, discover hidden treasures, and navigate through coral reefs. Upgrade your submersible vehicles to become the undisputed ruler of the deep sea.",
-        image: "https://i.pinimg.com/originals/fe/8b/95/fe8b95900db09030ec54b5fe3eb29c81.png",
-        price: 34.99,
-        category: categories[6]._id,
-      },
-      {
-        name: "Cybernetic Arena: Robot Wars",
-        description: "Enter the Cybernetic Arena and engage in epic Robot Wars. Customize your combat mechs, challenge other players, and rise through the ranks in this futuristic fighting game. Master the art of mechanical combat to become the ultimate champion.",
-        image: "https://images5.alphacoders.com/112/1127260.jpg",
-        price: 49.99,
-        category: categories[6]._id,
-      },
-      {
-        name: "Epic Skies: Aerial Combat",
-        description: "Take to the skies in Epic Skies. Pilot advanced fighter jets, engage in dogfights, and participate in thrilling aerial combat missions. Experience the rush of air superiority as you navigate through realistic environments.",
-        image: "https://s1.cdn.autoevolution.com/images/news/fly-modern-fighter-jets-in-air-combat-game-sky-warriors-out-now-on-ios-and-android-171107_1.jpg",
-        price: 44.99,
-        category: categories[8]._id,
-      },
-      {
-        name: "Steampunk Inventor: Contraption Conquest",
-        description: "Become a Steampunk Inventor in Contraption Conquest. Solve intricate puzzles, build fantastical machines, and navigate through a world of gears and steam. Your inventive skills will be put to the test in this unique steampunk puzzle adventure.",
-        image: "https://prompthero.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaWt6TXpRelpqUmxNaTFoTWpCa0xUUm1aakl0WWpsaVlpMDRaVGxpTkdSak1EaGtNRGtHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--d21491f53394840303403964abe550e2388649de/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDRG9MWm05eWJXRjBPZ2wzWldKd09oUnlaWE5wZW1WZmRHOWZiR2x0YVhSYkIya0NBQWd3T2dwellYWmxjbnNKT2hOemRXSnpZVzF3YkdWZmJXOWtaVWtpQjI5dUJqb0dSVlE2Q25OMGNtbHdWRG9PYVc1MFpYSnNZV05sVkRvTWNYVmhiR2wwZVdsZiIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--935666d13f63ed5aca9daa2416340e3a90b6014e/prompthero-prompt-8119c7dc1a2.png",
-        price: 39.99,
-        category: categories[7]._id,
-      },
-      {
-        name: "Wild West Outlaws: Frontier Justice",
-        description: "Saddle up and ride into the sunset in Wild West Outlaws. Experience the untamed frontier, engage in duels, and build your outlaw legacy. Choose between law and chaos as you navigate the challenges of the Wild West.",
-        image: "https://download.cocos.com/CocosWww/2020/11/FrontierJustice.png",
-        price: 49.99,
-        category: categories[0]._id,
-      },
+      }
 
     ]);
 
