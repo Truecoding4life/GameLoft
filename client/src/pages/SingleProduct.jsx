@@ -55,7 +55,7 @@ const OneProductPage = () => {
   };
 
   return (
-    <Box>
+    <Box className='single-product-page'>
       <Navbar />
       <Box padding={5} width={"70%"} height={"50%"} margin={"auto"}>
         {product ? (
@@ -63,45 +63,47 @@ const OneProductPage = () => {
             <Grid
               item
               sm={12}
-              md={3}
-              lg={3}
+              md={6}
+              lg={4}
+              
+              
               justifyContent="center"
               alignItems="center"
             >
               <img
                 src={product.image}
                 alt={product.name}
-                styles={{borderRadius: 100}}
-               
+                style={{ borderRadius: 20,height:'100%' }}
+                className='product-image'
               />
             </Grid>
 
-            <Grid item sm={12} md={9} lg={9}>
-              <Grid container>
-                <Grid item sm={12} md={12} lg={12} sx={{ paddingInline: 5 }} >
+            <Grid item sm={12} md={6} lg={8} >
+            
+              <Grid item sm={12} md={12} lg={8} sx={{ paddingInline: 5 , backgroundColor:'#1e71a8f3', padding:3, borderRadius:5}}>
                   {" "}
                   
 
                  
-                  <Typography fontFamily={'Fredoka'} fontSize={20}>More Detail</Typography>
-                  <Typography fontFamily={'Poppins'} fontSize={23}> {product.name} </Typography>
+                  <Typography fontFamily={'Poppins'} fontSize={23} color='white'> {product.name} </Typography>
                   {ratingValue ? (
                     <div>
+                      <Typography component="legend" fontFamily={'Poppins'} fontSize={10} color='white'> Current rating</Typography>
                       <Rating name="read-only" value={ratingValue} readOnly />
-                      <Typography component="legend" fontFamily={'Poppins'} fontSize={10}> Current rating</Typography>
 
                     </div>
                   ) : (
                     <div>
                       <Rating name="disabled" value={ratingValue} disabled />
 
-                      <Typography component="legend" fontFamily={'Poppins'} fontSize={14}>
+                      <Typography component="legend" fontFamily={'Poppins'} fontSize={14} color='white'>
                         No rating given
                       </Typography>
-                      <Typography fontFamily={'Poppins'} fontSize={10}>Rate now </Typography>
+                      <Typography fontFamily={'Poppins'} fontSize={10} color='white'>Rate now </Typography>
                   <Rating
                     name="simple-controlled"
                     value={ratingValue}
+                    
                     onChange={(event, newValue) => {
                       setRating(newValue);
                     }}
@@ -109,14 +111,14 @@ const OneProductPage = () => {
                     </div>
                   )}
                   
-                  <Typography fontFamily={'Poppins'} fontSize={15}> Description </Typography>
+                  <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>More Detail</Typography>
                   <Typography
                     variant="body2"
-                    fontFamily={'Poppins'} fontSize={13}
-                    sx={{sm: {maxWidth:300}, md: {maxWidth:500}}}
-                   
-                    maxHeight={500}
-                    overflow={'auto'}
+                    fontFamily={'Poppins'} fontSize={13} color='white'
+                    
+                   overflow={'hidden'}
+                    maxHeight={400}
+                    
                    
                   >
                     {product.description}
@@ -124,7 +126,7 @@ const OneProductPage = () => {
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
+       
         ) : (
           <Box>
             <Typography variant="h4">No Product Found</Typography>
