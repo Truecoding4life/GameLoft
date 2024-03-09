@@ -98,13 +98,14 @@ export const Navbar = () => {
         >
           GameLoft
         </Typography>
-        <VideogameAssetIcon sx={{ display: { sm: "none", xs: "block" } }} />
+
+        <VideogameAssetIcon onClick={()=>{window.location='/'}} sx={{ display: { sm: "none", xs: "block" } }} />
       
 
 
         <Icons>
           {Auth.loggedIn() ? (
-            <Badge color="success" badgeContent=" " variant="dot">
+            <Badge color="success"  variant="dot">
               <AccountBoxIcon
                 onClick={() => {
                   setOpenAccount(true);

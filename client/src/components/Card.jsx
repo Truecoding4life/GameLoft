@@ -38,7 +38,7 @@ export function ProductCard({
       key={_id}
       className="flex-item shop-item"
       sx={{
-        width: { xs: '40%',sm: "27%", md: "27%", lg: "20%", xl: "14%" },
+        width: { xs: '96%',sm: "27%", md: "27%", lg: "20%", xl: "14%" },
         maxWidth: { sm: "70%", md: "50%" },
         borderRadius: 5,
         backgroundColor:'black',
@@ -63,9 +63,10 @@ export function ProductCard({
 
         <CardActions>
 
-        <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} sx={{ color: 'white' }}  />
+        <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} sx={{ color: 'white', margin:'auto' }}  />
         <Divider orientation="vertical" flexItem />
         <Button
+        sx={{margin:'auto'}}
           onClick={() =>
             addToCart({ name, _id, price, description, quantity: 1, image })
           }

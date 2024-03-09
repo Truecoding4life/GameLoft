@@ -12,9 +12,9 @@
 
 
 .shop-item:hover {
-    transform:translateY(-30px);
+    transform: translateY(-30px);
     transition: all 0.2s ease;
-    
+
 
 }
 
@@ -22,19 +22,28 @@
     font-family: "Poppins", sans-serif;
 }
 
-.home-page, .single-product-page{
+.home-page,
+.single-product-page {
     background: linear-gradient(181deg, rgba(19, 29, 45, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(24, 33, 55, 1) 100%);
     min-height: 100vh;
 
 }
-#navbar{
+
+#navbar {
     background-color: #191d28;
     padding: 10px;
-   
+
 }
 
+.cart-item {
+    width: 100%;
+    max-height: 500;
+    border-radius: 5;
+    margin: 20;
+    display: flex;
+}
 
-#cart-container{
+#cart-container {
     background-color: #191d28;
     scrollbar-color: #0ab16e #191d28;
     width: 50%;
@@ -42,10 +51,11 @@
 
 
 
-.side-bar{
+.side-bar {
     color: rgb(206, 221, 234);
-    
+
 }
+
 #contact-message {
     font-family: 'Josefin Sans', sans-serif;
 }
@@ -63,35 +73,70 @@
 }
 
 
-#search-bar{
+#search-bar {
     background-color: rgba(233, 101, 56, 0.893);
     width: 100%;
     padding: 0;
     border-radius: 7px;
-   
+
 }
 
-.moreDetailHeading{
+.moreDetailHeading {
     font-family: "Poppins";
 }
 
-.moreDetailDescription{
+.moreDetailDescription {
     font-family: "Poppins";
 }
 
-.product-image{
+.product-image {
     margin-left: auto;
 }
-back{
+
+back {
     background-color: #b4b8bb;
 }
+
 
 
 @media (max-width: 900px) {
     .product-image {
         margin: auto;
     }
+
+    .cart-item-description {
+        display: none;
+    }
+
+    
     #cart-container {
-        width: 90%;
+        
+        padding: 20px;
+        min-width: 90%;
+    }
+    .cart-item{
+        max-height: 100px;
+    }
+    .shop-item:hover {
+        transform: none;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1600px) {
+    .cart-item {
+        max-height: 100px;
+    }
+
+    .cart-item-description {
+        display: none;
+    }
+}
+
+@media(max-width: 500px){
+    .card-item{
+        flex-direction: column;
+    }
+    .cart-item-name{
+        font-size: 20px;
     }
 }

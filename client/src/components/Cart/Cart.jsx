@@ -154,13 +154,10 @@ const Cart = () => {
           <ListItem key={product._id} disablePadding>
             <Card
               sx={{
-                display: "flex",
-                margin: 1,
-                borderRadius: 5,
-                backgroundColor: "#b4b8bb",
-                width: "100%",
-                maxHeight: 500,
+                margin: 2,
+                backgroundColor:'#b4b8bb'
               }}
+              className="cart-item"
             >
               <CardMedia
                 component="img"
@@ -169,14 +166,16 @@ const Cart = () => {
                 onClick={() =>
                   (window.location.href = `/products/${product._id}`)
                 }
+                className="cart-item-image"
               />
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <CardContent sx={{ width: "100%" }}>
+                <CardContent>
                   <Typography
                     component="div"
                     variant="h5"
                     fontFamily={"Poppins"}
-                    fontSize={17}
+                    fontSize={{ xs: 13, sm: 16, md: 18, lg: 16, xl: 25 }}
+                    className="cart-item-name"
                   >
                     {product.name}
                   </Typography>
@@ -184,11 +183,12 @@ const Cart = () => {
                     variant="h5"
                     fontFamily={"Poppins"}
                     fontSize={10}
-                    maxWidth={600}
+                    maxWidth={500}
+                    className="cart-item-description"
                   >
                     {product.description}
                   </Typography>
-                  <Button onClick={() => removeFromCart(product)}>
+                  <Button sx={{ alignSelf:'center', justifyContent:'center', margin:'auto' }} onClick={() => removeFromCart(product)}>
                     Remove
                   </Button>
                 </CardContent>
