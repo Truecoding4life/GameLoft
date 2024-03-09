@@ -41,7 +41,7 @@ const CartItem = ({ product }) => {
             fontFamily="Poppins"
             margin={1}
             width="100%"
-            fontSize={{ xs: 13, sm: 16, md: 18, lg: 16, xl: 25 }}
+            fontSize={{ xs: 12, sm: 16, md: 18, lg: 16, xl: 25 }}
             className="cart-item-name"
           >
             {product.name}
@@ -52,7 +52,7 @@ const CartItem = ({ product }) => {
             fontFamily="Poppins"
             margin={1}
             width="100%"
-            fontSize={{ xs: 20, sm: 20, md: 19, lg: 20, xl: 26 }}
+            fontSize={{ xs: 13, sm: 20, md: 19, lg: 20, xl: 26 }}
             className="cart-item-price"
           >
             {product.price}
