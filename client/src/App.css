@@ -47,8 +47,14 @@
 
 #cart-container {
     background-color: #191d28;
-    scrollbar-color: #2285b7 #191d28;
+    scrollbar-color: #ee5f2b #191d28;
     width: 50%;
+    height: 100%;
+    overflow: scroll;
+    padding: 1rem;
+    margin-top: 40px;
+    border-radius: 40px;
+    
    
 }
 

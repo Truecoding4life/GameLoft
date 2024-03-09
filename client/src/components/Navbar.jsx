@@ -90,12 +90,13 @@ export const Navbar = () => {
           component="a"
           href="/"
           style={{
-            fontFamily: "Poppins",
-            fontWeight: 300,
+            fontFamily: "Silkscreen",
+            fontSize: "30px",
           }}
           id="branding"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
+         
           GameLoft
         </Typography>
 

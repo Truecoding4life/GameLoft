@@ -1,64 +1,82 @@
 import { useStoreContext } from "../../utils/GlobalState";
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
-
-const CartItem = ({ item }) => {
-
-  const [, dispatch] = useStoreContext();
-
-  const removeFromCart = (item) => {
-    dispatch({
-      type: REMOVE_FROM_CART,
-      _id: item._id,
-    });
-    idbPromise("cart", "delete", { ...item });
-  };
-
-  const onChange = (e) => {
-    const value = e.target.value;
-    if (value === "0") {
-      dispatch({
-        type: REMOVE_FROM_CART,
-        _id: item._id,
-      });
-      idbPromise("cart", "delete", { ...item });
-    } else {
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
-        _id: item._id,
-        purchaseQuantity: parseInt(value),
-      });
-      idbPromise("cart", "put", { ...item, purchaseQuantity: parseInt(value) });
-    }
-  };
+import {
+  Button,
+  Box,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  List,
+  ListItem,
+  Modal,
+} from "@mui/material";
+const CartItem = ({ product }) => {
 
   return (
-    <div className="flex-row">
-      <div>
-        <img src={`/images/${item.image}`} alt="" />
-      </div>
-      <div>
-        <div>
-          {item.name}, ${item.price}
-        </div>
-        <div>
-          <span>Qty:</span>
-          <input
-            type="number"
-            placeholder="1"
-            value={item.purchaseQuantity}
-            onChange={onChange}
-          />
-          <span
-            role="img"
-            aria-label="trash"
-            onClick={() => removeFromCart(item)}
+    <ListItem key={product._id} disablePadding>
+    <Card sx={{ margin: 1, backgroundColor: "#59626a73" }} className="cart-item">
+      <CardMedia
+        component="img"
+        sx={{ width: 150 }}
+        image={product.image}
+        onClick={() => (window.location.href = `/products/${product._id}`)}
+        className="cart-item-image"
+      />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "rows",
+          color: "white",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
+        <CardContent>
+          <Typography
+            component="div"
+            variant="h5"
+            fontFamily="Poppins"
+            margin={1}
+            width="100%"
+            fontSize={{ xs: 13, sm: 16, md: 18, lg: 16, xl: 25 }}
+            className="cart-item-name"
           >
-            🗑️
-          </span>
-        </div>
-      </div>
-    </div>
+            {product.name}
+          </Typography>
+          <Typography
+            component="div"
+            variant="h5"
+            fontFamily="Poppins"
+            margin={1}
+            width="100%"
+            fontSize={{ xs: 20, sm: 20, md: 19, lg: 20, xl: 26 }}
+            className="cart-item-price"
+          >
+            {product.price}
+          </Typography>
+          <Typography
+            variant="h5"
+            fontFamily="Josefin Sans"
+            fontSize={10}
+            maxWidth={600}
+            marginTop={2}
+            marginInline={1}
+            className="cart-item-description"
+          >
+            {product.description}
+          </Typography>
+        </CardContent>
+        <CardContent className="cart-item-button">
+          <Button sx={{ color: "#f25553" }} onClick={() => removeFromCart(product)}>
+            Remove
+          </Button>
+        </CardContent>
+      </Box>
+    </Card>
+  </ListItem>
   );
 };
 
