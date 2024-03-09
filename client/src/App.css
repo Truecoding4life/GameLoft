@@ -139,7 +139,7 @@ back {
 
 @media (min-width: 900px) and (max-width: 1600px) {
     .cart-item {
-        max-height: 200px;
+        max-height: 230px;
     }
     .cart-item-image{
         max-width: 70px;
