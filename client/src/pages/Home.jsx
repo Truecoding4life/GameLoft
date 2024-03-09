@@ -10,7 +10,7 @@ import Coupons from "../components/Coupons";
 import Favorite from "../components/Favorite";
 import Contact from "../components/Contact";
 import { useStoreContext } from "../utils/GlobalState";
-import Cart from "../components/Cart";
+import Cart from "../components/Cart/Cart";
 import { TOGGLE_CART } from "../utils/actions";
 
 

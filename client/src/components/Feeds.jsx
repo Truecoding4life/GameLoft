@@ -17,12 +17,11 @@ const Feeds = () => {
   const { loading, data, error } = useQuery(QUERY_ALL_PRODUCTS);
 
   // const products = data?.products || [];
-  console.log(data);
-  console.log(error);
+  
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+      
       dispatch({
         type: UPDATE_PRODUCTS,
         products: data.products,
@@ -40,20 +39,19 @@ const Feeds = () => {
     }
   }, [data, loading, dispatch]);
 
-  console.log(state.products);
-  console.log(state.cart);
+ 
 
   const { cart } = state;
 
-  console.log(cart);
+ 
 
   const addToCart = (product) => {
     const { _id } = product;
-    // console.log(_id);
+   
 
     const itemInCart = cart.find((cartItem) => cartItem._id === _id);
     if (itemInCart) {
-      console.log(itemInCart);
+   
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: _id,

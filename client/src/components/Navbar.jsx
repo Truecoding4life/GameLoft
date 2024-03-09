@@ -21,7 +21,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
 import { useStoreContext } from "../utils/GlobalState";
 
 
@@ -66,8 +66,8 @@ function showLogin() {
   }
 }
 
-export const Navbar = ({ toggleCart, cart }) => {
-  const [open, setOpenAccount] = useState(false);
+export const Navbar = () => {
+  const [openAccount, setOpenAccount] = useState(false);
   const [openModal, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [state, dispatch] = useStoreContext();
@@ -140,7 +140,7 @@ export const Navbar = ({ toggleCart, cart }) => {
           <Menu
             id="profile-menu"
             aria-labelledby="demo-positioned-button"
-            open={open}
+            open={openAccount}
             onClose={() => setOpenAccount(false)}
             anchorOrigin={{
               vertical: "top",

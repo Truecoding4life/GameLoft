@@ -9,7 +9,6 @@ import { Paper } from '@mui/material';
 export default function LiveSearch() {
   const { loading, data } = useQuery(QUERY_ALL_PRODUCTS);
   const products = data?.products || [];
-  console.log(products);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
  
@@ -17,7 +16,7 @@ export default function LiveSearch() {
   useEffect(() => {
     if (selectedProduct){
       window.location.href = '/products/' + selectedProduct._id;
-      console.log(selectedProduct)
+      
     }
   }, [selectedProduct])
   return (

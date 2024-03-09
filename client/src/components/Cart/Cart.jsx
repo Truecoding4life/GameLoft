@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery, useQuery } from "@apollo/client";
-import { QUERY_CHECKOUT, QUERY_USER } from "../utils/queries";
-import { idbPromise } from "../utils/helpers";
-import CartItem from "./CartItem";
-import { useStoreContext } from "../utils/GlobalState";
-import { ADD_MULTIPLE_TO_CART, REMOVE_FROM_CART } from "../utils/actions";
-import Auth from "../utils/auth";
-import "../styles/Cart/style.css";
+import { QUERY_CHECKOUT, QUERY_USER } from "../../utils/queries";
+import { idbPromise } from "../../utils/helpers";
+import { useStoreContext } from "../../utils/GlobalState";
+import { ADD_MULTIPLE_TO_CART, REMOVE_FROM_CART } from "../../utils/actions";
+import Auth from "../../utils/auth";
+import "../../styles/Cart/style.css";
 import {
   Button,
   Divider,
@@ -43,42 +42,62 @@ const style = {
 const stripePromise = loadStripe(
   "pk_test_51ONTIVHTFh8Wci3c6KmX3ltxyZAHhSTHFY12NMZwUeg6eHfDykwMEYyJvzIr979461JfVxXjBN0Ogl9dcSzcRjaa00X89U6v2w"
 );
-let authenticateEmail;
-const loggedIn = Auth.loggedIn();
-if(loggedIn){
 
-  authenticateEmail = Auth.getProfile().data.email;
-}
 const Cart = () => {
+  let authenticateEmail;
+  const loggedIn = Auth.loggedIn();
+  if (loggedIn) {
+    authenticateEmail = Auth.getProfile().data.email;
+  }
+  const [userData, setUserData] = useState(null);
+
   const [state, dispatch] = useStoreContext();
-  const [getCheckout] = useLazyQuery(QUERY_CHECKOUT);
-  
+  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   let userFullName = "???";
   let userFullAddress = "???";
 
-  if (loggedIn) {
-    const { loading, data } = useQuery(QUERY_USER, {
-      variables: { email: authenticateEmail },
-    });
+  useEffect(() => {
+    const fetchData = async () => {
+      const { loading, data } = await useQuery(QUERY_USER, {
+        variables: { email: authenticateEmail },
+      });
 
-    if (!loading && data && data.user) {
-      userFullName = `${data.user.firstName} ${data.user.lastName}`;
-      userFullAddress = `${data.user.address} ${data.user.city}, ${data.user.state} ${data.user.zip}`;
-    }
+      if (!loading && data && data.user) {
+        setUserData(data);
+      }
+    };
+
+    fetchData();
+  }, [authenticateEmail]);
+
+  if (loggedIn && userData && userData.user) {
+    userFullName = `${userData.user.firstName} ${userData.user.lastName}`;
+    userFullAddress = `${userData.user.address} ${userData.user.city}, ${userData.user.state} ${userData.user.zip}`;
   } else {
     console.log("Not logged in");
   }
-  
-  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (data) {
+      stripePromise.then((res) => {
+        res.redirectToCheckout({ sessionId: data.checkout.session });
+      });
+    }
+  }, [data]);
+
   useEffect(() => {
     async function getCart() {
       const cart = await idbPromise("cart", "get");
       dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
     }
 
-    getCart();
-  }, [loggedIn, dispatch]);
+    if (!state.cart.length) {
+      getCart();
+    }
+  }, [state.cart.length, dispatch]);
 
   function calculateTotal() {
     let sum = 0;
@@ -95,9 +114,7 @@ const Cart = () => {
     });
     idbPromise("cart", "delete", { ...item });
   };
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  function handleClearCart() {console.log(data);}
+
   function handleCheckout() {
     if (!state.cart.length) {
       return handleOpen();
@@ -109,7 +126,9 @@ const Cart = () => {
     });
   }
 
-  
+  function handleClearCart() {
+    console.log(data);
+  }
   return (
     <Box
       sx={{
@@ -212,7 +231,7 @@ const Cart = () => {
             fontFamily={"Poppins"}
             color="white"
           >
-            Name : {loggedIn ? userFullName : "???"}
+            Name : {userFullName}
           </Typography>
           <Typography
             sx={{ fontWeight: "lighter" }}
@@ -220,7 +239,7 @@ const Cart = () => {
             bottom
             color="white"
           >
-            Address {loggedIn ? userFullAddress : "???"}
+            Address {userFullAddress}
           </Typography>
         </Grid>
         <Grid

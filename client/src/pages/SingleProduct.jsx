@@ -37,7 +37,6 @@ const OneProductPage = () => {
   });
 
   const product = data?.product || {};
-  console.log(product);
 
   const handleFormSubmit = async () => {
     try {
