@@ -127,15 +127,22 @@ const Cart = () => {
   }
 
   function handleClearCart() {
-    console.log(data);
+    state.cart.forEach((item) => {
+      removeFromCart(item);
+    });
   }
   return (
     <Box
       sx={{
-        height: "80%",
-        overflow: "auto",
+        
+       height: "100%",
+        overflow:'scroll',
         padding: "2rem",
         borderRadius: 5,
+        marginTop: 4,
+        padding:3,
+       
+
       }}
       id="cart-container"
     >
@@ -143,19 +150,18 @@ const Cart = () => {
         variant="h6"
         color="white"
         sx={{ fontWeight: "lighter" }}
-        fontFamily={"Poppins"}
+        fontFamily={"Josefin Sans"}
         bottom
       >
         Order summary
       </Typography>
-      <Divider />
       <List disablePadding>
-        {state.cart.map((product) => (
+        {state.cart.length ? state.cart.map((product) => (
           <ListItem key={product._id} disablePadding>
             <Card
               sx={{
-                margin: 2,
-                backgroundColor:'#b4b8bb'
+                margin: 1,
+                backgroundColor:'#59626a73'
               }}
               className="cart-item"
             >
@@ -168,43 +174,75 @@ const Cart = () => {
                 }
                 className="cart-item-image"
               />
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Box sx={{ display: "flex", flexDirection: "rows", color:'white', justifyContent:'space-between', width:'100%'}}>
                 <CardContent>
                   <Typography
                     component="div"
                     variant="h5"
                     fontFamily={"Poppins"}
+                    margin={1}
+                    width={'100%'}
                     fontSize={{ xs: 13, sm: 16, md: 18, lg: 16, xl: 25 }}
                     className="cart-item-name"
                   >
                     {product.name}
+                    
+                  </Typography>
+                  <Typography
+                    component="div"
+                    variant="h5"
+                    fontFamily={"Poppins"}
+                    margin={1}
+                    width={'100%'}
+                    fontSize={{ xs: 20, sm: 20, md: 19, lg: 20, xl: 26 }}
+                    className="cart-item-name"
+                  >
+                    {product.price}
+                    
                   </Typography>
                   <Typography
                     variant="h5"
-                    fontFamily={"Poppins"}
+                    fontFamily={"Josefin Sans"}
                     fontSize={10}
-                    maxWidth={500}
+                    maxWidth={600}
+                    marginTop={2}
+                    marginInline={1}
                     className="cart-item-description"
                   >
                     {product.description}
                   </Typography>
-                  <Button sx={{ alignSelf:'center', justifyContent:'center', margin:'auto' }} onClick={() => removeFromCart(product)}>
+                 
+                </CardContent>
+                <CardContent className='cart-item-button'>
+                   <Button sx={{ color:'#f25553'}} onClick={() => removeFromCart(product)}>
                     Remove
                   </Button>
                 </CardContent>
               </Box>
             </Card>
           </ListItem>
-        ))}
+        )) : <Box>
+          <Typography
+                    component="div"
+                    variant="h1"
+                    fontFamily={"Roboto"}
+                    sx={{padding:5, textAlign:'center'}}
+                    fontSize={30}
+                    color={'white'}
+                  >
+                    No item in cart
+                    
+                  </Typography>
+          </Box>}
 
-        <Divider />
+
       </List>
       <Grid container spacing={2} style={{ width: "100%", margin: "auto" }}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <Typography
             variant="subtitle1"
-            sx={{ fontWeight: "bold" }}
-            fontFamily={"Poppins"}
+            sx={{ fontWeight: "bold", fontSize: 23}}
+            fontFamily={"Josefin Sans"}
             color="white"
           >
             Total $ : {calculateTotal()}
@@ -212,7 +250,7 @@ const Cart = () => {
           <Typography
             variant="h6"
             sx={{ fontWeight: "lighter", mt: 2, color: "white" }}
-            fontFamily={"Poppins"}
+            fontFamily={"Josefin Sans"}
             bottom
           >
             Payment details
@@ -221,21 +259,21 @@ const Cart = () => {
             variant="h6"
             color="white"
             sx={{ fontWeight: "lighter" }}
-            fontFamily={"Poppins"}
+            fontFamily={"Josefin Sans"}
           >
             Shipping
           </Typography>
           <Typography
             bottom
             sx={{ fontWeight: "lighter" }}
-            fontFamily={"Poppins"}
+            fontFamily={"Josefin Sans"}
             color="white"
           >
             Name : {userFullName}
           </Typography>
           <Typography
             sx={{ fontWeight: "lighter" }}
-            fontFamily={"Poppins"}
+            fontFamily={"Josefin Sans"}
             bottom
             color="white"
           >
@@ -244,15 +282,27 @@ const Cart = () => {
         </Grid>
         <Grid
           item
-          container
-          direction="column"
+          
+          
           xs={12}
-          sm={6}
+          sm={12}
           sx={{ my: "auto" }}
         >
           <Button onClick={handleClearCart} variant="contained" color="warning">
             Clear Cart
           </Button>
+          
+        </Grid>
+
+        <Grid
+          item
+          
+          
+          xs={12}
+          sm={12}
+          sx={{ my: "auto" }}
+        >
+         
           <Button onClick={handleCheckout} variant="contained" color="success">
             Pay Now
           </Button>
