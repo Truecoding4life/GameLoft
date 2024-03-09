@@ -140,7 +140,7 @@ const Cart = () => {
         padding: "2rem",
         borderRadius: 5,
         marginTop: 4,
-        padding:3,
+        
        
 
       }}
