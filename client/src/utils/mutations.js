@@ -103,3 +103,14 @@ export const ADD_PRODUCT = gql`
     }
   }
 `;
+
+export const ADD_RATING = gql`
+mutation Mutation($productId: ID!, $rating: Int!) {
+  addRating(productId: $productId, rating: $rating) {
+    rating
+    name
+    likes
+    _id
+  }
+}
+`

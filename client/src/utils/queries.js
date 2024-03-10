@@ -28,6 +28,7 @@ query Query($id: ID!) {
     likes
     name
     price
+    rating
     reviews {
       commentText
       createdAt
