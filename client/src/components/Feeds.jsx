@@ -81,6 +81,7 @@ const Feeds = () => {
                 _id={product._id}
                 name={product.name}
                 price={product.price}
+                ratingArray={product.rating}
                 description={product.description}
                 image={product.image}
                 category={product.category}

@@ -9,6 +9,7 @@ export const QUERY_PRODUCTS = gql`
       price
       quantity
       image
+      rating
       category {
         _id
       }
@@ -59,6 +60,7 @@ query Query {
     description
     price
     image
+    rating
     quantity
     reviews {
       user
