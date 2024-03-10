@@ -67,17 +67,19 @@ export function ProductCard({
           ${price}
         </Typography>
         {ratingArray.length ? (
-          <Rating name="read-only" value={productRating()} readOnly />
+          <Rating name="read-only" value={productRating()}  readOnly />
         ) : null}
       </CardContent>
-
-      <CardActions>
+      {/* <CardActions>
         <Checkbox
           icon={<FavoriteBorder />}
           checkedIcon={<Favorite />}
           sx={{ color: "white", margin: "auto" }}
         />
-        <Divider orientation="vertical" flexItem />
+        
+      </CardActions> */}
+      <CardActions>
+      
         <Button
           sx={{ margin: "auto" }}
           onClick={() =>

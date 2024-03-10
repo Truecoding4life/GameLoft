@@ -66,7 +66,7 @@ const OneProductPage = () => {
               <img
                 src={product.image}
                 alt={product.name}
-                style={{ borderRadius: 14,height:'100%', maxHeight:300}}
+                style={{ borderRadius: 14,height:'100%'}}
                 className='product-image'
               />
             </Grid>

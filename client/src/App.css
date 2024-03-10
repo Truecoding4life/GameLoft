@@ -112,9 +112,7 @@ back {
 
 
 @media (max-width: 900px) {
-    .product-image {
-        margin: auto;
-    }
+   
 
     .cart-item-description {
         display: none;
@@ -148,6 +146,8 @@ back {
     .cart-item-description {
         display: none;
     }
+
+
 }
 
 @media(max-width: 500px){
@@ -157,6 +157,7 @@ back {
     .cart-item-name{
         font-size: 20px;
     }
+    
 }
 
 @media (min-width:1400px){
@@ -166,4 +167,11 @@ back {
     
     
     }
+}
+
+@media (min-width: 600px) {
+    .product-image {
+        max-height: 290px;
+    }
+    
 }
