@@ -169,9 +169,3 @@ back {
     }
 }
 
-@media (min-width: 600px) {
-    .product-image {
-        max-height: 290px;
-    }
-    
-}
