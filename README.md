@@ -311,3 +311,6 @@ Link to License - [Website to MIT License](<(https://opensource.org/license/mit)
 - [MUI](https://mui.com/)
 - [TailWind](https://tailwindcss.com/)
 - [Unsplash API](https://unsplash.com/developers)
+
+
+<!--   "postinstall": "npm run seed", -->
