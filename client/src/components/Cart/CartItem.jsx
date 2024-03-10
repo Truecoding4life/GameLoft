@@ -13,11 +13,11 @@ import {
   ListItem,
   Modal,
 } from "@mui/material";
-const CartItem = ({ product }) => {
+const CartItem = ({ product, removeFromCart }) => {
 
   return (
     <ListItem key={product._id} disablePadding>
-    <Card sx={{ margin: 1, backgroundColor: "#59626a73" }} className="cart-item">
+    <Card sx={{ margin: 1, backgroundColor: "#37374273" }} className="cart-item">
       <CardMedia
         component="img"
         sx={{ width: 150 }}
@@ -62,7 +62,7 @@ const CartItem = ({ product }) => {
             fontFamily="Josefin Sans"
             fontSize={10}
             maxWidth={600}
-            marginTop={2}
+            marginTop={{xs:0, sm:1, md:1, lg:1, xl:1}}
             marginInline={1}
             className="cart-item-description"
           >

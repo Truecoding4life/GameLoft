@@ -6,18 +6,12 @@ import Typography from "@mui/material/Typography";
 import {
   CardMedia,
   Checkbox,
-  Box,
-  Stack,
-  Container,
   Card,
   CardContent,
   CardActions,
 } from "@mui/material";
 import { FavoriteBorder, Favorite, ExpandMore } from "@mui/icons-material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Collapse from "@mui/material/Collapse";
-import { useState } from "react";
-import { CardHeader } from "@mui/material";
+
 
 const handleViewDetail = (id) => {
   window.location.href = `/products/${id}`;
@@ -41,7 +35,7 @@ export function ProductCard({
         width: { xs: '96%',sm: "27%", md: "27%", lg: "20%", xl: "14%" },
         maxWidth: { sm: "70%", md: "50%" },
         borderRadius: 5,
-        backgroundColor:'black',
+        backgroundColor:'#37374273',
         color:'white',
         boxShadow: 4,
         margin: 0,
