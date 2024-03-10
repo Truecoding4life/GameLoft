@@ -43,12 +43,12 @@ const OneProductPage = () => {
   return (
     <Box className='single-product-page'>
       <Navbar />
-      <Box padding={5} width={"70%"} height={"50%"} margin={"auto"}>
+      <Box padding={5} width={"100%"} height={"50%"}  margin={"auto"} >
         {product ? (
           <Grid container spacing={2}>
             <Grid
               item
-              sm={12}
+              sm={6}
               md={6}
               lg={4}
               
@@ -59,14 +59,14 @@ const OneProductPage = () => {
               <img
                 src={product.image}
                 alt={product.name}
-                style={{ borderRadius: 20,height:'100%' , maxHeight:380}}
+                style={{ borderRadius: 14,height:'100%', maxHeight:300}}
                 className='product-image'
               />
             </Grid>
 
-            <Grid item sm={12} md={6} lg={8} >
+            <Grid item sm={6} md={6} lg={8} >
             
-              <Grid item sm={12} md={12} lg={8} sx={{ paddingInline: 5 , backgroundColor:'#1e71a8f3', padding:3, borderRadius:5}}>
+              <Grid item sm={12} md={12} lg={12} sx={{ paddingInline: 5 , backgroundColor:'#4949a1cc', padding:3, borderRadius:5, height:'100%'}}>
                   {" "}
                   
 

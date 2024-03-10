@@ -12,7 +12,7 @@
 
 
 .shop-item:hover {
-    transform: translateY(-30px);
+    transform: translateY(-10px);
     transition: all 0.2s ease;
 
 
@@ -30,7 +30,7 @@
 }
 
 #navbar {
-    background-color: #191d28;
+    background-color: #161b25f9;
     padding: 10px;
 
 }
@@ -106,7 +106,7 @@
 }
 
 back {
-    background-color: #37374273;
+    background-color: #4949a1cc;
 }
 
 
@@ -156,5 +156,14 @@ back {
     }
     .cart-item-name{
         font-size: 20px;
+    }
+}
+
+@media (min-width:1400px){
+    .shop-item:hover {
+        transform: translateY(-10px);
+        transition: all 0.2s ease;
+    
+    
     }
 }

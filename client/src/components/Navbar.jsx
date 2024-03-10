@@ -30,12 +30,7 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between",
 });
 
-const Search = styled("div")(({ theme }) => ({
-  backgroundColor: "white",
-  padding: " 0 10px",
-  borderRadius: theme.shape.borderRadius,
-  width: "40%",
-}));
+
 
 const Icons = styled(Box)(({ theme }) => ({
   display: "flex",
