@@ -14,6 +14,7 @@ const typeDefs = `
     category: Category
     reviews: [Review]
     likes: Int
+    rating: [Int]
   }
 
   type Coupon {
@@ -92,6 +93,7 @@ const typeDefs = `
     createCoupon(name: String!, discount: Float!, expiration: String!): Coupon
     addLike(productId: ID!, userId: ID!): Product
     removeLike(_id: ID!): Product
+    addRating(productId: ID!, rating: Int!):Product
   }
 `;
 

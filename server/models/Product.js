@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+    auto: true, // Auto-generate ObjectId
+  },
   name: {
     type: String,
     required: true,
@@ -42,6 +46,13 @@ const productSchema = new Schema({
       }
     ]
   },
+  rating: [
+    {
+      type: Number,
+      min:0,
+      max:5,
+    }
+  ],
   reviews: [
     {
       type: Schema.Types.ObjectId,

@@ -157,15 +157,23 @@ const resolvers = {
       );
     },
 
+    addRating: async( parent, { productId, rating}) =>{
+      return Product.findOneAndUpdate(
+        { _id: productId},
+        { $push: { rating: rating}},
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       console.log("This is a login");
       if (!user) {
         throw AuthenticationError;
       }
-      console.log(email, password);
       const correctPw = await user.isCorrectPassword(password);
-      console.log("password is :   " + correctPw);
       if (!correctPw) {
         throw AuthenticationError;
       }
