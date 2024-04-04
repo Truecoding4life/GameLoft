@@ -6,11 +6,11 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Highlighted Features](#highlighted-features)
+- [Technologies Used](#technologies-used)
 - [Learning Points](#learning-points)
 - [License](#license)
-- [Badges](#badges)
-- [Contributor](#contributor)
-- [Authors](#creator)
+- [Contributors](#contributors)
+- [Authors](#author)
 
 <hr>
 
@@ -219,13 +219,6 @@ Building a E-commerce platform with MERN Stack and implemented transaction abili
 <hr>
 
 
-#### License
-
-This project is licensed with MIT license
-
-Link to License - [Website to MIT License](<(https://opensource.org/license/mit)>)
-
-<hr>
 
 
 ### Technologies Used
