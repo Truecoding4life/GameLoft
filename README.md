@@ -12,12 +12,12 @@
 - [Contributors](#contributors)
 - [Authors](#author)
 
-<hr>
+<br>
 
 #### Web Application
 **[Link to deployed Application](https://game-loft-5f74d9e2c208.herokuapp.com/)**
 
-<hr>
+<br>
 
 ## Description
 
@@ -28,34 +28,34 @@ Our application boasts seamless online payments via Stripe, the industry's gold 
 While our website is still undergoing development, the majority of its core functionalities are up and running. Join us as we continue to elevate gaming and eCommerce to new heights!
 
 
-<hr>
+<br>
 
 
 
-## Usage
-Please read below for instruction on how to use the application and it functionalities.
+## Demo
 
 
-<hr>
+
+<br>
 
 **Home Page:** On the homepage, users will have access to the smart bar and the complete inventory of games in the store.
 
 ![Screenshot of home page](./client/public/images/home.png)
 
-<hr>
+<br>
 
 
 **Product's Detail:** (To go to product detail by simply just click on it) Here user can do things like rate the product and read more details about the products.
 
 ![Game Detail](./client/public/images/product.png)
 
-<hr>
+<br>
 
 **Smart bar:** User could search for game by it name and seamlessly moving of different sections of the sidebar instead of scrolling 
 
 ![Side Bar](./client/public/images/search.gif)
 
-<hr>
+<br>
 
 ## Highlighted Features
 
@@ -80,13 +80,13 @@ userSchema.methods.isCorrectPassword = async function(password) {
 };
 ```
 
-<hr>
+<br>
 
 
 
 
 **Data Persistent**
-
+<hr>
 We want the shopper to have item saved in cart until checkout or delete from cart without having to readd to cart every time they close the window, to achieve this effect we utilize IndexDB
 
 ```js
@@ -144,10 +144,11 @@ export function idbPromise(storeName, method, object) {
   });
 }
 ```
-<hr>
 
+<br>
 
 **Payment Handling**
+<hr>
 
 In order for Stripe to work we going to compose an object and fetch it with the API keys to to get back a session id. We then use this return session id to make the link to stripe with this link and redirect the user to it.
 
@@ -182,13 +183,16 @@ In order for Stripe to work we going to compose an object and fetch it with the 
       return { session: session.id };
     },
 ```
-<hr>
+
+<br>
+
 
 
 ### Installation
+<hr>
 
-Please follows these steps to get the application up and running.
-Be aware that the application database is set up with mongoDB, you must have mongoDB Compass set up for it to work.
+*Please follows these steps to get the application up and running.
+Be aware the application database is set up with mongoDB, you must have mongoDB Compass set up for it to work.*
 
 
 - First you open the application with VSCODE
@@ -209,19 +213,20 @@ npm run develop
 ```
 
 
-<hr>
+<br>
 
 
 ### Learning Points
-
+<hr>
 Building a E-commerce platform with MERN Stack and implemented transaction ability to a online web application
 
-<hr>
+<br>
 
 
 
 
 ### Technologies Used
+<hr>
 
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 
@@ -281,29 +286,28 @@ Explore the documentation for the technologies used in this project:
 - [TailWind](https://tailwindcss.com/) - Utility-first CSS framework
 - [Unsplash API](https://unsplash.com/developers) - API for accessing high-quality images
 
-<hr>
+<br>
 
 ## Contributors
 
-**Andrew Hall**
-
-- [Portfolio](#)
-- [LinkedIn](#)
-- [GitHub](#)
 
 **Anthony Nguyen**
 
- - [Portfolio](https://main--kaleidoscopic-custard-680b35.netlify.app/)
- - [LinkedIn](https://www.linkedin.com/in/anthony-nguyen-32261526a/)
- - [GitHub](https://github.com/Blackswan1010)
+ [Portfolio](https://main--kaleidoscopic-custard-680b35.netlify.app/)
 
+ [LinkedIn](https://www.linkedin.com/in/anthony-nguyen-32261526a/)
 
+ [GitHub](https://github.com/Blackswan1010)
 
+<hr>
+ 
 **Andy Zurek**
 
-- [Portfolio](https://clinquant-sundae-c9bd6e.netlify.app/)
-- [LinkedIn](https://www.linkedin.com/in/andy-zurek-374bb9291/)
-- [GitHub](https://github.com/AZurek17)
+[Portfolio](https://clinquant-sundae-c9bd6e.netlify.app/)
+
+[LinkedIn](https://www.linkedin.com/in/andy-zurek-374bb9291/)
+
+[GitHub](https://github.com/AZurek17)
 
 
 <hr>
@@ -314,9 +318,10 @@ Explore the documentation for the technologies used in this project:
 
 **Jay Nghiem**
 
-- [Portfolio](https://jstudio.tech)
-- [LinkedIn](https://www.linkedin.com/in/thai-nghiem-319292267/)
-- [GitHub](https://github.com/Truecoding4life)
+[Portfolio](https://jstudio.tech)
+
+[LinkedIn](https://www.linkedin.com/in/thai-nghiem-319292267/)
+[GitHub](https://github.com/Truecoding4life)
 
 ## License
 
