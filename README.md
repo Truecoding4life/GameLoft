@@ -61,8 +61,8 @@ Please read below for instruction on how to use the application and it functiona
 
 **Encrypt Password:** To secure user password we utilize Bcrypt npm package for harsh user password on for every user. 
 
-```
-// set up pre-save middleware to create password
+```js
+
 userSchema.pre('save', async function(next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
@@ -89,7 +89,7 @@ userSchema.methods.isCorrectPassword = async function(password) {
 
 We want the shopper to have item saved in cart until checkout or delete from cart without having to readd to cart every time they close the window, to achieve this effect we utilize IndexDB
 
-```
+```js
 export function idbPromise(storeName, method, object) {
   return new Promise((resolve, reject) => {
     const request = window.indexedDB.open('shop-shop', 1);
@@ -151,7 +151,7 @@ export function idbPromise(storeName, method, object) {
 
 In order for Stripe to work we going to compose an object and fetch it with the API keys to to get back a session id. We then use this return session id to make the link to stripe with this link and redirect the user to it.
 
-```
+```js
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
       await Order.create({ products: args.products.map(({ _id }) => _id) });
