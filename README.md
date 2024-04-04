@@ -1,11 +1,7 @@
-![GitHub License Badge](https://img.shields.io/badge/License-MIT-yellow)
-# Boring-Game-Shop
+ 
+# GameLoft ![GitHub License Badge](https://img.shields.io/badge/License-MIT-yellow)
 
-
-
-**[Link to deployed Application](https://boring-game-shop-9e632aaf5137.herokuapp.com/)**
-
-#### Table of Contents
+## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -13,72 +9,57 @@
 - [Learning Points](#learning-points)
 - [License](#license)
 - [Badges](#badges)
-- [Contributing](#contributing)
+- [Contributor](#contributor)
 - [Authors](#creator)
 
----
+<hr>
 
-### Description
+#### Web Application
+**[Link to deployed Application](https://game-loft-5f74d9e2c208.herokuapp.com/)**
 
-Welcome to Boring Game Shop, where even the most mundane games get exciting! In an era where online businesses are flourishing. Boring Game Shop aims to bring a touch of excitement to the world of eCommerce by presenting a real-life application developed using the MERN Stack. The application is styled with Materialize UI, adding flair with emojis and ensuring a delightful user experience. For secure and seamless transactions, we've integrated Stripe for the checkout process.
+<hr>
+
+## Description
+
+Welcome to GameLoft, where even the most ordinary games become thrilling adventures! In today's booming online business landscape, GameLoft strives to inject excitement into eCommerce. Our real-life application, developed using the MERN Stack, is a testament to this mission. Styled with Materialize UI, we add personality with emojis, ensuring an engaging user experience.
+
+Our application boasts seamless online payments via Stripe, the industry's gold standard for secure transactions. We prioritize user security by employing bcrypt encryption to hash passwords, preventing unauthorized access. Bcrypt's advanced hashing algorithms are our frontline defense against modern hackers.
+
+While our website is still undergoing development, the majority of its core functionalities are up and running. Join us as we continue to elevate gaming and eCommerce to new heights!
 
 
----
-
-
-
-
-### Installation
-
-- To install all dependencies, run: npm install
-- To load the seeds into the database, run: npm run seed
-- To start the server, run: npm run develop
-
----
+<hr>
 
 
 
-### Usage
----
-
-**Home Page**
-
-The homepage provides users with a streamlined experience to enter the API index within the site.
-
-![Screenshot of home page](./client/public/homepage.gif)
-
----
+## Usage
+Please read below for instruction on how to use the application and it functionalities.
 
 
-**Login/Sign Up**
+<hr>
 
-Existing users have the ability to log in and new users have the ability to sign up.
+**Home Page:** On the homepage, users will have access to the smart bar and the complete inventory of games in the store.
 
-![Screenshot of Login/Signup form](./client/public/Login.png)
+![Screenshot of home page](./client/public/images/home.png)
 
----
-
-**Product's Description Toggle**
-
-User could view product description by clicking on the arrow icon
-
-![Game Detail](./client/public/card.gif)
-
----
-
-**Side Bar**
-
-User could seamlessly moving of different sections of the sidebar instead of scrolling
-
-![Side Bar](./client/public/coditional%20rendering.gif)
+<hr>
 
 
-### Highlighted Features
----
+**Product's Detail:** (To go to product detail by simply just click on it) Here user can do things like rate the product and read more details about the products.
 
-**Secure User Password**
+![Game Detail](./client/public/images/product.png)
 
-To secure user password we utilize Bcrypt npm package for harsh user password on creation and login 
+<hr>
+
+**Smart bar:** User could search for game by it name and seamlessly moving of different sections of the sidebar instead of scrolling 
+
+![Side Bar](./client/public/images/search.gif)
+
+<hr>
+
+## Highlighted Features
+
+**Encrypt Password:** To secure user password we utilize Bcrypt npm package for harsh user password on for every user. 
 
 ```
 // set up pre-save middleware to create password
@@ -99,7 +80,7 @@ userSchema.methods.isCorrectPassword = async function(password) {
 };
 ```
 
----
+<hr>
 
 
 
@@ -163,21 +144,19 @@ export function idbPromise(storeName, method, object) {
   });
 }
 ```
----
+<hr>
 
 
 **Payment Handling**
 
-We didn't have to handle the payment, rather than it's stripe that does most of it for us, we just have to send stripe information that it needs.
+In order for Stripe to work we going to compose an object and fetch it with the API keys to to get back a session id. We then use this return session id to make the link to stripe with this link and redirect the user to it.
 
 ```
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
       await Order.create({ products: args.products.map(({ _id }) => _id) });
-      // eslint-disable-next-line camelcase
       const line_items = [];
 
-      // eslint-disable-next-line no-restricted-syntax
       for (const product of args.products) {
         line_items.push({
           price_data: {
@@ -202,16 +181,42 @@ We didn't have to handle the payment, rather than it's stripe that does most of 
       });
       return { session: session.id };
     },
-  },
 ```
----
+<hr>
+
+
+### Installation
+
+Please follows these steps to get the application up and running.
+Be aware that the application database is set up with mongoDB, you must have mongoDB Compass set up for it to work.
+
+
+- First you open the application with VSCODE
+- Then open the command line to install all dependencies, type
+
+```
+ run: npm install
+```
+
+- then you get our data into your database you doing run this in the command line
+
+```
+run: npm run seed
+```
+- Then to get the app start up, in the command line run this 
+```
+npm run develop
+```
+
+
+<hr>
 
 
 ### Learning Points
 
 Building a E-commerce platform with MERN Stack and implemented transaction ability to a online web application
 
----
+<hr>
 
 
 #### License
@@ -220,7 +225,7 @@ This project is licensed with MIT license
 
 Link to License - [Website to MIT License](<(https://opensource.org/license/mit)>)
 
----
+<hr>
 
 
 ### Technologies Used
@@ -254,9 +259,38 @@ Link to License - [Website to MIT License](<(https://opensource.org/license/mit)
 
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
 
----
 
-### Contributors
+### More Details 
+
+Explore the documentation for the technologies used in this project:
+
+
+- [npm](https://www.npmjs.com/) - Package manager for JavaScript
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Programming language for web development
+- [@apollo/server](https://www.apollographql.com/docs/apollo-server/) - GraphQL server library for Node.js
+- [bcrypt](https://www.npmjs.com/package/bcrypt) - Library for hashing passwords
+- [express](https://expressjs.com/) - Web application framework for Node.js
+- [graphql](https://graphql.org/) - Query language for APIs
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - JSON web token implementation
+- [mongoose](https://www.npmjs.com/package/mongoose) - MongoDB object modeling for Node.js
+- [Stripe API](https://stripe.com/docs) - Payment processing API
+- [@apollo/client](https://www.apollographql.com/docs/react/) - GraphQL client for React applications
+- [jwt-decode](https://www.npmjs.com/package/jwt-decode) - Library for decoding JWT tokens
+- [react](https://react.dev/) - JavaScript library for building user interfaces
+- [react-dom](https://www.npmjs.com/package/react-dom) - DOM-specific methods for React
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom) - React bindings for React Router
+- [vitest](https://vitest.dev/) - Testing library for Vue.js
+- [happy-dom](https://www.npmjs.com/package/happy-dom) - Library for creating a DOM-like environment
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) - Markup language for creating web pages
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - Styling language for web pages
+- [BootStrap](https://getbootstrap.com) - Front-end framework for web development
+- [MUI](https://mui.com/) - React UI framework
+- [TailWind](https://tailwindcss.com/) - Utility-first CSS framework
+- [Unsplash API](https://unsplash.com/developers) - API for accessing high-quality images
+
+<hr>
+
+## Contributors
 
 **Andrew Hall**
 
@@ -271,11 +305,6 @@ Link to License - [Website to MIT License](<(https://opensource.org/license/mit)
  - [GitHub](https://github.com/Blackswan1010)
 
 
-**Thai Nghiem**
-
-- [Portfolio](https://main--j-studio-rjs.netlify.app/)
-- [LinkedIn](https://www.linkedin.com/in/thai-nghiem-319292267/)
-- [GitHub](https://github.com/Truecoding4life)
 
 **Andy Zurek**
 
@@ -284,33 +313,22 @@ Link to License - [Website to MIT License](<(https://opensource.org/license/mit)
 - [GitHub](https://github.com/AZurek17)
 
 
----
+<hr>
 
-### Resources
 
-- [npm](https://www.npmjs.com/)
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [@apollo/server](https://www.apollographql.com/docs/apollo-server/)
-- [bcrypt](https://www.npmjs.com/package/bcrypt)
-- [express](https://expressjs.com/)
-- [graphql](https://graphql.org/)
-- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
-- [mongoose](https://www.npmjs.com/package/mongoose)
-- [Stripe API](https://stripe.com/docs)
-- [@apollo/client](https://www.apollographql.com/docs/react/)
-- [graphql](https://graphql.org/)
-- [jwt-decode](https://www.npmjs.com/package/jwt-decode)
-- [react](https://react.dev/)
-- [react-dom](https://www.npmjs.com/package/react-dom)
-- [react-router-dom](https://www.npmjs.com/package/react-router-dom)
-- [vitest](https://vitest.dev/)
-- [happy-dom](https://www.npmjs.com/package/happy-dom)
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
-- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
-- [BootStrap](https://getbootstrap.com)
-- [MUI](https://mui.com/)
-- [TailWind](https://tailwindcss.com/)
-- [Unsplash API](https://unsplash.com/developers)
 
+## Author
+
+**Jay Nghiem**
+
+- [Portfolio](https://jstudio.tech)
+- [LinkedIn](https://www.linkedin.com/in/thai-nghiem-319292267/)
+- [GitHub](https://github.com/Truecoding4life)
+
+## License
+
+This project is licensed with MIT license
+
+Link to License - [Website to MIT License](<(https://opensource.org/license/mit)>)
 
 <!--   "postinstall": "npm run seed", -->
