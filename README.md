@@ -1,5 +1,6 @@
+ # GameLoft
  
-# GameLoft ![GitHub License Badge](https://img.shields.io/badge/License-MIT-yellow)
+ ![GitHub License Badge](https://img.shields.io/badge/License-MIT-yellow)
 
 ## Table of Contents
 
@@ -10,9 +11,8 @@
 - [Learning Points](#learning-points)
 - [License](#license)
 - [Contributors](#contributors)
-- [Authors](#author)
+- [Author](#author)
 
-<br>
 
 #### Web Application
 **[Link to deployed Application](https://game-loft-5f74d9e2c208.herokuapp.com/)**
@@ -32,8 +32,9 @@ While our website is still undergoing development, the majority of its core func
 
 
 
-## Demo
+## Usage
 
+*Please read below for instruction of how this app work and it funtionalities*
 
 
 <br>
@@ -42,6 +43,7 @@ While our website is still undergoing development, the majority of its core func
 
 ![Screenshot of home page](./client/public/images/home.png)
 
+<hr>
 <br>
 
 
@@ -49,12 +51,16 @@ While our website is still undergoing development, the majority of its core func
 
 ![Game Detail](./client/public/images/product.png)
 
+
+<hr>
 <br>
 
 **Smart bar:** User could search for game by it name and seamlessly moving of different sections of the sidebar instead of scrolling 
 
 ![Side Bar](./client/public/images/search.gif)
 
+
+<hr>
 <br>
 
 ## Highlighted Features
@@ -86,7 +92,6 @@ userSchema.methods.isCorrectPassword = async function(password) {
 
 
 **Data Persistent**
-<hr>
 We want the shopper to have item saved in cart until checkout or delete from cart without having to readd to cart every time they close the window, to achieve this effect we utilize IndexDB
 
 ```js
@@ -147,10 +152,7 @@ export function idbPromise(storeName, method, object) {
 
 <br>
 
-**Payment Handling**
-<hr>
-
-In order for Stripe to work we going to compose an object and fetch it with the API keys to to get back a session id. We then use this return session id to make the link to stripe with this link and redirect the user to it.
+**Payment Handling** In order for Stripe to work we going to compose an object and fetch it with the API keys to to get back a session id. We then use this return session id to make the link to stripe with this link and redirect the user to it.
 
 ```js
     checkout: async (parent, args, context) => {
@@ -186,14 +188,14 @@ In order for Stripe to work we going to compose an object and fetch it with the 
 
 <br>
 
-
+<hr>
 
 ### Installation
-<hr>
 
 *Please follows these steps to get the application up and running.
 Be aware the application database is set up with mongoDB, you must have mongoDB Compass set up for it to work.*
 
+<br>
 
 - First you open the application with VSCODE
 - Then open the command line to install all dependencies, type
@@ -212,12 +214,13 @@ run: npm run seed
 npm run develop
 ```
 
+<hr>
 
 <br>
 
 
 ### Learning Points
-<hr>
+
 Building a E-commerce platform with MERN Stack and implemented transaction ability to a online web application
 
 <br>
@@ -226,7 +229,7 @@ Building a E-commerce platform with MERN Stack and implemented transaction abili
 
 
 ### Technologies Used
-<hr>
+
 
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 
@@ -239,7 +242,7 @@ Building a E-commerce platform with MERN Stack and implemented transaction abili
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
-![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
+![Apollo-GraphQL](http://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
 
 ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)
 
