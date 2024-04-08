@@ -41,8 +41,8 @@ export function ProductCard({
       sx={{
         width: { xs: "96%", sm: "27%", md: "27%", lg: "20%", xl: "14%" },
         maxWidth: { sm: "70%", md: "50%" },
-        borderRadius: 5,
-        backgroundColor: "#37374273",
+        borderRadius:3,
+        backgroundColor: "var(--card-color)",
         color: "white",
         boxShadow: 4,
         margin: 0,

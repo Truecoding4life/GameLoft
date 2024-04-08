@@ -4,12 +4,14 @@ import {
   Typography,
   Grid,
   Rating,
+  Stack
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SINGLE_PRODUCT } from "../utils/queries";
 import { ADD_RATING } from "../utils/mutations";
+import { Sidebar } from "../components/Sidebar";
 
 
 const OneProductPage = () => {
@@ -43,37 +45,33 @@ const OneProductPage = () => {
     }
   };
 
-  const handleRateSelectChange = (event) => {
-    setRateSelect(event.target.value);
-  };
+ 
 
   return (
-    <Box className='single-product-page'>
+    <Box className='single-product-page' sx={{height:'100%'}}>
       <Navbar />
-      <Box padding={5} width={"100%"} height={"50%"}  margin={"auto"} >
-        {product ? (
-          <Grid container spacing={2}>
-            <Grid
-              item
-              sm={6}
-              md={6}
-              lg={4}
-              
-              
-              justifyContent="center"
-              alignItems="center"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{ borderRadius: 14,height:'100%', maxHeight:300}}
-                className='product-image'
-              />
-            </Grid>
 
-            <Grid item sm={6} md={6} lg={8} >
+      <Stack direction="row" spacing={3} justifyContent="space-between" style={{minHeight:'100vh'}}>
+        <Sidebar flex={1} />
+
+        <Box padding={0}  margin={0} flex={4} >
+        {product ? (
+        
+            <>
+             <Box   sx={{marginBottom:1}}>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{ borderRadius: 14, height: '100%', maxHeight: 300 }}
+                    className='product-image'
+                  />
+                  <Typography component="legend" fontFamily={'Poppins'} fontSize={10} color='white'> Current rating</Typography>
+                  <Rating name="read-only" value={productRating()} readOnly />
+                </Box>
+
+        
             
-              <Grid item sm={12} md={12} lg={12} sx={{ paddingInline: 5 , backgroundColor:'#4949a1cc', padding:3, borderRadius:5, height:'100%'}}>
+              <div item sm={12} md={12} lg={12} sx={{  backgroundColor:'#4949a1cc', padding:3, borderRadius:5, height:'100%'}}>
                   {" "}
                   
 
@@ -106,7 +104,7 @@ const OneProductPage = () => {
                   <Typography
                     variant="body2"
                     fontFamily={'Poppins'} fontSize={13} color='white'
-                    
+                    sx={{maxWidth:900}}
                    overflow={'hidden'}
                     maxHeight={400}
                     
@@ -114,9 +112,9 @@ const OneProductPage = () => {
                   >
                     {product.description}
                   </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
+                </div>
+         
+         </>
        
         ) : (
           <Box>
@@ -124,6 +122,11 @@ const OneProductPage = () => {
           </Box>
         )} 
       </Box>
+
+
+       
+      </Stack>
+     
     </Box>
   );
 };

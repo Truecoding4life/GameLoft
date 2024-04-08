@@ -1,0 +1,31 @@
+
+
+#side-bar{
+    background-color: rgba(27, 29, 35, 0.714);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    min-height: 100%;
+}
+
+.no-favorite-text{
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+#coupon-card{
+    color: #dfdede;
+    background-color: rgba(27, 29, 35, 0.714);
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form{
+    background-color: rgba(21, 27, 33, 0.714);
+    color: #cbc4c4;
+    border-radius: 10px;
+    box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.1);
+    height: 300px;
+    padding: 30px;
+}

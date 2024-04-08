@@ -21,7 +21,7 @@ const Coupons = () => {
     <Stack
       direction="row"
       justifyContent="center"
-      alignItems="center"
+      style={{minHeight:'100vh'}}
       spacing={5}
       flex={4}
       p={2}

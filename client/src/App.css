@@ -1,3 +1,7 @@
+*{
+    --card-color:rgba(22, 24, 28, 0.589);
+}
+
 .main-display {
     display: flex;
     gap: 40px;
@@ -24,7 +28,7 @@
 
 .home-page,
 .single-product-page {
-    background: linear-gradient(181deg, rgba(19, 29, 45, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(24, 33, 55, 1) 100%);
+    background: linear-gradient(181deg, rgb(41, 44, 77) 0%, rgb(24, 32, 50) 50%, rgb(35, 44, 89) 100%);
     min-height: 100vh;
 
 }
@@ -101,8 +105,9 @@
     font-family: "Poppins";
 }
 
-.product-image {
-    margin-left: auto;
+.product-image{
+    box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.3);
+   margin: 10px;
 }
 
 back {

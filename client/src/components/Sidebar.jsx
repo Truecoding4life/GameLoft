@@ -16,10 +16,12 @@ import Brightness2Icon from "@mui/icons-material/Brightness2";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { Link } from "react-router-dom";
 import LiveSearch from "./LiveSearch";
+import './style.css'
+
 
 export const Sidebar = ({ currentPage, handlePageChange }) => {
   return (
-    <Box flex={1} p={2} id='side-bar' sx={{ display: { xs: "none", sm: "none", md: "block" } }} className='side-bar'>
+    <Box flex={1} p={2} id='side-bar' sx={{ display: { xs: "none", sm: "none", md: "block" }}} className='side-bar'>
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
@@ -51,16 +53,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
             </ListItemButton>
           </ListItem>
 
-          <Link to="./history">
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <SettingsIcon sx={{ color: 'white' }}/>
-                </ListItemIcon>
-                <ListItemText primary="Order history" />
-              </ListItemButton>
-            </ListItem>
-          </Link>
+        
           <ListItem disablePadding>
             <ListItemButton component="a"onClick={() => handlePageChange("contact")} >
               <ListItemIcon>
