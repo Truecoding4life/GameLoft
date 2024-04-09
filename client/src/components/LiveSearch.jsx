@@ -3,7 +3,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { useQuery} from '@apollo/client';
 import { QUERY_ALL_PRODUCTS } from '../utils/queries';
-import { Paper } from '@mui/material';
+import { Paper, Box, InputAdornment } from '@mui/material';
+import SearchIcon from "@mui/icons-material/Search";
 
 
 export default function LiveSearch() {
@@ -21,23 +22,47 @@ export default function LiveSearch() {
   }, [selectedProduct])
   return (
 
-    <React.Fragment>
+    <React.Fragment
+   >
       <div id="search-bar" >
-        <Autocomplete
-          value={selectedProduct}
-          id='auto-complete'
-          size="small"
-          onChange={(event, newValue) => {
-            setSelectedProduct(newValue);
-          }}
-          options={products}
-          getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
-          renderInput={(params) => <TextField {...params}  sx={{
-            fontFamily: 'Poppins'
-          }}
-          
-          label="Search" />}
-        />
+        
+      <Box sx={{ position: 'relative' }} >
+          <Autocomplete
+            value={selectedProduct}
+            id="auto-complete"
+            size="medium"
+            
+            onChange={(event, newValue) => {
+              setSelectedProduct(newValue);
+            }}
+            options={products}
+            
+            getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
+            renderInput={(params) => (
+              <TextField
+              placeholder="Search"
+                {...params}
+                sx={{
+                  fontFamily: 'Poppins',
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'transparent', // Remove the border color when focused
+                    },},
+                    
+                }}
+            
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+        </Box>
       </div>
     </React.Fragment>
   );

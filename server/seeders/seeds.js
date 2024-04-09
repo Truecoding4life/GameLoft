@@ -1,5 +1,6 @@
 const db = require('../config/connection');
 const { Category, Product, User } = require('../models');
+const bcrypt = require('bcrypt');
 
 const cleanDB = require('./cleanDB');
 db.once('error', error => console.error(error));
@@ -208,8 +209,8 @@ db.once('open', async () => {
       {
         firstName: "Brian",
         lastName: "Kernighan",
-        email: "bkernighan@techfriends.dev",
-        password: "password01",
+        email: "top.dev",
+        password: "password",
         address: "123 Main",
         city: "Anytown",
         state: "CA",
@@ -238,7 +239,10 @@ db.once('open', async () => {
       }
     ]);
 
-    await User.create(users);
+    
+    
+
+
 
 
     console.log(users);

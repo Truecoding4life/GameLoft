@@ -38,7 +38,6 @@ const OneProductPage = () => {
       await addRating({
         variables: { productId: id ,rating: ratingValue },
       });
-      console.log(product);
     } catch (err) {
       console.error("Failed to add review", err);
       alert("Failed to add review");

@@ -13,7 +13,6 @@ import {
   Autocomplete,
   TextField,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 import React, { useEffect, useState } from "react";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
@@ -103,6 +102,7 @@ export const Navbar = () => {
           {Auth.loggedIn() ? (
             <Badge color="success"  variant="dot">
               <AccountBoxIcon
+              sx={{ color: 'white' }}
                 onClick={() => {
                   setOpenAccount(true);
                 }}

@@ -11,12 +11,19 @@ import {
   TOGGLE_CART,
   ADD_REVIEW,
   UPDATE_REVIEWS,
-  REMOVE_REVIEW
+  REMOVE_REVIEW,
+  UPDATE_CURRENT_PAGE
     
 } from "./actions";
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case UPDATE_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload
+      };
+
     case UPDATE_PRODUCTS:
       return {
         ...state,

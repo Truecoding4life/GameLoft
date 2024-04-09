@@ -169,7 +169,7 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-      console.log("This is a login");
+     
       if (!user) {
         throw AuthenticationError;
       }
@@ -179,7 +179,8 @@ const resolvers = {
       }
 
       const token = signToken(user);
-
+ console.log("This is a login");
+ console.log(user);
       return { token, user };
     },
 

@@ -17,18 +17,41 @@ import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { Link } from "react-router-dom";
 import LiveSearch from "./LiveSearch";
 import './style.css'
+import { useStoreContext } from "../utils/GlobalState";
+import { TOGGLE_CART } from "../utils/actions";
 
 
-export const Sidebar = ({ currentPage, handlePageChange }) => {
+
+
+
+
+export const Sidebar = () => {
+  let notHome = window.location.pathname.split("/")[1];
+
+  function toggleSidebar(page){
+    dispatch({
+      type: 'UPDATE_CURRENT_PAGE',
+      payload: page,
+    });
+  }
+
+  const [state, dispatch] = useStoreContext();
+  const handlePageChange = async (page) => {
+    if (notHome) {
+      window.location.href = '/';
+      
+    }
+    toggleSidebar(page)
+  };
   return (
     <Box flex={1} p={2} id='side-bar' sx={{ display: { xs: "none", sm: "none", md: "block" }}} className='side-bar'>
       <Box position="fixed">
         <List>
-          <ListItem disablePadding>
+          <ListItem >
       <LiveSearch></LiveSearch>
 
             </ListItem>
-          <ListItem disablePadding>
+          <ListItem >
             <ListItemButton component="a" onClick={() => handlePageChange("Home")}>
               <ListItemIcon>
                 <HomeIcon sx={{ color: 'white' }}/>
@@ -36,7 +59,10 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
               <ListItemText primary="Home" />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding>
+
+      { !notHome ? (
+        <>
+          <ListItem >
             <ListItemButton component="a" onClick={() => handlePageChange("Favorite")} >
               <ListItemIcon>
                 <StarRateIcon sx={{ color: 'white' }}/>
@@ -44,7 +70,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
               <ListItemText primary="Favorite" />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding>
+          <ListItem >
             <ListItemButton component="a" onClick={() => handlePageChange("Coupons")} >
               <ListItemIcon>
                 <LocalOfferIcon sx={{ color: 'white' }}/>
@@ -54,7 +80,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
           </ListItem>
 
         
-          <ListItem disablePadding>
+          <ListItem >
             <ListItemButton component="a"onClick={() => handlePageChange("contact")} >
               <ListItemIcon>
                 <ContactMailIcon sx={{ color: 'white' }} />
@@ -63,7 +89,7 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding>
+          <ListItem >
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
                 <Brightness2Icon sx={{ color: 'white' }}/>
@@ -71,6 +97,10 @@ export const Sidebar = ({ currentPage, handlePageChange }) => {
               <Switch />{" "}
             </ListItemButton>
           </ListItem>
+
+
+
+        </>  ) : null }
         </List>
       </Box>
     </Box>

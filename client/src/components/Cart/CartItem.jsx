@@ -4,14 +4,12 @@ import { idbPromise } from "../../utils/helpers";
 import {
   Button,
   Box,
-  Grid,
   Typography,
   Card,
   CardContent,
   CardMedia,
-  List,
   ListItem,
-  Modal,
+  
 } from "@mui/material";
 const CartItem = ({ product, removeFromCart }) => {
 

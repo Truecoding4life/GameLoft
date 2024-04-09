@@ -1,3 +1,8 @@
+// Homepage Controls
+
+export const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE";
+
+
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const UPDATE_PRODUCTS = "UPDATE_PRODUCTS";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";

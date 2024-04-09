@@ -4,6 +4,7 @@
     background-color: rgba(27, 29, 35, 0.714);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     min-height: 100%;
+    
 }
 
 .no-favorite-text{
@@ -17,6 +18,7 @@
     background-color: rgba(27, 29, 35, 0.714);
     margin-top: 20px;
     padding: 10px;
+    height: 300px;;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
@@ -28,4 +30,19 @@
     box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.1);
     height: 300px;
     padding: 30px;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 0;
+    border-radius: 71px;
+    color: #131212;
+    width: 300px;
+    
+}
+
+@media screen and ( max-width: 1675px) and (min-width: 880px){
+    #search-bar{
+        width: 160px;
+    }
 }

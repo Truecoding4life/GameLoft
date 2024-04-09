@@ -4,18 +4,14 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import { QUERY_CHECKOUT, QUERY_USER } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_MULTIPLE_TO_CART, REMOVE_FROM_CART } from "../../utils/actions";
+import { ADD_MULTIPLE_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../utils/actions";
 import Auth from "../../utils/auth";
 import {
   Button,
   Box,
   Grid,
   Typography,
-  Card,
-  CardContent,
-  CardMedia,
   List,
-  ListItem,
   Modal,
 } from "@mui/material";
 import CartItem from "./CartItem";

@@ -9,21 +9,26 @@ import Feeds from "../components/Feeds";
 import Coupons from "../components/Coupons"; 
 import Favorite from "../components/Favorite";
 import Contact from "../components/Contact";
-import { useStoreContext } from "../utils/GlobalState";
 import Cart from "../components/Cart/Cart";
+import { useStoreContext } from "../utils/GlobalState";
 import { TOGGLE_CART } from "../utils/actions";
 
 
 
 
 const Home = () => {
-  const [currentPage, setCurrentPage] = useState('Home');
   const [state, dispatch] = useStoreContext();
-
+ let currentPage = state.currentPage
   const toggleCart = () => {
     dispatch({ type: TOGGLE_CART });
   }
-  const handlePageChange = (page) => setCurrentPage(page);
+  const handlePageChange = (page) => {
+    dispatch({
+      type: 'UPDATE_CURRENT_PAGE',
+      payload: page,
+    });
+  
+  };
 
   const renderPage = () => {
     switch (currentPage) {

@@ -23,10 +23,10 @@ function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Boring Game Shop 
+        <Link color="inherit" href="https://jstudio.tech/">
+          Jstudio
         </Link>
-        {new Date().getFullYear()}
+       {" "}{new Date().getFullYear()}
       
       </Typography>
     );
@@ -39,24 +39,21 @@ function Login () {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-      
+      try {
       const data = new FormData(e.currentTarget);
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-      });
+    
 
       const mutationResponse = await login({
         variables: { email: data.get('email'), password: data.get('password') },
       });
       const token = mutationResponse.data.login.token;
-      try {
+      
         Auth.login(token);
         window.location('/');
       }
       catch(err){
         console.log(err)
-        alert('System error, fail to create account')
+        alert('System error, fail to authenticate user')
       }
       
     

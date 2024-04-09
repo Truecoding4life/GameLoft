@@ -54,15 +54,14 @@ const userSchema = new Schema({
 
 
 //bcrypt seed passwords
+      const saltRounds = 10;
 
 userSchema.pre('insertMany', async function(next, docs, err) {
-  docs.map (await async function(doc) {
-    
-      const saltRounds = 10;
-      doc.password = await bcrypt.hash(doc.password, saltRounds);
-    
-  })
-  
+  for (let i = 0; i < docs.length; i++) {
+    docs[i].password = await bcrypt.hash(docs[i].password, saltRounds);
+  }
+      console.log("-------------------- This is Doc --------------------");
+      console.log(docs);
 
   next();
 });
