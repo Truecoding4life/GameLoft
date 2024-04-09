@@ -59,6 +59,7 @@ const Contact = () => {
             type="submit"
             variant="contained"
             fullWidth
+            onClick={()=>window.location.href = "/"}
             sx={{ mt: 3, mb: 2 }}
           >
             Send
