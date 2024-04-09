@@ -28,16 +28,11 @@ const Cart = () => {
   const [state, dispatch] = useStoreContext();
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const [open, setOpen] = useState(false);
-  try {
-    const { loading, thisData } = useQuery(QUERY_USER, {
-      variables: { email: authenticateEmail },
-    });
-    console.log(thisData);
-  } catch (e) {
-    console.log(e);
+  const [couponInput, setCouponInput] = useState(0);
+let cartItems = state.cart
+  if (couponInput) {
+    console.log(couponInput);
   }
-
-
 
   useEffect(() => {
     if (data) {
@@ -63,6 +58,7 @@ const Cart = () => {
   };
 
   const removeFromCart = (item) => {
+    item.discounted = false;
     dispatch({
       type: REMOVE_FROM_CART,
       _id: item._id,
@@ -74,11 +70,16 @@ const Cart = () => {
     if (!state.cart.length) {
       return setOpen(true);
     }
-    getCheckout({
+    try{
+       getCheckout({
       variables: {
-        products: [...state.cart],
+        products: [...cartItems],
       },
     });
+    } catch(err){
+      console.log(err)
+    }
+   
   };
 
   const handleClearCart = () => {
@@ -88,13 +89,53 @@ const Cart = () => {
   let userFullName = "???";
   let userEmail = "???";
 
-if(loggedIn){
-  userFullName = Auth.getProfile().data.firstName;
-  userEmail = Auth.getProfile().data.email;
+  if (loggedIn) {
+    userFullName = Auth.getProfile().data.firstName;
+    userEmail = Auth.getProfile().data.email;
+  }
+
+
+  function applyDiscount(array, percent) {
+  
+    if (percent) {
+
+
+      array.forEach((item) => {
+        if (item.discounted !== true) {
+
+          item.price = Math.floor((item.price - item.price * percent / 100))
+          item.discounted = true
+        }
+      })
+
+      return array
+    }
+    else {
+      return array
+    }
+  }
+
+  
+
+  function verifyCoupon(coupon) {
+    switch (coupon) {
+      case ("FIRST20"):
+        applyDiscount(cartItems, 20)
+        break;
+      case ("LOYAL4EVA"):
+      applyDiscount(cartItems, 10)
+      break;
+      case ("15OFF"):
+       applyDiscount(cartItems, 15)
+       break;
+      default:
+      applyDiscount(cartItems, 0)
+
+    }
   }
 
   return (
-    <Box id="cart-container" >
+    <Box id="cart-container" sx={{ maxHeight: 'calc(100vh - 40px)', overflowY: 'scroll' }}>
       <Box sx={{ padding: 2 }}>
         <Typography variant="h6" color="white" fontFamily="Silkscreen" fontSize={23}>
           Order summary
@@ -107,7 +148,7 @@ if(loggedIn){
 
       <List disablePadding>
         {state.cart.length ? (
-          state.cart.map((product) => (
+          cartItems.map((product) => (
             <CartItem key={product._id} product={product} removeFromCart={removeFromCart} />
           ))
         ) : (
@@ -134,21 +175,22 @@ if(loggedIn){
             Total $: {calculateTotal()}
           </Typography>
 
-          <TextField className="coupon-input" placeholder="Coupon" InputProps={{
+          <TextField className="coupon-input" onChange={(e) => setCouponInput(e.target.value)} placeholder="Coupon" InputProps={{
             startAdornment: (
               <AutoFixHighIcon sx={{ color: "black" }} />
             ),
             endAdornment: (
-              <Button variant="contained" color="success" >Apply</Button>
+              <Button variant="contained" onClick={()=>{verifyCoupon(couponInput)}}  color="success" >Apply</Button>
             ),
-            
+
           }} sx={{
             fontFamily: 'Poppins',
             '& .MuiOutlinedInput-root': {
               '&.Mui-focused fieldset': {
                 borderColor: 'transparent', // Remove the border color when focused
-              },},
-              
+              },
+            },
+
           }}>
 
           </TextField>
@@ -193,37 +235,22 @@ if(loggedIn){
           </Button>
 
           {loggedIn && state.cart.length ? (
-          <Button onClick={handleCheckout} variant="contained" sx={{ margin: 1 }} color="success">
-            Pay Now
-          </Button>
-          
-        ) : (
+            <Button onClick={handleCheckout} variant="contained" sx={{ margin: 1 }} color="success">
+              Pay Now
+            </Button>
+
+          ) : (
 
 
-        <Button onClick={() => {window.location.href = '/login'}} variant="contained" sx={{ margin: 1 }} color="success">
-            Login
-          </Button>
-        )}
-        
+            <Button onClick={() => { window.location.href = '/login' }} variant="contained" sx={{ margin: 1 }} color="success">
+              Login
+            </Button>
+          )}
+
         </Grid>
       </Grid>
       <div>
-        <Modal
-          keepMounted
-          open={open}
-          onClose={() => setOpen(false)}
-          aria-labelledby="keep-mounted-modal-title"
-          aria-describedby="keep-mounted-modal-description"
-        >
-          <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 400, bgcolor: "maroon", border: "2px solid #000", boxShadow: 24, p: 4, borderRadius: "10px" }}>
-            <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-              No Item Has Been Selected
-            </Typography>
-            <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-              There is no item in your cart
-            </Typography>
-          </Box>
-        </Modal>
+
       </div>
     </Box>
   );
