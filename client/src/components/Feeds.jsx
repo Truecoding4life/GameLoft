@@ -50,6 +50,7 @@ const Feeds = () => {
    
 
     const itemInCart = cart.find((cartItem) => cartItem._id === _id);
+   
     if (itemInCart) {
    
       dispatch({
@@ -61,6 +62,7 @@ const Feeds = () => {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
+      console.log(cart);
     } else {
       dispatch({
         type: ADD_TO_CART,

@@ -12,7 +12,6 @@ import {
   
 } from "@mui/material";
 const CartItem = ({ product, removeFromCart }) => {
-
   return (
     <ListItem key={product._id} disablePadding>
     <Card sx={{ margin: 1, backgroundColor: "#37374273" }} className="cart-item">
@@ -28,8 +27,8 @@ const CartItem = ({ product, removeFromCart }) => {
           display: "flex",
           flexDirection: "rows",
           color: "white",
-          justifyContent: "space-between",
           width: "100%",
+
         }}
       >
         <CardContent>
@@ -38,7 +37,7 @@ const CartItem = ({ product, removeFromCart }) => {
             variant="h5"
             fontFamily="Poppins"
             
-            width="100%"
+            width="300px"
             fontSize={{ xs: 12, sm: 16, md: 18, lg: 16, xl: 25 }}
             className="cart-item-name"
           >
@@ -68,6 +67,9 @@ const CartItem = ({ product, removeFromCart }) => {
           </Typography>
         </CardContent>
         <CardContent className="cart-item-button">
+         <Typography variant="p" sx={{paddingLeft:'auto'}}> Quantity : {product.purchaseQuantity}</Typography>
+        </CardContent>
+        <CardContent className="cart-item-button"  >
           <Button sx={{ color: "#f25553" }} onClick={() => removeFromCart(product)}>
             Remove
           </Button>

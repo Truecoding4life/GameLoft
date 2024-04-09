@@ -13,8 +13,11 @@ import {
   Typography,
   List,
   Modal,
+  TextField
 } from "@mui/material";
 import CartItem from "./CartItem";
+import './style.css'
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 const stripePromise = loadStripe(
   "pk_test_51ONTIVHTFh8Wci3c6KmX3ltxyZAHhSTHFY12NMZwUeg6eHfDykwMEYyJvzIr979461JfVxXjBN0Ogl9dcSzcRjaa00X89U6v2w"
@@ -22,22 +25,19 @@ const stripePromise = loadStripe(
 
 const Cart = () => {
   const loggedIn = Auth.loggedIn();
-  const authenticateEmail = loggedIn ? Auth.getProfile().data.email : null;
-
-  const [userData, setUserData] = useState(null);
   const [state, dispatch] = useStoreContext();
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const [open, setOpen] = useState(false);
-  try{
-  const { loading, thisData } = useQuery(QUERY_USER, {
-        variables: { email: authenticateEmail },
-      });
-      console.log(thisData);
-  }catch(e){
+  try {
+    const { loading, thisData } = useQuery(QUERY_USER, {
+      variables: { email: authenticateEmail },
+    });
+    console.log(thisData);
+  } catch (e) {
     console.log(e);
   }
 
-   
+
 
   useEffect(() => {
     if (data) {
@@ -86,23 +86,23 @@ const Cart = () => {
   };
 
   let userFullName = "???";
-  let userFullAddress = "???";
+  let userEmail = "???";
 
-  if (loggedIn && userData && userData.user) {
-    userFullName = `${userData.user.firstName} ${userData.user.lastName}`;
-    userFullAddress = `${userData.user.address} ${userData.user.city}, ${userData.user.state} ${userData.user.zip}`;
+if(loggedIn){
+  userFullName = Auth.getProfile().data.firstName;
+  userEmail = Auth.getProfile().data.email;
   }
 
   return (
     <Box id="cart-container" >
-        <Box sx={{padding:2}}>
-        <Typography variant="h6" color="white"  fontFamily="Silkscreen" fontSize={23}>
+      <Box sx={{ padding: 2 }}>
+        <Typography variant="h6" color="white" fontFamily="Silkscreen" fontSize={23}>
           Order summary
         </Typography>
 
-        
-        </Box>
-       
+
+      </Box>
+
 
 
       <List disablePadding>
@@ -124,15 +124,35 @@ const Cart = () => {
             </Typography>
           </Box>
         )}
-         
+
       </List>
 
       <Grid container spacing={2} style={{ width: "100%", margin: "auto" }}>
-        
+
         <Grid item xs={12} sm={12}>
-        <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: 24}} fontFamily="Nunito Sans" color="white">
-          Total $: {calculateTotal()}
-        </Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: 24 }} fontFamily="Nunito Sans" color="white">
+            Total $: {calculateTotal()}
+          </Typography>
+
+          <TextField className="coupon-input" placeholder="Coupon" InputProps={{
+            startAdornment: (
+              <AutoFixHighIcon sx={{ color: "black" }} />
+            ),
+            endAdornment: (
+              <Button variant="contained" color="success" >Apply</Button>
+            ),
+            
+          }} sx={{
+            fontFamily: 'Poppins',
+            '& .MuiOutlinedInput-root': {
+              '&.Mui-focused fieldset': {
+                borderColor: 'transparent', // Remove the border color when focused
+              },},
+              
+          }}>
+
+          </TextField>
+
           <Typography
             variant="h6"
             sx={{ fontWeight: "lighter", mt: 1, color: "white" }}
@@ -156,7 +176,7 @@ const Cart = () => {
             bottom
             color="white"
           >
-            Address: {userFullAddress}
+            Email: {userEmail}
           </Typography>
         </Grid>
         <Grid
@@ -166,14 +186,25 @@ const Cart = () => {
           display="flex"
           flexDirection="column"
           justifyContent="center"
-          
+
         >
-          <Button onClick={handleClearCart} variant="contained" sx={{margin:1}} color="error">
+          <Button onClick={handleClearCart} variant="contained" sx={{ margin: 1 }} color="error">
             Clear Cart
           </Button>
-          <Button onClick={handleCheckout} variant="contained" sx={{margin:1}} color="success">
+
+          {loggedIn && state.cart.length ? (
+          <Button onClick={handleCheckout} variant="contained" sx={{ margin: 1 }} color="success">
             Pay Now
           </Button>
+          
+        ) : (
+
+
+        <Button onClick={() => {window.location.href = '/login'}} variant="contained" sx={{ margin: 1 }} color="success">
+            Login
+          </Button>
+        )}
+        
         </Grid>
       </Grid>
       <div>

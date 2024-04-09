@@ -54,10 +54,12 @@
     scrollbar-color: #ee5f2b #191d28;
     width: 50%;
     height: fit-content;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     padding: 1rem;
     border-radius: 20px;
     box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.7);
+    
     
    
 }
