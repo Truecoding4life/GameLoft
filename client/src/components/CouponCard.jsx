@@ -5,11 +5,24 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './style.css'; 
 
-const CouponCard = ({discount,description})=>{
+const CouponCard = ({discount,description, coupon})=>{
+
+  const handleCopyToClipboard = (text) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        alert(`Copied "${coupon}" to clipboard`);
+      })
+      .catch((error) => {
+        console.error('Failed to copy: ', error);
+      });
+  };
+
     return (
         <Card id="coupon-card" 
     >
-              <CardActionArea>
+              <CardActionArea
+              onClick={() => handleCopyToClipboard(coupon)}
+              >
                 <CardContent>
                   <Typography bottom variant="h5" component="div">
                    {discount}
@@ -19,11 +32,10 @@ const CouponCard = ({discount,description})=>{
                   </Typography>
                 </CardContent>
               </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" fullWidth color="primary">
                   Share
                 </Button>
-              </CardActions>
+             
             </Card>
     )
 };

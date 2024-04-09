@@ -82,7 +82,6 @@ const Cart = () => {
   };
 
   const handleClearCart = () => {
-    console.log(state.cart);
     state.cart.forEach(removeFromCart);
   };
 

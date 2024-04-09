@@ -35,7 +35,8 @@ const resolvers = {
         return user;
       }
 
-      throw new AuthenticationError("User not authenticated");},
+      throw new AuthenticationError("User not authenticated");
+    },
     allUsers: async () => {
       return await User.find({});
     },
@@ -157,10 +158,10 @@ const resolvers = {
       );
     },
 
-    addRating: async( parent, { productId, rating}) =>{
+    addRating: async (parent, { productId, rating }) => {
       return Product.findOneAndUpdate(
-        { _id: productId},
-        { $push: { rating: rating}},
+        { _id: productId },
+        { $push: { rating: rating } },
         {
           new: true,
           runValidators: true,
@@ -169,7 +170,7 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-     
+
       if (!user) {
         throw AuthenticationError;
       }
@@ -179,8 +180,8 @@ const resolvers = {
       }
 
       const token = signToken(user);
- console.log("This is a login");
- console.log(user);
+      console.log("This is a login");
+      console.log(user);
       return { token, user };
     },
 

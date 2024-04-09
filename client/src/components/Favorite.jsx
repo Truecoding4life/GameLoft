@@ -7,7 +7,7 @@ const Favorite = () => {
   return (
     <Box flex={4} p={2} textAlign={"center"} style={{minHeight:'100vh'}} >
       {AuthService.loggedIn() ? (
-        <p > You have to log in</p>
+        <p className="no-favorite-text"> This feature still under develop</p> 
 
       ) : <p className="no-favorite-text"> You have to log in</p> }
     </Box>
