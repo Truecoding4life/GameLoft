@@ -8,6 +8,7 @@ import { useStoreContext } from "../utils/GlobalState";
 import { UPDATE_PRODUCTS } from "../utils/actions";
 import { idbPromise } from "../utils/helpers";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
+import './spiner.css'
 
 const Feeds = () => {
   const [state, dispatch] = useStoreContext();
@@ -74,8 +75,8 @@ const Feeds = () => {
 
   return (
     <>
-      <Box flex={3} p={3}>
-        {state.products.length ? (
+      <Box flex={3} p={3} minHeight='100vh'>
+        { data ? (
           <Box className="main-display">
             {state.products.map((product) => (
               <ProductCard
@@ -94,7 +95,9 @@ const Feeds = () => {
             ))}
           </Box>
         ) : (
-          <h3>You haven't added any products yet!</h3>
+          <div className="spinner">
+
+          </div>
         )}
       </Box>
     </>

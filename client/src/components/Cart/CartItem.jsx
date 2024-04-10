@@ -77,7 +77,7 @@ const CartItem = ({ product, removeFromCart, addToCart }) => {
           </Typography>
         </CardContent>
       
-        <CardContent className="cart-item-button"  >
+        <CardContent className="cart-item-action-area"  >
          <Typography variant="p" sx={{paddingLeft:'auto'}}> Quantity : {quantityCount}</Typography>
           <Button sx={{ color: "#f25553" }} onClick={() => {addToCart(product)
             setQuantityCount(quantityCount + 1)

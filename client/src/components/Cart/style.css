@@ -8,4 +8,6 @@
 }
 
 
-
+.cart-item-action-area{
+    min-width: fit-content
+}
