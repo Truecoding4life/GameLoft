@@ -14,6 +14,7 @@ const typeDefs = `
     category: Category
     reviews: [Review]
     likes: Int
+    discount_price: Float
     rating: [Int]
   }
 
@@ -66,6 +67,7 @@ const typeDefs = `
     image: String
     price: Float
     quantity: Int
+    discounted_price: Float
     description: String
   }
 

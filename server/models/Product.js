@@ -53,6 +53,12 @@ const productSchema = new Schema({
       max:5,
     }
   ],
+  discounted_price:{
+    type: Number,
+    max: this.price,
+    default: 0
+  
+  },
   reviews: [
     {
       type: Schema.Types.ObjectId,

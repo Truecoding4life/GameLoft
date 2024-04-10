@@ -39,11 +39,14 @@ const Icons = styled(Box)(({ theme }) => ({
 function showLogin() {
   if (Auth.loggedIn()) {
     return (
+      <div>
+
       <MenuItem>
         <a href="/" onClick={() => Auth.logout()}>
           Logout
         </a>
       </MenuItem>
+      </div>
     );
   } else {
     return (
@@ -123,20 +126,21 @@ export const Navbar = () => {
             <ShoppingCartIcon sx={{ color: 'white' }} color="action" onClick={handleOpen} />
           </Badge>
           <Modal
+            arial-labelledby="Check Out Cart Modal"
             open={openModal}
-            onClose={handleClose}
+            onClose={()=> handleClose()}
             sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <Cart />
+            <Cart></Cart>
           </Modal>
 
           <Menu
             id="profile-menu"
-            aria-labelledby="demo-positioned-button"
+            aria-labelledby="Login Menu"
             open={openAccount}
             onClose={() => setOpenAccount(false)}
             anchorOrigin={{

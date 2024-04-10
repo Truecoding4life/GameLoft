@@ -25,6 +25,7 @@ export function ProductCard({
   image,
   ratingArray,
   addToCart,
+  discounted_price,
 }) {
   let temp = ratingArray || [];
   let productRating = () => {
@@ -83,7 +84,7 @@ export function ProductCard({
         <Button
           sx={{ margin: "auto" }}
           onClick={() =>
-            addToCart({ name, _id, price, description, quantity: 1, image })
+            addToCart({ name, _id, price, description, quantity: 1, image, discounted_price })
           }
         >
           Add to cart

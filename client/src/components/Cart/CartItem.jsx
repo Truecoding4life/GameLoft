@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 const CartItem = ({ product, removeFromCart }) => {
   return (
+    <>
     <ListItem key={product._id} disablePadding>
     <Card sx={{ margin: 1, backgroundColor: "#37374273" }} className="cart-item">
       <CardMedia
@@ -52,7 +53,7 @@ const CartItem = ({ product, removeFromCart }) => {
             fontSize={{ xs: 13, sm: 20, md: 19, lg: 20, xl: 26 }}
             className="cart-item-price"
           >
-            $ {product.price}
+            $ { product.priceDiscount ? product.priceDiscount : product.price}
           </Typography>
           <Typography
             variant="h5"
@@ -77,7 +78,7 @@ const CartItem = ({ product, removeFromCart }) => {
       </Box>
     </Card>
   </ListItem>
-  );
+  </>);
 };
 
 export default CartItem;

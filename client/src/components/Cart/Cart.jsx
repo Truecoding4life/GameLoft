@@ -24,15 +24,24 @@ const stripePromise = loadStripe(
 );
 
 const Cart = () => {
+
+
+
+
+
   const loggedIn = Auth.loggedIn();
   const [state, dispatch] = useStoreContext();
-  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
-  const [open, setOpen] = useState(false);
+  const [getCheckout, { data, error }] = useLazyQuery(QUERY_CHECKOUT);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [couponInput, setCouponInput] = useState(0);
-let cartItems = state.cart
-  if (couponInput) {
-    console.log(couponInput);
-  }
+  const [discountPercent, setDiscountPercent] = useState(0);
+  let cartItems = JSON.parse(JSON.stringify(state.cart));
+   
+  let totalPriceDisplay  = calculateTotal();
+
+function calculateTotal() {
+   return cartItems.reduce((sum, item) => sum + item.price * item.purchaseQuantity, 0).toFixed(2)
+  };
 
   useEffect(() => {
     if (data) {
@@ -40,25 +49,27 @@ let cartItems = state.cart
         res.redirectToCheckout({ sessionId: data.checkout.session });
       });
     }
-  }, [data]);
+    if(error){
+      console.log(error)
+    }
+  }, [data, error]);
 
   useEffect(() => {
     async function getCart() {
       const cart = await idbPromise("cart", "get");
       dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+      if (!state.cart.length) {
+        getCart();
+      } 
     }
 
-    if (!state.cart.length) {
-      getCart();
-    }
+
   }, [state.cart.length, dispatch]);
 
-  const calculateTotal = () => {
-    return state.cart.reduce((sum, item) => sum + item.price * item.purchaseQuantity, 0).toFixed(2);
-  };
 
+  
   const removeFromCart = (item) => {
-    item.discounted = false;
+    item.discounted_price = null;
     dispatch({
       type: REMOVE_FROM_CART,
       _id: item._id,
@@ -67,18 +78,17 @@ let cartItems = state.cart
   };
 
   const handleCheckout = () => {
-    if (!state.cart.length) {
-      return setOpen(true);
-    }
-    try{
+   
+  
+      console.log("This is Discounted Item");
+      console.log("This is State Cart ");
+      console.log(state.cart);
        getCheckout({
       variables: {
-        products: [...cartItems],
+        products: [...cartItems]
       },
     });
-    } catch(err){
-      console.log(err)
-    }
+    
    
   };
 
@@ -95,46 +105,44 @@ let cartItems = state.cart
   }
 
 
-  function applyDiscount(array, percent) {
   
-    if (percent) {
-
-
-      array.forEach((item) => {
-        if (item.discounted !== true) {
-
-          item.price = Math.floor((item.price - item.price * percent / 100))
-          item.discounted = true
+    if (discountPercent) {
+      for ( let i = 0; i < cartItems.length; i++){
+        if(cartItems[i].discounted_price !== true ){
+          let discountCal  = parseInt(((cartItems[i].price - cartItems[i].price * discountPercent / 100)).toFixed(2))
+          cartItems[i].discounted_price = discountCal
+          cartItems[i].price = discountCal
         }
-      })
-
-      return array
     }
-    else {
-      return array
-    }
+    totalPriceDisplay = calculateTotal();
   }
+  
+
 
   
 
   function verifyCoupon(coupon) {
     switch (coupon) {
       case ("FIRST20"):
-        applyDiscount(cartItems, 20)
+        setDiscountPercent( 20)
         break;
       case ("LOYAL4EVA"):
-      applyDiscount(cartItems, 10)
+      setDiscountPercent(10)
       break;
       case ("15OFF"):
-       applyDiscount(cartItems, 15)
+       setDiscountPercent(15)
        break;
       default:
-      applyDiscount(cartItems, 0)
+      setDiscountPercent(0)
 
     }
   }
 
+ 
+  
+
   return (
+    
     <Box id="cart-container" sx={{ maxHeight: 'calc(100vh - 40px)', overflowY: 'scroll' }}>
       <Box sx={{ padding: 2 }}>
         <Typography variant="h6" color="white" fontFamily="Silkscreen" fontSize={23}>
@@ -172,7 +180,7 @@ let cartItems = state.cart
 
         <Grid item xs={12} sm={12}>
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: 24 }} fontFamily="Nunito Sans" color="white">
-            Total $: {calculateTotal()}
+            Total $: {totalPriceDisplay}
           </Typography>
 
           <TextField className="coupon-input" onChange={(e) => setCouponInput(e.target.value)} placeholder="Coupon" InputProps={{
@@ -249,9 +257,6 @@ let cartItems = state.cart
 
         </Grid>
       </Grid>
-      <div>
-
-      </div>
     </Box>
   );
 };

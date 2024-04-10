@@ -64,6 +64,7 @@ const Feeds = () => {
       });
       console.log(cart);
     } else {
+
       dispatch({
         type: ADD_TO_CART,
         cart: { ...product, purchaseQuantity: 1 },
@@ -83,6 +84,7 @@ const Feeds = () => {
                 _id={product._id}
                 name={product.name}
                 price={product.price}
+                discounted_price={product.discounted_price}
                 ratingArray={product.rating}
                 description={product.description}
                 image={product.image}
