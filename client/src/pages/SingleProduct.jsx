@@ -4,7 +4,8 @@ import {
   Typography,
   Grid,
   Rating,
-  Stack
+  Stack,
+  Button
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
@@ -13,13 +14,18 @@ import { QUERY_SINGLE_PRODUCT } from "../utils/queries";
 import { ADD_RATING } from "../utils/mutations";
 import { Sidebar } from "../components/Sidebar";
 import './style.css'
+import '../components/spiner.css'
+import { useStoreContext } from "../utils/GlobalState";
+import { DO_SUCCESS_ALERT, CLOSE_ALERT } from "../utils/actions";
 
 const OneProductPage = () => {
+
+  const [ state, dispatch ] = useStoreContext();
   const { id } = useParams();
   const [ratingValue, setRating] = useState(null);
 
   const [addRating] = useMutation(ADD_RATING);
-  const { data } = useQuery(QUERY_SINGLE_PRODUCT, {
+  const { data, loading } = useQuery(QUERY_SINGLE_PRODUCT, {
     variables: { id: id },
   });
 
@@ -38,6 +44,16 @@ const OneProductPage = () => {
       await addRating({
         variables: { productId: id, rating: ratingValue },
       });
+      dispatch({
+        type: DO_SUCCESS_ALERT,
+        successAlert: "Thank you for submit your rate",
+      })
+      setTimeout(() =>{
+        dispatch({
+          type: CLOSE_ALERT,
+        })
+      }, 3000)
+      
     } catch (err) {
       console.error("Failed to add review", err);
       alert("Failed to add review");
@@ -54,89 +70,104 @@ const OneProductPage = () => {
         <Sidebar flex={1} />
 
 
-        {product ? (
-          <Box>
-          <Grid container flex={4} id="item-info" sx={{ margin: 0, padding:0 }} >
-            <Grid item xs={12} sm={12} md={12} lg={4} sx={{ height: 'fit-content' }}>
+        {data && (
+          <Box flex={4}>
+            <Grid container id="item-info" sx={{ margin: 0, padding: 0 }} >
+              <Grid item xs={12} sm={12} md={12} lg={4} sx={{ height: 'fit-content' }}>
 
-              <Box sx={{ marginBottom: 1 }} display='flex' alignItems='center' flexDirection='column' marginTop='20px'>
-                <img
-                  src={product.image}
-                  alt={product.name}
+                <Box sx={{ marginBottom: 1 }} display='flex' alignItems='center' flexDirection='column' gap={1} marginTop='10%'>
+                  <img
+                    src={product.image}
+                    alt={product.name}
 
-                  style={{ borderRadius: 14, height: '100%', maxHeight: 300 }}
-                  className='product-image product-info'
-                />
+                    style={{ borderRadius: 14, height: '100%', maxHeight: 300 }}
+                    className='product-image product-info'
+                  />
+
+                  <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>Current Rating  </Typography>
+
+                  <Rating name="read-only" value={productRating()} readOnly />
+
+                </Box>
 
 
-                <Rating name="read-only" value={productRating()} readOnly />
+              </Grid>
+              <Grid item sm={12} md={12} lg={8} sx={{ height: 'fit-content' }}  >
+                {" "}
 
-              </Box>
+                <Box className=' product-info product-description' sx={{ backgroundColor: 'var(--item-description-box)', padding: 3, borderRadius: 5, height: 'fit-content', marginTop: '20px', maxWidth: '90%' }}>
+
+
+
+                  <Typography fontFamily={'Poppins'} fontSize={23} color='white'> {product.name} </Typography>
+
+
+                  <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>Description</Typography>
+                  <Typography
+                    variant="body2"
+                    fontFamily={'Poppins'} fontSize={13} color='white'
+                    sx={{ maxWidth: 900 }}
+                    overflow={'hidden'}
+                    maxHeight={400}
+
+
+                  >
+                    {product.description}
+                  </Typography>
+                </Box>
+
+                <Box className='rating-box'>
+                  <Typography variant="p" className="item-review">Give this product a rating </Typography>
+                  {ratingValue ? (
+                    <Typography fontFamily={'Fredoka'} fontSize={20} color='white'> Thank you for submit your rate </Typography>
+
+                  ) : (
+                    <div>
+
+                      <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>Tell us how much you enjoy this game  </Typography>
+
+                      <Typography fontFamily={'Poppins'} fontSize={10} color='white'>Click here </Typography>
+                      <Rating
+                        name="simple-controlled"
+                        value={ratingValue}
+
+                        onChange={(event, newValue) => {
+                          setRating(newValue);
+                          handleRatingSubmit(newValue);
+                        }}
+                      />
+                    </div>
+                  )}
+                </Box>
+                <Box className='rating-box'>
+                  <Typography variant="p" className="item-review">Write Review </Typography>
+                  
+                    <div>
+                      <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>This feature is still under development </Typography>
+                      <textarea className="item-review-input" rows="4"></textarea>
+
+                     <Button > Send </Button>
+                    </div>
+                  
+                </Box>
+              </Grid>
 
 
             </Grid>
-            <Grid item sm={12} md={12} lg={8} sx={{ height: 'fit-content' }}  >
-              {" "}
 
-              <Box className=' product-info product-description' sx={{ backgroundColor: 'var(--item-description-box)', padding: 3, borderRadius: 5, height: 'fit-content', marginTop: '20px', maxWidth: '90%' }}>
+            <Grid container>
+              <Grid item sm={12} md={12} lg={12}  >
 
-
-
-                <Typography fontFamily={'Poppins'} fontSize={23} color='white'> {product.name} </Typography>
-                {ratingValue ? (
-                  <div>
-                    <Typography component="legend" fontFamily={'Poppins'} fontSize={10} color='white'> Current rating</Typography>
-                    <Rating name="read-only" value={productRating()} readOnly />
-
-                  </div>
-                ) : (
-                  <div>
-
-
-                    <Typography fontFamily={'Poppins'} fontSize={10} color='white'>Rate now </Typography>
-                    <Rating
-                      name="simple-controlled"
-                      value={ratingValue}
-
-                      onChange={(event, newValue) => {
-                        setRating(newValue);
-                        handleRatingSubmit(newValue);
-                      }}
-                    />
-                  </div>
-                )}
-
-                <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>More Detail</Typography>
-                <Typography
-                  variant="body2"
-                  fontFamily={'Poppins'} fontSize={13} color='white'
-                  sx={{ maxWidth: 900 }}
-                  overflow={'hidden'}
-                  maxHeight={400}
-
-
-                >
-                  {product.description}
-                </Typography>
-              </Box>
+              </Grid>
             </Grid>
-            
-
-          </Grid>
-
-          <Grid container>
-          <Grid item sm={12} md={12} lg={12}  >
-              <Box sx={{margin:2}}>
-                <Typography variant="p" className="item-review">Review</Typography>
-              </Box>
-            </Grid>
-          </Grid>
-</Box>
-        ) : (
-          <Box>
-            <Typography variant="h4" className="no-favorite-text">No Product Found</Typography>
+          </Box>
+        )} {loading && (
+          <Box flex={4}>
+            <Typography variant="h4" className="spinner"></Typography>
           </Box>
         )}
+
+
 
 
 

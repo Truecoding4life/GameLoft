@@ -12,10 +12,17 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
 
 import { useMutation } from '@apollo/client';
-import { LOGIN } from '../utils/mutations';
+import { LOGIN} from '../utils/mutations';
+import { DO_SUCCESS_ALERT, CLOSE_ALERT } from '../utils/actions.js';
+
+import { useStoreContext } from '../utils/GlobalState';
 import Auth from '../utils/auth';
+import { CheckCircleOutline } from '@mui/icons-material';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 
@@ -36,6 +43,8 @@ const defaultTheme = createTheme();
 
 function Login () {
   const [login, { error }] = useMutation(LOGIN);
+  const [state, dispatch] = useStoreContext();
+  const SuccessAlert = state.successAlert;
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +58,19 @@ function Login () {
       const token = mutationResponse.data.login.token;
       
         Auth.login(token);
-        window.location('/');
+
+        dispatch({
+          type: DO_SUCCESS_ALERT,
+          successAlert: "Please Wait While We Retrieve Your Information...",
+        });
+        setTimeout(() => { 
+          dispatch({
+            type: CLOSE_ALERT,
+          })
+          window.location.assign('/');
+
+        }, 4000)
+   
       }
       catch(err){
         console.log(err)
@@ -88,6 +109,12 @@ function Login () {
                   alignItems: 'center',
                 }}
               >
+                {SuccessAlert && ( 
+                  <Alert icon={<CircularProgress size={20} color="success" />} severity="success">
+          Successful, {SuccessAlert}
+        </Alert>
+                )}
+                 
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                   <LockOutlinedIcon />
                 </Avatar>
@@ -117,16 +144,15 @@ function Login () {
                     autoComplete="current-password"
                   
                   />
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
-                  />
+                  /> */}
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    
 
                   >
                     Sign In

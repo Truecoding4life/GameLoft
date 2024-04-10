@@ -26,6 +26,10 @@ export const GO_TO_COUPON = "GO_TO_COUPON"
 export const GO_TO_ = "GO_TO_COUPON"
 
 
+export const DO_SUCCESS_ALERT = "DO_SUCCESS_ALERT"
+export const DO_ERROR_ALERT = "DO_ERROR_ALERT"
+export const CLOSE_ALERT = "CLOSE_ALERT"
+
 
 
 

@@ -12,7 +12,9 @@ import {
   ADD_REVIEW,
   UPDATE_REVIEWS,
   REMOVE_REVIEW,
-  UPDATE_CURRENT_PAGE
+  UPDATE_CURRENT_PAGE,
+  DO_SUCCESS_ALERT,
+  CLOSE_ALERT
     
 } from "./actions";
 
@@ -111,6 +113,17 @@ export const reducer = (state, action) => {
       return {
         ...state,
         reviews: newStateReview
+      };
+    case DO_SUCCESS_ALERT:
+      return {
+        ...state,
+        successAlert: action.successAlert,
+      };
+    case CLOSE_ALERT:
+      return {
+        ...state,
+        successAlert: '',
+        errorAlert: ''
       };
     default:
       return state;

@@ -12,7 +12,10 @@ const StoreProvider = ({ value = [], ...props }) => {
     categories: [],
     currentCategory: '',
     currentPage: 'Home',
+    successAlert: '',
+    errorAlert: '',
   });
+  
 
   return <Provider value={[state, dispatch]} {...props} />;
 };

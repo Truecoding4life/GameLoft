@@ -22,6 +22,9 @@ import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import Cart from "./Cart/Cart";
 import { useStoreContext } from "../utils/GlobalState";
+import Alert from '@mui/material/Alert';
+import { CheckCircleOutline } from "@mui/icons-material";
+
 
 
 const StyledToolbar = styled(Toolbar)({
@@ -41,11 +44,11 @@ function showLogin() {
     return (
       <div>
 
-      <MenuItem>
-        <a href="/" onClick={() => Auth.logout()}>
-          Logout
-        </a>
-      </MenuItem>
+        <MenuItem>
+          <a href="/" onClick={() => Auth.logout()}>
+            Logout
+          </a>
+        </MenuItem>
       </div>
     );
   } else {
@@ -68,27 +71,28 @@ export const Navbar = () => {
   const [openModal, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [state, dispatch] = useStoreContext();
-
+  let SuccessAlert = state.successAlert;
+  let errorAlert = state.errorAlert;
   const [cartCount, setCartCount] = useState(0);
-  useEffect(() => { 
+  useEffect(() => {
     let count = 0;
-    for ( let i = 0; i < state.cart.length; i++){
+    for (let i = 0; i < state.cart.length; i++) {
       let product = state.cart[i];
       let quantity = product.purchaseQuantity;
       count += quantity;
-      }
-setCartCount(count);
+    }
+    setCartCount(count);
 
 
-    }, [state.cart] );
-
-   
+  }, [state.cart]);
 
 
-    const handleOpen = () => {
-      // Update cart count before opening the cart modal
-      setOpen(true);
-    };
+
+
+  const handleOpen = () => {
+    // Update cart count before opening the cart modal
+    setOpen(true);
+  };
   return (
     <AppBar position="sticky" id='navbar'>
       <StyledToolbar>
@@ -103,19 +107,19 @@ setCartCount(count);
           id="branding"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-         
+
           GameLoft
         </Typography>
 
-        <VideogameAssetIcon onClick={()=>{window.location='/'}} sx={{ display: { sm: "none", xs: "block" } }} />
-      
+        <VideogameAssetIcon onClick={() => { window.location = '/' }} sx={{ display: { sm: "none", xs: "block" } }} />
+
 
 
         <Icons>
           {Auth.loggedIn() ? (
-            <Badge color="success"  variant="dot">
+            <Badge color="success" variant="dot">
               <AccountBoxIcon
-              sx={{ color: 'white' }}
+                sx={{ color: 'white' }}
                 onClick={() => {
                   setOpenAccount(true);
                 }}
@@ -124,7 +128,7 @@ setCartCount(count);
             </Badge>
           ) : (
             <AccountBoxIcon
-            sx={{ color: 'white' }}
+              sx={{ color: 'white' }}
               onClick={() => {
                 setOpenAccount(true);
               }}
@@ -138,7 +142,8 @@ setCartCount(count);
           <Modal
             arial-labelledby="Check Out Cart Modal"
             open={openModal}
-            onClose={()=> handleClose()}
+            keepMounted
+            onClose={() => handleClose()}
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -170,6 +175,14 @@ setCartCount(count);
           </Menu>
         </Icons>
       </StyledToolbar>
+
+
+      {SuccessAlert && (
+
+        <Alert icon={<CheckCircleOutline fontSize="inherit" />} severity="info">
+          Successful, {SuccessAlert}
+        </Alert>
+      )}
     </AppBar>
   );
 };

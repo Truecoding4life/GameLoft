@@ -19,12 +19,13 @@ import CartItem from "./CartItem";
 import './style.css'
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { SafetyDividerOutlined } from "@mui/icons-material";
+import { forwardRef } from 'react';
 
 const stripePromise = loadStripe(
   "pk_test_51ONTIVHTFh8Wci3c6KmX3ltxyZAHhSTHFY12NMZwUeg6eHfDykwMEYyJvzIr979461JfVxXjBN0Ogl9dcSzcRjaa00X89U6v2w"
 );
 
-const Cart = () => {
+const Cart =  forwardRef( function carted() {
 
 
   const loggedIn = Auth.loggedIn();
@@ -174,7 +175,7 @@ const Cart = () => {
           Order summary
         </Typography>
 
-        <Button onClick={handleClearCart} variant="contained" sx={{ margin: 1, borderRadius: 10, boxShadow: 1 }} color="error" textAlign='end'>
+        <Button onClick={handleClearCart} variant="contained" sx={{ margin: 1, borderRadius: 10, boxShadow: 1 }} color="error" textalign='end'>
           Clear Cart
         </Button>
       </Box>
@@ -290,6 +291,6 @@ const Cart = () => {
       </Grid>
     </Box>
   );
-};
+});
 
 export default Cart;

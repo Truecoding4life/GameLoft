@@ -38,7 +38,7 @@ const CartItem = ({ product, removeFromCart, addToCart }) => {
           flexDirection: "rows",
           color: "white",
           width: "100%",
-
+          justifyContent: "space-between",
         }}
       >
         <CardContent>
@@ -64,17 +64,7 @@ const CartItem = ({ product, removeFromCart, addToCart }) => {
           >
             $ { product.priceDiscount ? product.priceDiscount  : product.price}
           </Typography>
-          <Typography
-            variant="h5"
-            fontFamily="Josefin Sans"
-            fontSize={10}
-            maxWidth={600}
-            marginTop={{xs:0, sm:1, md:1, lg:1, xl:1}}
-            marginInline={1}
-            className="cart-item-description"
-          >
-            {product.description}
-          </Typography>
+         
         </CardContent>
       
         <CardContent className="cart-item-action-area"  >
