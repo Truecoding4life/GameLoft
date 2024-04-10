@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "preinstall": "npm run seed",
     "start": "node server.js",
     "watch": "nodemon",
     "seed": "node seeders/seeds.js"
