@@ -5,7 +5,7 @@ import './style.css'
 
 const Favorite = () => {
   return (
-    <Box flex={4} p={2} textAlign={"center"} style={{minHeight:'100vh'}} >
+    <Box flex={4} p={2} textAlign="center" style={{minHeight:'100vh'}} >
       {AuthService.loggedIn() ? (
         <p className="no-favorite-text"> This feature still under develop</p> 
 

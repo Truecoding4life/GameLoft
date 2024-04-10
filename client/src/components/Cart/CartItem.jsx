@@ -1,6 +1,9 @@
 import { useStoreContext } from "../../utils/GlobalState";
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
+import { useEffect, useState } from "react";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import {
   Button,
   Box,
@@ -11,9 +14,15 @@ import {
   ListItem,
   
 } from "@mui/material";
-const CartItem = ({ product, removeFromCart }) => {
+const CartItem = ({ product, removeFromCart, addToCart }) => {
+   const [ quantityCount, setQuantityCount ] = useState(0)
+  
+   if(product.purchaseQuantity !== quantityCount){
+    setQuantityCount(product.purchaseQuantity)
+   }
+
   return (
-    <>
+ 
     <ListItem key={product._id} disablePadding>
     <Card sx={{ margin: 1, backgroundColor: "#37374273" }} className="cart-item">
       <CardMedia
@@ -53,7 +62,7 @@ const CartItem = ({ product, removeFromCart }) => {
             fontSize={{ xs: 13, sm: 20, md: 19, lg: 20, xl: 26 }}
             className="cart-item-price"
           >
-            $ { product.priceDiscount ? product.priceDiscount : product.price}
+            $ { product.priceDiscount ? product.priceDiscount  : product.price}
           </Typography>
           <Typography
             variant="h5"
@@ -67,18 +76,27 @@ const CartItem = ({ product, removeFromCart }) => {
             {product.description}
           </Typography>
         </CardContent>
-        <CardContent className="cart-item-button">
-         <Typography variant="p" sx={{paddingLeft:'auto'}}> Quantity : {product.purchaseQuantity}</Typography>
-        </CardContent>
+      
         <CardContent className="cart-item-button"  >
-          <Button sx={{ color: "#f25553" }} onClick={() => removeFromCart(product)}>
-            Remove
+         <Typography variant="p" sx={{paddingLeft:'auto'}}> Quantity : {quantityCount}</Typography>
+          <Button sx={{ color: "#f25553" }} onClick={() => {addToCart(product)
+            setQuantityCount(quantityCount + 1)
+          }}>
+            <AddIcon />
+          </Button>
+          <Button sx={{ color: "#f25553" }} onClick={() => {
+            removeFromCart(product) 
+            if(quantityCount > 1){
+              setQuantityCount(quantityCount - 1)
+            }
+            }}>
+            <RemoveIcon />
           </Button>
         </CardContent>
       </Box>
     </Card>
   </ListItem>
-  </>);
+  );
 };
 
 export default CartItem;

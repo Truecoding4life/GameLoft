@@ -62,7 +62,6 @@ const Feeds = () => {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
-      console.log(cart);
     } else {
 
       dispatch({

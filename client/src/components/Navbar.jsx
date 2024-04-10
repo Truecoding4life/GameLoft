@@ -71,12 +71,22 @@ export const Navbar = () => {
 
   const [cartCount, setCartCount] = useState(0);
   useEffect(() => { 
-    setCartCount(state.cart.length)
+    let count = 0;
+    for ( let i = 0; i < state.cart.length; i++){
+      let product = state.cart[i];
+      let quantity = product.purchaseQuantity;
+      count += quantity;
+      }
+setCartCount(count);
+
+
     }, [state.cart] );
+
+   
+
 
     const handleOpen = () => {
       // Update cart count before opening the cart modal
-      setCartCount(state.cart.length);
       setOpen(true);
     };
   return (

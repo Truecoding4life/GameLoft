@@ -4,7 +4,7 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import { QUERY_CHECKOUT, QUERY_USER } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_MULTIPLE_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../../utils/actions";
+import { ADD_MULTIPLE_TO_CART, REMOVE_FROM_CART, CLEAR_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import Auth from "../../utils/auth";
 import {
   Button,
@@ -18,6 +18,7 @@ import {
 import CartItem from "./CartItem";
 import './style.css'
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import { SafetyDividerOutlined } from "@mui/icons-material";
 
 const stripePromise = loadStripe(
   "pk_test_51ONTIVHTFh8Wci3c6KmX3ltxyZAHhSTHFY12NMZwUeg6eHfDykwMEYyJvzIr979461JfVxXjBN0Ogl9dcSzcRjaa00X89U6v2w"
@@ -26,22 +27,19 @@ const stripePromise = loadStripe(
 const Cart = () => {
 
 
-
-
-
   const loggedIn = Auth.loggedIn();
   const [state, dispatch] = useStoreContext();
   const [getCheckout, { data, error }] = useLazyQuery(QUERY_CHECKOUT);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [couponInput, setCouponInput] = useState(0);
   const [discountPercent, setDiscountPercent] = useState(0);
   let cartItems = JSON.parse(JSON.stringify(state.cart));
-   
-  let totalPriceDisplay  = calculateTotal();
+  let discountPriceDisplay;
+  let totalPriceDisplay = calculateTotal();
+  let userFullName = "???";
+  let userEmail = "???";
+  let savedPriceDisplay;
 
-function calculateTotal() {
-   return cartItems.reduce((sum, item) => sum + item.price * item.purchaseQuantity, 0).toFixed(2)
-  };
+
 
   useEffect(() => {
     if (data) {
@@ -49,7 +47,7 @@ function calculateTotal() {
         res.redirectToCheckout({ sessionId: data.checkout.session });
       });
     }
-    if(error){
+    if (error) {
       console.log(error)
     }
   }, [data, error]);
@@ -60,44 +58,69 @@ function calculateTotal() {
       dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
       if (!state.cart.length) {
         getCart();
-      } 
+      }
     }
 
 
   }, [state.cart.length, dispatch]);
 
 
-  
-  const removeFromCart = (item) => {
-    item.discounted_price = null;
-    dispatch({
-      type: REMOVE_FROM_CART,
-      _id: item._id,
-    });
-    idbPromise("cart", "delete", { ...item });
+// Function to calculate total price of all items in the cart
+  function calculateTotal() {
+    return cartItems.reduce((sum, item) => sum + item.price * item.purchaseQuantity, 0).toFixed(2)
   };
 
+
+// Function to execute when user click on remove button
+  const removeFromCart = (item) => {
+    item.discounted_price = null;
+    if (item.purchaseQuantity > 1) {
+      item.purchaseQuantity = item.purchaseQuantity - 1;
+      dispatch({
+        type: UPDATE_CART_QUANTITY,
+        _id: item._id,
+        purchaseQuantity: item.purchaseQuantity,
+      });
+    }
+    else {
+      dispatch({
+        type: REMOVE_FROM_CART,
+        _id: item._id,
+      });
+      idbPromise("cart", "delete", { ...item });
+    }
+  };
+
+
+
+  // Function to execute when user click on add more quantity button
+  const addToCart = (item) => {
+    item.purchaseQuantity = item.purchaseQuantity + 1;
+    dispatch({
+      type: UPDATE_CART_QUANTITY,
+      _id: item._id,
+      purchaseQuantity: item.purchaseQuantity,
+    })
+    totalPriceDisplay = calculateTotal();
+  }
+
+
+  // Function to execute when user click on pay now button
   const handleCheckout = () => {
-   
-  
-      console.log("This is Discounted Item");
-      console.log("This is State Cart ");
-      console.log(state.cart);
-       getCheckout({
+    getCheckout({
       variables: {
         products: [...cartItems]
       },
     });
-    
-   
+
+
   };
 
   const handleClearCart = () => {
     state.cart.forEach(removeFromCart);
   };
 
-  let userFullName = "???";
-  let userEmail = "???";
+
 
   if (loggedIn) {
     userFullName = Auth.getProfile().data.firstName;
@@ -105,51 +128,55 @@ function calculateTotal() {
   }
 
 
-  
-    if (discountPercent) {
-      for ( let i = 0; i < cartItems.length; i++){
-        if(cartItems[i].discounted_price !== true ){
-          let discountCal  = parseInt(((cartItems[i].price - cartItems[i].price * discountPercent / 100)).toFixed(2))
-          cartItems[i].discounted_price = discountCal
-          cartItems[i].price = discountCal
-        }
+// This function will run through the cart and modify it price if there is a discount
+  if (discountPercent) {
+    for (let i = 0; i < cartItems.length; i++) {
+      if (cartItems[i].discounted_price !== true) {
+        let discountCal = parseInt(((cartItems[i].price - cartItems[i].price * (discountPercent / 100))))
+        cartItems[i].discounted_price = discountCal
+        cartItems[i].price = discountCal
+      }
     }
-    totalPriceDisplay = calculateTotal();
+    discountPriceDisplay = calculateTotal();
+    savedPriceDisplay = (totalPriceDisplay - discountPriceDisplay).toFixed(2)
   }
-  
 
 
-  
+
+
+
 
   function verifyCoupon(coupon) {
     switch (coupon) {
       case ("FIRST20"):
-        setDiscountPercent( 20)
+        setDiscountPercent(20)
         break;
       case ("LOYAL4EVA"):
-      setDiscountPercent(10)
-      break;
+        setDiscountPercent(10)
+        break;
       case ("15OFF"):
-       setDiscountPercent(15)
-       break;
+        setDiscountPercent(15)
+        break;
       default:
-      setDiscountPercent(0)
+        setDiscountPercent(0)
 
     }
   }
 
- 
-  
+
+
 
   return (
-    
+
     <Box id="cart-container" sx={{ maxHeight: 'calc(100vh - 40px)', overflowY: 'scroll' }}>
-      <Box sx={{ padding: 2 }}>
+      <Box sx={{ padding: 2 }} display='flex' justifyContent='space-between' >
         <Typography variant="h6" color="white" fontFamily="Silkscreen" fontSize={23}>
           Order summary
         </Typography>
 
-
+        <Button onClick={handleClearCart} variant="contained" sx={{ margin: 1, borderRadius: 10, boxShadow: 1 }} color="error" textAlign='end'>
+          Clear Cart
+        </Button>
       </Box>
 
 
@@ -157,7 +184,7 @@ function calculateTotal() {
       <List disablePadding>
         {state.cart.length ? (
           cartItems.map((product) => (
-            <CartItem key={product._id} product={product} removeFromCart={removeFromCart} />
+            <CartItem key={product._id} product={product} addToCart={addToCart} removeFromCart={removeFromCart} />
           ))
         ) : (
           <Box>
@@ -182,13 +209,19 @@ function calculateTotal() {
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: 24 }} fontFamily="Nunito Sans" color="white">
             Total $: {totalPriceDisplay}
           </Typography>
-
+          {discountPriceDisplay ? (<>
+            <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: 24 }}  fontFamily="Nunito Sans" color="error">
+              You Saved $: {savedPriceDisplay}
+            </Typography>
+            <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: 24, color: '#5fef8f' }} fontFamily="Nunito Sans" color="white">
+              New Price $: {discountPriceDisplay}
+            </Typography></>) : null}
           <TextField className="coupon-input" onChange={(e) => setCouponInput(e.target.value)} placeholder="Coupon" InputProps={{
             startAdornment: (
               <AutoFixHighIcon sx={{ color: "black" }} />
             ),
             endAdornment: (
-              <Button variant="contained" onClick={()=>{verifyCoupon(couponInput)}}  color="success" >Apply</Button>
+              <Button variant="contained" onClick={() => { verifyCoupon(couponInput) }} color="success" >Apply</Button>
             ),
 
           }} sx={{
@@ -238,9 +271,7 @@ function calculateTotal() {
           justifyContent="center"
 
         >
-          <Button onClick={handleClearCart} variant="contained" sx={{ margin: 1 }} color="error">
-            Clear Cart
-          </Button>
+
 
           {loggedIn && state.cart.length ? (
             <Button onClick={handleCheckout} variant="contained" sx={{ margin: 1 }} color="success">

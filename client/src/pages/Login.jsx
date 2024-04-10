@@ -53,7 +53,6 @@ function Login () {
       }
       catch(err){
         console.log(err)
-        alert('System error, fail to authenticate user')
       }
       
     
