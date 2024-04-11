@@ -54,25 +54,22 @@ const userSchema = new Schema({
 
 
 //bcrypt seed passwords
-      const saltRounds = 10;
+  const saltRounds = 10;
+
+
 
 userSchema.pre('insertMany', async function(next, docs, err) {
   for (let i = 0; i < docs.length; i++) {
     docs[i].password = await bcrypt.hash(docs[i].password, saltRounds);
   }
-      console.log("-------------------- This is Doc --------------------");
-      console.log(docs);
-
   next();
 });
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function(next) {
   if (this.isNew || this.isModified('password')) {
-    const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
   next();
 });
 

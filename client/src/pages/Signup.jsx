@@ -22,14 +22,15 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Boring Game Shop
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      <Link color="inherit" href="https://jstudio.tech/">
+        Jstudio
+      </Link>
+     {" "}{new Date().getFullYear()}
+    
     </Typography>
   );
 }
+
 function generateRandomNumber() {
   const randomNumber = Math.floor(Math.random() * 900000000) + 100000000;
   return randomNumber.toString();
@@ -44,17 +45,6 @@ function Signup() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      _id: generateRandomNumber(),
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-      address: data.get('address'),
-      city: data.get('city'),
-      zip: data.get('zip'),
-      state: data.get('state'),
-    })
     const mutationResponse = await addUser({
       variables: {
         firstName: data.get('firstName'),
@@ -75,7 +65,7 @@ function Signup() {
     
       return (
         
-          <Container component="main" id='signUp' maxWidth="xs">
+          <Container component="main" id='signUp'  maxWidth="xs">
             <Box
              
               sx={{
@@ -83,7 +73,7 @@ function Signup() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                
+                marginTop: 10,
 
                 
               }}
@@ -215,7 +205,7 @@ function Signup() {
                 </Grid>
               </Box>
             </Box>
-            {/* <Copyright sx={{ mt: 5 }}  marginRight={20}/> */}
+            <Copyright sx={{ mt: 2 }}  marginRight={20}/>
           </Container>
       );
     }

@@ -1,28 +1,26 @@
 import * as React from 'react';
+import { useMutation } from '@apollo/client';
+import { useStoreContext } from '../utils/GlobalState';
+import { LOGIN } from '../utils/mutations';
+import { DO_SUCCESS_ALERT, CLOSE_ALERT } from '../utils/actions.js';
+import Auth from '../utils/auth';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
+import {FormControlLabel, Box} from '@mui/material/';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
-
-import { useMutation } from '@apollo/client';
-import { LOGIN} from '../utils/mutations';
-import { DO_SUCCESS_ALERT, CLOSE_ALERT } from '../utils/actions.js';
-
-import { useStoreContext } from '../utils/GlobalState';
-import Auth from '../utils/auth';
 import { CheckCircleOutline } from '@mui/icons-material';
-import CircularProgress from '@mui/material/CircularProgress';
 
+import loginImage from '../images/PageBackgrounds/login.webp';
 
 
 
@@ -90,14 +88,8 @@ function Login () {
               xs={false}
               sm={4}
               md={7}
-              sx={{
-                backgroundImage: 'url(https://source.unsplash.com/random?videogames)',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: (t) =>
-                  t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
+              className='login-image'
+              
             />
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
               <Box

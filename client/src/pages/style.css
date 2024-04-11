@@ -3,7 +3,6 @@
 }
 
 
-
 .product-info{
     margin: auto;
     box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.5);
@@ -42,4 +41,12 @@
     margin: 10px;
     outline: none;
     padding-left: 10px;
+}
+
+
+.login-image{
+    background-image: url('../images/PageBackgrounds/login.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
