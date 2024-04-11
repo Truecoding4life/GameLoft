@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
+import Auth from '../../utils/auth.js';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -21,12 +21,12 @@ import 'animate.css';
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useStoreContext } from '../utils/GlobalState';
-import { ADD_USER } from '../utils/mutations';
-import {DO_SUCCESS_ALERT, CLOSE_ALERT} from '../utils/actions.js';
+import { useStoreContext } from '../../utils/GlobalState.jsx';
+import { ADD_USER } from '../../utils/mutations.js';
+import {DO_SUCCESS_ALERT, CLOSE_ALERT} from '../../utils/actions.js';
 
 
-import '../styles/SignUp/styles.css';
+import './style.css'
 
 
 function Copyright(props) {

@@ -1,0 +1,6 @@
+.login-image{
+    background-image: url('../../images/PageBackgrounds/login.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

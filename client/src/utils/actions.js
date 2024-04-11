@@ -7,9 +7,6 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const UPDATE_PRODUCTS = "UPDATE_PRODUCTS";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 
-export const ADD_REVIEW = "ADD_REVIEW";
-export const UPDATE_REVIEWS = "UPDATE_REVIEWS";
-export const REMOVE_REVIEW = "REMOVE_REVIEW";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_MULTIPLE_TO_CART = "ADD_MULTIPLE_TO_CART";

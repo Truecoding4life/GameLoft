@@ -1,5 +1,5 @@
-import "../styles/NoMatch/styles.css";
-import errorGif from "../images/404.gif";
+import "./styles.css";
+import errorGif from "../../images/404.gif";
 
 function NoMatch() {
   return (

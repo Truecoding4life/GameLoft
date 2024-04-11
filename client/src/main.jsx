@@ -4,16 +4,15 @@ import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Home from './pages/Home.jsx'
-import Detail from './pages/Detail';
-import NoMatch from './pages/NoMatch.jsx';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Success from './pages/Success';
-import OrderHistory from './pages/OrderHistory';
+import Home from './pages/Home/Home.jsx'
+import NoMatch from './pages/NoMatch/NoMatch.jsx';
+import Login from './pages/Login/Login.jsx';
+import Signup from './pages/Login/Signup.jsx';
+import Success from './pages/Order/Success.jsx';
+import OrderHistory from './pages/Order/OrderHistory.jsx';
 
-import Profile from './pages/Profile.jsx';
-import SingleProductPage from './pages/SingleProduct.jsx';
+import Profile from './pages/MyAccount/Profile.jsx';
+import SingleProductPage from './pages/ProductDetail/SingleProduct.jsx';
 
 
 const router = createBrowserRouter([

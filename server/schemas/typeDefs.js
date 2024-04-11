@@ -26,10 +26,9 @@ const typeDefs = `
   }
 
   type Review {
-    _id: ID
     commentText: String
     createdAt: String
-    user: String
+    userId: ID
   }
 
   type Order {
@@ -89,7 +88,7 @@ const typeDefs = `
     addOrder(products: [ID]!): Order
     updateUser(firstName: String, lastName: String, email: String, password: String, address: String, city: String, state: String, zip: String): User
     updateProduct(_id: ID!, quantity: Int!): Product
-    addReview(productId: ID!, commentText: String!): Product
+    addReview(productId: ID!, commentText: String!, userId: ID!): Product
     removeReview(productId: ID!, reviewId: ID!): Product
     login(email: String!, password: String!): Auth
     createCoupon(name: String!, discount: Float!, expiration: String!): Coupon

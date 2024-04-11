@@ -1,4 +1,4 @@
-const { User, Product, Category, Order, Review } = require("../models");
+const { User, Product, Category, Order} = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const stripe = require("stripe")(
   "sk_test_51ONTIVHTFh8Wci3cJtLIlL13zdb1MbBsYiou3PBy4aYQmMxXGENNkOIv2fB1PCaxuAbvLYLzHmD30swJXni08xQ800uWiYh07D"
@@ -99,7 +99,6 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
-      console.log(user);
       const token = signToken(user);
 
       return { token, user };
@@ -136,11 +135,11 @@ const resolvers = {
       );
     },
 
-    addReview: async (parent, { productId, commentText }) => {
-      return Review.findOneAndUpdate(
+    addReview: async (parent, { productId, commentText, userId }) => {
+      return Product.findOneAndUpdate(
         { _id: productId },
         {
-          $addToSet: { reviews: { commentText } },
+          $addToSet: { reviews: { commentText, userId } },
         },
         {
           new: true,
@@ -177,7 +176,6 @@ const resolvers = {
       if (!correctPw) {
         throw AuthenticationError;
       }
-
       const token = signToken(user);
 
       return { token, user };

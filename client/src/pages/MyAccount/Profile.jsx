@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Box, Stack, Typography, Container, Card, CardHeader, CardContent } from "@mui/material";
-import { Navbar } from "../components/Navbar";
-import { TOGGLE_CART } from "../utils/actions";
-import { useStoreContext } from "../utils/GlobalState";
-import Auth from "../utils/auth";
+import { Navbar } from "../../components/Navbar";
+import { TOGGLE_CART } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
+import Auth from "../../utils/auth";
 import { useLazyQuery } from '@apollo/client';
-import { QUERY_USER } from "../utils/queries";
+import { QUERY_USER } from "../../utils/queries";
 
 const Profile = () => {
   const [state, dispatch] = useStoreContext();

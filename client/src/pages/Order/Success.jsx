@@ -1,4 +1,4 @@
-import "../styles/Success/styles.css";
+import "./styles.css";
 
 
 function Success() {

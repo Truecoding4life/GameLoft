@@ -3,6 +3,7 @@ import { theme } from "./assets/theme";
 import { ThemeProvider } from "@mui/material";
 import { StoreProvider } from "./utils/GlobalState";
 import { setContext } from '@apollo/client/link/context';
+import './App.css'
 
 import {
   ApolloClient,

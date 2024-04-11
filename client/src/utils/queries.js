@@ -33,7 +33,7 @@ query Query($id: ID!) {
     reviews {
       commentText
       createdAt
-      user
+      userId
     }
   }
 }
@@ -63,7 +63,7 @@ query Query {
     rating
     quantity
     reviews {
-      user
+      userId
       commentText
       createdAt
     }
@@ -103,7 +103,7 @@ export const QUERY_ALL_REVIEWS = gql`
       _id
       commentText
       createdAt
-      user {
+      userId {
         firstName
         lastName
       }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useMutation } from '@apollo/client';
-import { useStoreContext } from '../utils/GlobalState';
-import { LOGIN } from '../utils/mutations';
-import { DO_SUCCESS_ALERT, CLOSE_ALERT } from '../utils/actions.js';
-import Auth from '../utils/auth';
+import { useStoreContext } from '../../utils/GlobalState.jsx';
+import { LOGIN } from '../../utils/mutations.js';
+import { DO_SUCCESS_ALERT, CLOSE_ALERT } from '../../utils/actions.js';
+import Auth from '../../utils/auth.js';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -19,9 +19,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import 'animate.css';
-
-import loginImage from '../images/PageBackgrounds/login.webp';
-
+import './style.css'
 
 
 function Copyright(props) {

@@ -15,18 +15,12 @@
 
 
 
-.shop-item:hover {
-    transform: translateY(-10px);
-    transition: all 0.2s ease;
-
-
-}
 
 * {
     font-family: "Poppins", sans-serif;
 }
 
-.home-page,
+
 .single-product-page {
     background: linear-gradient(181deg, rgb(41, 44, 77) 0%, rgb(24, 32, 50) 50%, rgb(35, 44, 89) 100%);
     min-height: 100vh;

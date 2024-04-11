@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/Contact/styles.css";
-import { validateEmail } from "../utils/helpers";
+import { validateEmail } from "../../utils/helpers";
 
 
 function Contact() {

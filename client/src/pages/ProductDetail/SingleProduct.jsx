@@ -8,29 +8,39 @@ import {
   Button
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../components/Navbar";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_SINGLE_PRODUCT } from "../utils/queries";
-import { ADD_RATING } from "../utils/mutations";
-import { Sidebar } from "../components/Sidebar";
+import { QUERY_SINGLE_PRODUCT } from "../../utils/queries";
+import { ADD_RATING, ADD_REVIEW } from "../../utils/mutations";
+import { Sidebar } from "../../components/Sidebar";
+import Review from "../../components/Review";
 import './style.css'
-import '../components/spiner.css'
-import { useStoreContext } from "../utils/GlobalState";
-import { DO_SUCCESS_ALERT, CLOSE_ALERT } from "../utils/actions";
+import '../../components/spiner.css'
+import { useStoreContext } from "../../utils/GlobalState";
+import { DO_SUCCESS_ALERT, CLOSE_ALERT } from "../../utils/actions";
+import Auth from "../../utils/auth";
+
+
+function randomId(){
+  return Math.floor(Math.random() * 1000000000) + 1000000000;
+
+}
 
 const OneProductPage = () => {
-
-  const [ state, dispatch ] = useStoreContext();
+  const userId = Auth.getProfile().data.userId
   const { id } = useParams();
-  const [ratingValue, setRating] = useState(null);
-
-  const [addRating] = useMutation(ADD_RATING);
+  const [ state, dispatch ] = useStoreContext();
   const { data, loading } = useQuery(QUERY_SINGLE_PRODUCT, {
     variables: { id: id },
   });
-
   const product = data?.product || {};
   const productRateArray = product?.rating || [];
+  const productReviews= product?.reviews || [];
+ 
+  const [ratingValue, setRating] = useState(null);
+  const [ reviewValue, setReview] = useState("");
+  const [addRating] = useMutation(ADD_RATING);
+  const [addReview] = useMutation(ADD_REVIEW);
   let productRating = () => {
     let rate = 0;
     for (let i = 0; i < productRateArray.length; i++) {
@@ -39,10 +49,11 @@ const OneProductPage = () => {
     return rate / productRateArray.length;
   }
 
+
   const handleRatingSubmit = async (ratingValue) => {
     try {
       await addRating({
-        variables: { productId: id, rating: ratingValue },
+        variables: { productId: id, rating: ratingValue},
       });
       dispatch({
         type: DO_SUCCESS_ALERT,
@@ -59,6 +70,30 @@ const OneProductPage = () => {
       alert("Failed to add review");
     }
   };
+
+  const handleReviewSubmit = async () => {
+    if(!userId){
+      return alert("Please login to submit your rate")
+    }
+    try {
+      await addReview({
+        variables: { productId: id, commentText: reviewValue, userId: userId},
+      });
+      dispatch({
+        type: DO_SUCCESS_ALERT,
+        successAlert: "Thank you for submit your review",
+      })
+      setTimeout(() =>{
+        dispatch({
+          type: CLOSE_ALERT,
+        })
+      }, 3000)
+      
+    } catch (err) {
+      console.error("Failed to add review", err);
+      alert("Failed to add review");
+    }
+  }
 
 
 
@@ -128,7 +163,7 @@ const OneProductPage = () => {
 
                       <Typography fontFamily={'Poppins'} fontSize={10} color='white'>Click here </Typography>
                       <Rating
-                        name="simple-controlled"
+                        name="user-rating-select"
                         value={ratingValue}
 
                         onChange={(event, newValue) => {
@@ -139,16 +174,20 @@ const OneProductPage = () => {
                     </div>
                   )}
                 </Box>
-                <Box className='rating-box'>
+                <Box className='review-box'>
                   <Typography variant="p" className="item-review">Write Review </Typography>
                   
                     <div>
                       <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>This feature is still under development </Typography>
-                      <textarea className="item-review-input" rows="4"></textarea>
+                      <textarea onChange={(e)=> setReview(e.target.value)} className="item-review-input" placeholder="write you review" rows="4"></textarea>
 
-                     <Button > Send </Button>
+                     <Button onClick={handleReviewSubmit}> Send </Button>
                     </div>
-                  
+                   {productReviews.length > 0  && (
+                    productReviews.map((review) => (
+                      <Review key={randomId()} review={review} />
+                    ))
+                  ) }
                 </Box>
               </Grid>
 
@@ -157,7 +196,7 @@ const OneProductPage = () => {
 
             <Grid container>
               <Grid item sm={12} md={12} lg={12}  >
-
+                 
               </Grid>
             </Grid>
           </Box>

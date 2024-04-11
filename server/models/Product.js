@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const dateFormat = require("../utils/dateFormat");
 
 const { Schema } = mongoose;
 
@@ -59,12 +60,23 @@ const productSchema = new Schema({
     default: 0
   
   },
-  reviews: [
-    {
+  reviews: [{
+    commentText: {
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 280,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => dateFormat(timestamp),
+    },
+    userId: {
       type: Schema.Types.ObjectId,
-      ref: 'Review'
+      ref: 'User',
     }
-  ]
+  }]
 
 });
 
