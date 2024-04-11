@@ -18,7 +18,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
-import { CheckCircleOutline } from '@mui/icons-material';
+import 'animate.css';
 
 import loginImage from '../images/PageBackgrounds/login.webp';
 
@@ -102,7 +102,7 @@ function Login () {
                 }}
               >
                 {SuccessAlert && ( 
-                  <Alert icon={<CircularProgress size={20} color="success" />} severity="success">
+                  <Alert className='animate__animated animate__fadeIn' icon={<CircularProgress size={20} color="success" />} severity="success">
           Successful, {SuccessAlert}
         </Alert>
                 )}

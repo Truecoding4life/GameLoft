@@ -26,7 +26,7 @@ const Coupons = () => {
   return (
     <>
       <Stack direction="column" alignItems="center" margin={'auto'} spacing={2} p={2}>
-      <Typography className="no-favorite-text" sx={{textShadow:4}} variant="h4">Click to copy coupon to clip board</Typography>
+      <Typography className="no-favorite-text" sx={{textShadow:4}} variant="h4">Feel free to use any coupon</Typography>
       <Stack
         direction="row"
         justifyContent="center"

@@ -180,31 +180,3 @@ const OneProductPage = () => {
 
 export default OneProductPage;
 
-/* Rate this game
-
- <FormControl sx={{ m: 1, width: '100%' }}>
-                <InputLabel id="demo-simple-select-helper-label">Rate</InputLabel>
-                <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="rateSelect"
-                  label="Rate"
-                  value={rateSelect}
-                  onChange={handleRateSelectChange}
-                >
-                  <MenuItem value="LOVE THIS GAME">LOVE THIS GAME</MenuItem>
-                  <MenuItem value="NOT GOOD ENOUGH">NOT GOOD ENOUGH</MenuItem>
-                  <MenuItem value="WAY TOO BAD">WAY TOO BAD</MenuItem>
-                </Select>
-                <FormHelperText>You will not be able to delete your review</FormHelperText>
-              </FormControl>
-
-              <Button
-                variant="contained"
-                color="success"
-                onClick={handleFormSubmit}
-                sx={{ width: '100%' }}
-              >
-                Submit
-              </Button>
-
-*/

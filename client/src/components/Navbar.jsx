@@ -24,6 +24,7 @@ import Cart from "./Cart/Cart";
 import { useStoreContext } from "../utils/GlobalState";
 import Alert from '@mui/material/Alert';
 import { CheckCircleOutline } from "@mui/icons-material";
+import 'animate.css';
 
 
 
@@ -179,7 +180,7 @@ export const Navbar = () => {
 
       {SuccessAlert && (
 
-        <Alert icon={<CheckCircleOutline fontSize="inherit" />} severity="info">
+        <Alert className="animate__animated animate__fadeIn" icon={<CheckCircleOutline fontSize="inherit" />} severity="info">
           Successful, {SuccessAlert}
         </Alert>
       )}
