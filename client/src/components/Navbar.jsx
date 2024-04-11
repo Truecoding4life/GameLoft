@@ -44,6 +44,10 @@ function showLogin() {
   if (Auth.loggedIn()) {
     return (
       <div>
+        <MenuItem>
+              <Link to="./profile">My account</Link>
+            </MenuItem>
+            <Divider />
 
         <MenuItem>
           <a href="/" onClick={() => Auth.logout()}>
@@ -168,10 +172,7 @@ export const Navbar = () => {
               horizontal: "right",
             }}
           >
-            <MenuItem>
-              <Link to="./profile">My account</Link>
-            </MenuItem>
-            <Divider />
+            
             {showLogin()}
           </Menu>
         </Icons>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -30,13 +30,16 @@ const OneProductPage = () => {
   const userId = Auth.getProfile().data.userId
   const { id } = useParams();
   const [ state, dispatch ] = useStoreContext();
-  const { data, loading } = useQuery(QUERY_SINGLE_PRODUCT, {
+  const { data, loading, refetch } = useQuery(QUERY_SINGLE_PRODUCT, {
     variables: { id: id },
   });
+
+  
   const product = data?.product || {};
   const productRateArray = product?.rating || [];
   const productReviews= product?.reviews || [];
- 
+  
+
   const [ratingValue, setRating] = useState(null);
   const [ reviewValue, setReview] = useState("");
   const [addRating] = useMutation(ADD_RATING);
@@ -83,6 +86,7 @@ const OneProductPage = () => {
         type: DO_SUCCESS_ALERT,
         successAlert: "Thank you for submit your review",
       })
+      refetch();
       setTimeout(() =>{
         dispatch({
           type: CLOSE_ALERT,
@@ -178,13 +182,12 @@ const OneProductPage = () => {
                   <Typography variant="p" className="item-review">Write Review </Typography>
                   
                     <div>
-                      <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>This feature is still under development </Typography>
                       <textarea onChange={(e)=> setReview(e.target.value)} className="item-review-input" placeholder="write you review" rows="4"></textarea>
 
                      <Button onClick={handleReviewSubmit}> Send </Button>
                     </div>
                    {productReviews.length > 0  && (
-                    productReviews.map((review) => (
+                    productReviews.toReversed().map((review) => (
                       <Review key={randomId()} review={review} />
                     ))
                   ) }
