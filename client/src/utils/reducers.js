@@ -10,8 +10,7 @@ import {
   CLEAR_CART,
   UPDATE_CURRENT_PAGE,
   DO_SUCCESS_ALERT,
-  CLOSE_ALERT,
-  DO_ERROR_ALERT
+  CLOSE_ALERT
     
 } from "./actions";
 
@@ -95,12 +94,6 @@ export const reducer = (state, action) => {
         ...state,
         successAlert: '',
         errorAlert: ''
-      };
-    case DO_ERROR_ALERT:
-      return {
-        ...state,
-        errorAlert: action.errorAlert,
-        
       };
     default:
       return state;

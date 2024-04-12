@@ -6,8 +6,6 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { ADD_LIKE } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
-import { useStoreContext } from "../utils/GlobalState";
-import { DO_ERROR_ALERT , CLOSE_ALERT} from "../utils/actions";
 import Auth from "../utils/auth";
 import {
   CardMedia,
@@ -35,7 +33,7 @@ export function ProductCard({
   likes,
   refetch
 }) {
-  const [ state, dispatch ] = useStoreContext();
+ 
   let userId;
   if(Auth.loggedIn()){ userId = Auth.getProfile().data?.userId }  
   let temp = ratingArray || [];
@@ -69,8 +67,7 @@ export function ProductCard({
   const [addLike] = useMutation(ADD_LIKE);
 
   const handleAddLike = () => {
-    if(userId == true){
-      try {
+    if(userId){try {
        addLike({
         variables: { productId: _id , userId},
       });
@@ -79,17 +76,6 @@ export function ProductCard({
     } catch (err) {
       console.error(err);
     }}
-    else{
-      dispatch({
-        type: DO_ERROR_ALERT,
-        errorAlert: "Please login to like this product",
-      })
-      setTimeout(() =>{
-        dispatch({
-          type: CLOSE_ALERT,
-        })
-      }, 3000)
-    } 
   };
   return (
     <Card
@@ -111,15 +97,15 @@ export function ProductCard({
         {likeCount}
         { liked ? (
            <Checkbox
-           icon={<FavoriteBorder sx={{color:'#d77286ef'}} />}
-           checkedIcon={<Favorite  sx={{color:'#d77286ef'}}/>}
+           icon={<FavoriteBorder />}
+           checkedIcon={<Favorite />}
            disabled checked
            sx={{ margin: "auto" }}
          />
         ) :(
           <Checkbox
-          icon={<FavoriteBorder sx={{color:'#d77286ef'}}  />}
-          checkedIcon={<Favorite sx={{color:'#d77286ef'}} />}
+          icon={<FavoriteBorder />}
+          checkedIcon={<Favorite />}
           onChange={handleAddLike}
           sx={{ color: "currentColor", margin: "auto" }}
         />
