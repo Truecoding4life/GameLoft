@@ -47,12 +47,16 @@ export function ProductCard({
     return rate / temp.length;
   };
   let liked = false
-  let likeCount = likes.length
-  if(likeCount < likes.length){
-    likeCount = likes.length
+  let length;
+  if(likes.isArray){
+    length = likes.length
+  }
+  let likeCount = length
+  if(likeCount < length){
+    likeCount = length
   }
   if(  userId ) {
-    for( let i = 0; i < likes.length; i++){
+    for( let i = 0; i < length; i++){
       if(likes[i]._id === userId){
         liked = true;
         break;
