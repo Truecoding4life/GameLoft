@@ -91,6 +91,13 @@ const Cart =  forwardRef( function carted() {
       idbPromise("cart", "delete", { ...item });
     }
   };
+  const removeAllFromCart = (item) => {
+    dispatch({
+      type: REMOVE_FROM_CART,
+      _id: item._id,
+    });
+    idbPromise("cart", "delete", { ...item });
+  };
 
 
 
@@ -118,7 +125,7 @@ const Cart =  forwardRef( function carted() {
   };
 
   const handleClearCart = () => {
-    state.cart.forEach(removeFromCart);
+    state.cart.forEach(removeAllFromCart);
   };
 
 

@@ -33,7 +33,6 @@ const OneProductPage = () => {
   const { data, loading, refetch } = useQuery(QUERY_SINGLE_PRODUCT, {
     variables: { id: id },
   });
-
   
   const product = data?.product || {};
   const productRateArray = product?.rating || [];
@@ -103,7 +102,7 @@ const OneProductPage = () => {
 
   return (
     <Box className='single-product-page' sx={{ height: '100%' }}>
-      <Navbar />
+      <Navbar cart={state.cart} />
 
       <Stack direction="row" spacing={3} style={{ minHeight: '100vh' }}>
         <Sidebar flex={1} />
@@ -140,6 +139,7 @@ const OneProductPage = () => {
 
                   <Typography fontFamily={'Poppins'} fontSize={23} color='white'> {product.name} </Typography>
 
+                  <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>Price : {product.price} </Typography>
 
                   <Typography fontFamily={'Fredoka'} fontSize={20} color='white'>Description</Typography>
                   <Typography

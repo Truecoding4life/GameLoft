@@ -10,7 +10,7 @@ import Favorite from "../../components/Favorite";
 import Contact from "../../components/Contact";
 import Cart from "../../components/Cart/Cart";
 import { useStoreContext } from "../../utils/GlobalState";
-import { TOGGLE_CART, DO_SUCCESS_ALERT, CLOSE_ALERT } from "../../utils/actions";
+import {  DO_SUCCESS_ALERT, CLOSE_ALERT } from "../../utils/actions";
 import Auth from '../../utils/auth'
 import './style.css'
 
@@ -25,9 +25,7 @@ const Home = () => {
   
 
  
-  const toggleCart = () => {
-    dispatch({ type: TOGGLE_CART });
-  }
+  
 
 
 
@@ -58,7 +56,7 @@ const Home = () => {
  
   return (
     <Box className='home-page'>
-      <Navbar toggleCart={toggleCart} cart={state.cart} />
+      <Navbar  />
       <Stack direction="row" spacing={3} justifyContent="space-between">
         <Sidebar currentPage={currentPage} handlePageChange={handlePageChange} />
         <Box flex={4} p={2} className="main-display" >{renderPage()}</Box>
