@@ -48,7 +48,7 @@ export function ProductCard({
   };
   let liked = false
   let length;
-  if(Array.isArray(likes)){
+  if(likes.isArray){
     length = likes.length
   }
   let likeCount = length

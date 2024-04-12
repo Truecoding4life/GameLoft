@@ -1,6 +1,10 @@
 
   #errorBg {
+<<<<<<< HEAD
     background-image: url("../../images/PageBackgrounds/login.webp");
+=======
+    background-image: url("../../images/PageBackgrounds/Error404.jpg");
+>>>>>>> parent of 547a08b (fixed like length)
     background-size: 100%;
     width: 100%;
     height: 100%;
