@@ -18,21 +18,25 @@ export const QUERY_PRODUCTS = gql`
 `;
 
 export const QUERY_SINGLE_PRODUCT = gql`
-query Query($id: ID!) {
+query Product($id: ID!) {
   product(_id: $id) {
     _id
-    description
     category {
       name
     }
+    description
+    discount_price
     image
-    likes
+    likes {
+      _id
+    }
     name
     price
+    quantity
     rating
     reviews {
-      commentText
       createdAt
+      commentText
       userId
     }
   }
