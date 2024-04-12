@@ -3,6 +3,11 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
+import { ADD_LIKE } from "../utils/mutations";
+import { useMutation } from "@apollo/client";
+import { useStoreContext } from "../utils/GlobalState";
+import { DO_ERROR_ALERT , CLOSE_ALERT} from "../utils/actions";
 import {
   CardMedia,
   Checkbox,
@@ -14,8 +19,6 @@ import {
 
 import AuthService from "../utils/auth";
 import { FavoriteBorder, Favorite, ExpandMore } from "@mui/icons-material";
-import { useMutation } from "@apollo/client";
-import { ADD_LIKE } from "../utils/mutations";
 const handleViewDetail = (id) => {
   window.location.href = `/products/${id}`;
 };
@@ -31,7 +34,7 @@ export function ProductCard({
   discounted_price,
   likes
 }) {
-
+  const [state, dispatch] = useStoreContext();
   let userId;
   if(AuthService.loggedIn()){
     userId = AuthService.getProfile().data.userId
@@ -67,7 +70,8 @@ export function ProductCard({
   const [addLike] = useMutation(ADD_LIKE);
 
   const handleAddLike = () => {
-    if(userId){try {
+    if(userId == true){
+      try {
        addLike({
         variables: { productId: _id , userId},
       });
@@ -76,6 +80,17 @@ export function ProductCard({
     } catch (err) {
       console.error(err);
     }}
+    else{
+      dispatch({
+        type: DO_ERROR_ALERT,
+        errorAlert: "Please login to like this product",
+      })
+      setTimeout(() =>{
+        dispatch({
+          type: CLOSE_ALERT,
+        })
+      }, 3000)
+    } 
   };
   return (
     <Card
@@ -90,12 +105,32 @@ export function ProductCard({
         boxShadow: 4,
         margin: 0,
         padding: 0,
+        position: "relative",
       }}
     >
+      <Box className="like-display">
+        {likeCount}
+        { liked ? (
+           <Checkbox
+           icon={<FavoriteBorder sx={{color:'#d77286ef'}} />}
+           checkedIcon={<Favorite  sx={{color:'#d77286ef'}}/>}
+           disabled checked
+           sx={{ margin: "auto" }}
+         />
+        ) :(
+          <Checkbox
+          icon={<FavoriteBorder sx={{color:'#d77286ef'}}  />}
+          checkedIcon={<Favorite sx={{color:'#d77286ef'}} />}
+          onChange={handleAddLike}
+          sx={{ color: "currentColor", margin: "auto" }}
+        />
+
+        )}
+      </Box>
       <CardMedia
         component="img"
         image={image}
-        alt="Paella dish"
+
         sx={{ maxHeight: 200 }}
         onClick={() => handleViewDetail(_id)}
       />

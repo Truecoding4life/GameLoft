@@ -17,7 +17,7 @@ import Review from "../../components/Review";
 import './style.css'
 import '../../components/spiner.css'
 import { useStoreContext } from "../../utils/GlobalState";
-import { DO_SUCCESS_ALERT, CLOSE_ALERT } from "../../utils/actions";
+import { DO_SUCCESS_ALERT, CLOSE_ALERT, DO_ERROR_ALERT } from "../../utils/actions";
 import Auth from "../../utils/auth";
 
 
@@ -27,7 +27,10 @@ function randomId(){
 }
 
 const OneProductPage = () => {
-  const userId = Auth.getProfile().data.userId
+  let userId;
+  if(Auth.loggedIn()){
+    userId = Auth.getProfile().data.userId
+  }
   const { id } = useParams();
   const [ state, dispatch ] = useStoreContext();
   const { data, loading, refetch } = useQuery(QUERY_SINGLE_PRODUCT, {
