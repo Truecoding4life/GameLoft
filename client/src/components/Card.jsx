@@ -3,10 +3,6 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
-import { ADD_LIKE } from "../utils/mutations";
-import { useMutation } from "@apollo/client";
-import Auth from "../utils/auth";
 import {
   CardMedia,
   Checkbox,
@@ -30,12 +26,8 @@ export function ProductCard({
   ratingArray,
   addToCart,
   discounted_price,
-  likes,
-  refetch
+  likes
 }) {
- 
-  let userId;
-  if(Auth.loggedIn()){ userId = Auth.getProfile().data?.userId }  
   let temp = ratingArray || [];
   let productRating = () => {
     let rate = 0;
@@ -84,41 +76,22 @@ export function ProductCard({
       sx={{
         width: { xs: "96%", sm: "27%", md: "27%", lg: "20%", xl: "14%" },
         maxWidth: { sm: "70%", md: "50%" },
-        borderRadius: 3,
+        borderRadius:3,
         backgroundColor: "var(--card-color)",
         color: "white",
         boxShadow: 4,
         margin: 0,
         padding: 0,
-        position: "relative",
       }}
     >
-      <Box className="like-display">
-        {likeCount}
-        { liked ? (
-           <Checkbox
-           icon={<FavoriteBorder />}
-           checkedIcon={<Favorite />}
-           disabled checked
-           sx={{ margin: "auto" }}
-         />
-        ) :(
-          <Checkbox
-          icon={<FavoriteBorder />}
-          checkedIcon={<Favorite />}
-          onChange={handleAddLike}
-          sx={{ color: "currentColor", margin: "auto" }}
-        />
-
-        )}
-      </Box>
       <CardMedia
         component="img"
         image={image}
-        alt="game image"
+        alt="Paella dish"
         sx={{ maxHeight: 200 }}
         onClick={() => handleViewDetail(_id)}
       />
+
       <CardContent onClick={() => handleViewDetail(_id)}>
         <Typography variant="h5" sx={{ fontSize: 14, fontFamily: "Poppins" }}>
           {" "}
@@ -128,25 +101,24 @@ export function ProductCard({
           {" "}
           ${price}
         </Typography>
-
         {ratingArray.length ? (
-          <Rating name="read-only" value={productRating()} readOnly />
+          <Rating name="read-only" value={productRating()}  readOnly />
         ) : null}
       </CardContent>
-
+      {/* <CardActions>
+        <Checkbox
+          icon={<FavoriteBorder />}
+          checkedIcon={<Favorite />}
+          sx={{ color: "white", margin: "auto" }}
+        />
+        
+      </CardActions> */}
       <CardActions>
+      
         <Button
           sx={{ margin: "auto" }}
           onClick={() =>
-            addToCart({
-              name,
-              _id,
-              price,
-              description,
-              quantity: 1,
-              image,
-              discounted_price,
-            })
+            addToCart({ name, _id, price, description, quantity: 1, image, discounted_price })
           }
         >
           Add to cart

@@ -107,15 +107,3 @@ mutation Mutation($productId: ID!, $rating: Int!) {
   }
 }
 `
-
-export const ADD_LIKE = gql`
-mutation AddLike($productId: ID!, $userId: ID!) {
-  addLike(productId: $productId, userId: $userId) {
-    name
-    likes {
-      _id
-    }
-  }
-}
-
-`

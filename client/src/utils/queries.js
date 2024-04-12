@@ -60,7 +60,7 @@ query Query {
     category {
       name
     }
-    
+    likes
     description
     price
     image
@@ -70,9 +70,6 @@ query Query {
       userId
       commentText
       createdAt
-    }
-    likes {
-      _id
     }
   }
 }

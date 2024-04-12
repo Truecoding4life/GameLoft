@@ -1,7 +1,6 @@
 .home-page{
     background: linear-gradient(181deg, rgb(41, 44, 77) 0%, rgb(24, 32, 50) 50%, rgb(35, 44, 89) 100%);
     min-height: 100vh;
-    max-height: 100%;
 
 }
 
@@ -17,13 +16,4 @@
     background-color: #161b25f9;
     padding: 10px;
 
-}
-
-.like-display{
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: rgba(118, 41, 144, 0.772) ;
-    padding: 3px;
-    border-bottom-left-radius: 10px;
 }
