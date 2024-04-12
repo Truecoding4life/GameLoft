@@ -13,7 +13,7 @@ const typeDefs = `
     price: Float
     category: Category
     reviews: [Review]
-    likes: Int
+    likes: [User]
     discount_price: Float
     rating: [Int]
   }
@@ -30,6 +30,8 @@ const typeDefs = `
     createdAt: String
     userId: ID
   }
+
+
 
   type Order {
     _id: ID

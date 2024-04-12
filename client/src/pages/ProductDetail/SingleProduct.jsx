@@ -27,7 +27,8 @@ function randomId(){
 }
 
 const OneProductPage = () => {
-  const userId = Auth.getProfile().data.userId
+  let userId;
+  if(Auth.loggedIn()){ userId = Auth.getProfile().data?._id }
   const { id } = useParams();
   const [ state, dispatch ] = useStoreContext();
   const { data, loading, refetch } = useQuery(QUERY_SINGLE_PRODUCT, {

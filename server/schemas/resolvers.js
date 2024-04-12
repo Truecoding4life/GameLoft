@@ -1,5 +1,8 @@
 const { User, Product, Category, Order} = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+const { Types: { ObjectId } } = require('mongoose');
+
+
 const stripe = require("stripe")(
   "sk_test_51ONTIVHTFh8Wci3cJtLIlL13zdb1MbBsYiou3PBy4aYQmMxXGENNkOIv2fB1PCaxuAbvLYLzHmD30swJXni08xQ800uWiYh07D"
 );
@@ -185,7 +188,7 @@ const resolvers = {
       return Product.findOneAndUpdate(
         { _id: productId },
         {
-          $addToSet: { likes: { userId } },
+          $addToSet: { likes: new ObjectId(userId) },
         },
         {
           new: true,

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const dateFormat = require("../utils/dateFormat");
+const { validate } = require('./Category');
 
 const { Schema } = mongoose;
 
@@ -37,16 +38,12 @@ const productSchema = new Schema({
     required: true
   }
   ,
-  likes: {
-    type: Number,
-    default: 0,
-    userId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
-  },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
   rating: [
     {
       type: Number,
@@ -57,7 +54,13 @@ const productSchema = new Schema({
   discounted_price:{
     type: Number,
     max: this.price,
-    default: 0
+    default: 0,
+    validate:{
+      validator: function(value){
+        return value <= this.price;
+      },
+      message: props => `Discounted price (${props.value}) cannot be greater than original price (${this.price})`
+    }
   
   },
   reviews: [{
