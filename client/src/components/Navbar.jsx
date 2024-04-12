@@ -25,7 +25,7 @@ import { useStoreContext } from "../utils/GlobalState";
 import Alert from '@mui/material/Alert';
 import { CheckCircleOutline } from "@mui/icons-material";
 import 'animate.css';
-
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 
 const StyledToolbar = styled(Toolbar)({
@@ -78,6 +78,7 @@ export const Navbar = () => {
   const [state, dispatch] = useStoreContext();
   let SuccessAlert = state.successAlert;
   let errorAlert = state.errorAlert;
+
   const [cartCount, setCartCount] = useState(0);
   useEffect(() => {
     let count = 0;
@@ -185,6 +186,12 @@ export const Navbar = () => {
           Successful, {SuccessAlert}
         </Alert>
       )}
+       {errorAlert && (
+
+<Alert className="animate__animated animate__fadeIn" icon={<ErrorOutlineIcon fontSize="inherit" />} severity="error">
+  Error, {errorAlert}
+</Alert>
+)}
     </AppBar>
   );
 };
