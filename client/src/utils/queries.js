@@ -1,38 +1,53 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_PRODUCTS = gql`
-  query getProducts($category: ID) {
-    products(category: $category) {
-      _id
-      name
-      description
-      price
-      quantity
-      image
-      rating
-      category {
-        _id
-      }
-    }
-  }
-`;
-
-export const QUERY_SINGLE_PRODUCT = gql`
-query Query($id: ID!) {
-  product(_id: $id) {
+query Query {
+  products {
+    name
     _id
-    description
     category {
       name
     }
-    image
-    likes
-    name
+    
+    description
     price
+    image
     rating
+    quantity
     reviews {
+      userId
       commentText
       createdAt
+    }
+    likes {
+      _id
+    }
+  }
+}
+
+
+`;
+
+export const QUERY_SINGLE_PRODUCT = gql`
+query Product($id: ID!) {
+  product(_id: $id) {
+    _id
+    category {
+      name
+    }
+    description
+    discount_price
+    image
+    likes {
+      _id
+    }
+    name
+    price
+    quantity
+    rating
+    reviews {
+      createdAt
+      commentText
       userId
     }
   }
@@ -56,7 +71,7 @@ query Query {
     category {
       name
     }
-    likes
+    
     description
     price
     image
@@ -66,6 +81,9 @@ query Query {
       userId
       commentText
       createdAt
+    }
+    likes {
+      _id
     }
   }
 }

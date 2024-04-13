@@ -11,8 +11,11 @@ import {
   CardActions,
   Rating,
 } from "@mui/material";
-import { FavoriteBorder, Favorite, ExpandMore } from "@mui/icons-material";
 
+import AuthService from "../utils/auth";
+import { FavoriteBorder, Favorite, ExpandMore } from "@mui/icons-material";
+import { useMutation } from "@apollo/client";
+import { ADD_LIKE } from "../utils/mutations";
 const handleViewDetail = (id) => {
   window.location.href = `/products/${id}`;
 };
@@ -28,6 +31,11 @@ export function ProductCard({
   discounted_price,
   likes
 }) {
+
+  let userId;
+  if(AuthService.loggedIn()){
+    userId = AuthService.getProfile().data.userId
+  }
   let temp = ratingArray || [];
   let productRating = () => {
     let rate = 0;

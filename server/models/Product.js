@@ -37,14 +37,14 @@ const productSchema = new Schema({
     required: true
   }
   ,
-  likes: {
+  likes:[ {
     userId: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User'
       }
     ]
-  },
+  },],
   rating: [
     {
       type: Number,

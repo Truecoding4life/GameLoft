@@ -13,7 +13,7 @@ const typeDefs = `
     price: Float
     category: Category
     reviews: [Review]
-    likes: Int
+    likes: [User]
     discount_price: Float
     rating: [Int]
   }
