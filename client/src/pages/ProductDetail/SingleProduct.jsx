@@ -85,7 +85,7 @@ const OneProductPage = () => {
         type: DO_SUCCESS_ALERT,
         successAlert: "Thank you for submit your review",
       })
-      
+      refetch();
       setTimeout(() =>{
         dispatch({
           type: CLOSE_ALERT,
