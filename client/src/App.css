@@ -112,10 +112,22 @@
  
 }
 
-back {
-    background-color: #5fef8f;
+::-webkit-scrollbar {
+    display: block;
 }
 
+
+
+/* Style for the thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+    background-color: #6e6a6aa4; /* Change to your desired color */
+    border-radius: 2px; /* Adjust border radius as needed */
+}
+
+/* Style for the track (the non-draggable part of the scrollbar) */
+::-webkit-scrollbar-track {
+    background-color: #1d1818; /* Change to your desired color */
+}
 
 
 @media (max-width: 900px) {

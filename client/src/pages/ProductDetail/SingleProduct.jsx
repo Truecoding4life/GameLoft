@@ -60,6 +60,7 @@ const OneProductPage = () => {
       await addRating({
         variables: { productId: id, rating: ratingValue},
       });
+      refetch()
       dispatch({
         type: DO_SUCCESS_ALERT,
         successAlert: "Thank you for submit your rate",

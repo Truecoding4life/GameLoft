@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import {useEffect} from "react"
 import { Box } from "@mui/material";
 import { ADD_LIKE } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
@@ -32,13 +33,17 @@ export function ProductCard({
   ratingArray,
   addToCart,
   discounted_price,
-  likes
+  likes,
+  refetch
 }) {
+
   const [state, dispatch] = useStoreContext();
   let userId;
   if(AuthService.loggedIn()){
     userId = AuthService.getProfile().data.userId
   }
+  
+
   let temp = ratingArray || [];
   let productRating = () => {
     let rate = 0;
@@ -48,16 +53,18 @@ export function ProductCard({
     return rate / temp.length;
   };
   let liked = false
-  let length;
-  if(likes.isArray){
-    length = likes.length
+  let likeCount;
+
+ 
+  if(Array.isArray(likes)){
+    
+    if(likeCount !== likes.length){
+      likeCount = likes.length
+    }
   }
-  let likeCount = length
-  if(likeCount < length){
-    likeCount = length
-  }
+
   if(  userId ) {
-    for( let i = 0; i < length; i++){
+    for( let i = 0; i < likeCount; i++){
       if(likes[i]._id === userId){
         liked = true;
         break;
@@ -65,18 +72,21 @@ export function ProductCard({
     
     }
   }
+ 
   
 
   const [addLike] = useMutation(ADD_LIKE);
-
+ 
   const handleAddLike = () => {
-    if(userId == true){
+    if(userId !== undefined && liked === false){
       try {
+   
        addLike({
         variables: { productId: _id , userId},
       });
-    
       refetch()
+
+     
     } catch (err) {
       console.error(err);
     }}
@@ -148,14 +158,7 @@ export function ProductCard({
           <Rating name="read-only" value={productRating()}  readOnly />
         ) : null}
       </CardContent>
-      {/* <CardActions>
-        <Checkbox
-          icon={<FavoriteBorder />}
-          checkedIcon={<Favorite />}
-          sx={{ color: "white", margin: "auto" }}
-        />
-        
-      </CardActions> */}
+ 
       <CardActions>
       
         <Button

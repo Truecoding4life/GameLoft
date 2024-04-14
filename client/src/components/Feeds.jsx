@@ -15,7 +15,7 @@ const Feeds = () => {
 
   // const { currentCategory } = state;
 
-  const { loading, data, error } = useQuery(QUERY_ALL_PRODUCTS);
+  const { loading, data, error, refetch } = useQuery(QUERY_ALL_PRODUCTS);
 
   // const products = data?.products || [];
   
@@ -41,7 +41,6 @@ const Feeds = () => {
   }, [data, loading, dispatch]);
 
  
-
   const { cart } = state;
 
  
@@ -91,6 +90,7 @@ const Feeds = () => {
                 category={product.category}
                 addToCart={addToCart}
                 likes={product.likes}
+                refetch={refetch}
               
               />
             ))}

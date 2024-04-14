@@ -281,7 +281,7 @@ const Cart =  forwardRef( function carted() {
         >
 
 
-          {loggedIn && state.cart.length ? (
+          {loggedIn  ? (
             <Button onClick={handleCheckout} variant="contained" sx={{ margin: 1 }} color="success">
               Pay Now
             </Button>

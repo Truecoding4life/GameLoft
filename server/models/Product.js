@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
 const { Schema } = mongoose;
@@ -12,72 +12,68 @@ const productSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    trim: true
+    trim: true,
   },
   description: {
-    type: String
+    type: String,
   },
   image: {
-    type: String
+    type: String,
   },
   price: {
     type: Number,
     required: true,
-    min: 0.99
+    min: 0.99,
   },
   quantity: {
     type: Number,
     min: 0,
-    default: 0
+    default: 0,
   },
-  category:
-  {
+  category: {
     type: Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true
-  }
-  ,
-  likes:[ {
-    userId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
-  },],
+    ref: "Category",
+    required: true,
+  },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   rating: [
     {
       type: Number,
-      min:0,
-      max:5,
-    }
+      min: 0,
+      max: 5,
+    },
   ],
-  discounted_price:{
+  discounted_price: {
     type: Number,
     max: this.price,
-    default: 0
-  
+    default: 0,
   },
-  reviews: [{
-    commentText: {
-      type: String,
-      required: true,
-      minlength: 1,
-      maxlength: 280,
+  reviews: [
+    {
+      commentText: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 280,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
+      },
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: (timestamp) => dateFormat(timestamp),
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    }
-  }]
-
+  ],
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
