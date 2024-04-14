@@ -19,8 +19,8 @@ const Favorite = () => {
   const isLoggedIn = AuthService.loggedIn();
   let products = [];
   const { data, loading, error, refetch } = useQuery(QUERY_USER_LIKED_PRODUCTS, {
-    skip: !isLoggedIn,
-    variables: { userId: AuthService.getProfile().data.userId },
+    variables: { userId: AuthService.getProfile()?.data?.userId },
+    skip: !isLoggedIn || !AuthService.getProfile(), 
   });
   if(data){
     products = data.getAllLiked
@@ -62,17 +62,26 @@ const Favorite = () => {
             <Typography variant="h4" className="spinner"></Typography>
           </Box>
         )}
-      {AuthService.loggedIn() && products.length > 1 ? (
+      {isLoggedIn ? (
         
 
         <Box className="main-display">
-       { products.map((product) => (
+
+            {products.length > 1 ? (
+
+products.map((product) => (
           <ProductCard
             key={product._id}
             product={product}
             refetch={refetch}
             addToCart={addToCart}
-          />))}
+          />))
+
+            ) : (
+              <p className="no-favorite-text"> You have no favorite</p>
+            
+            )}
+      
 
      </Box>
 

@@ -2,7 +2,14 @@ import decode from 'jwt-decode';
 
 class AuthService {
   getProfile() {
-    return decode(this.getToken());
+    try{
+
+      return decode(this.getToken());
+    }
+    catch (err) {
+      console.log('No profile found');
+      return null;
+    }
   }
 
   loggedIn() {
