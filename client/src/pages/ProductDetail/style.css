@@ -58,6 +58,12 @@
     margin-top: 20px;
 }
 
+.single-product-page {
+    background: linear-gradient(181deg, rgb(41, 44, 77) 0%, rgb(24, 32, 50) 50%, rgb(35, 44, 89) 100%);
+    min-height: 100vh;
+    max-height: 100%;
+
+}
 .review-box{
     background-color: var(--item-description-box);
     padding: 24px;

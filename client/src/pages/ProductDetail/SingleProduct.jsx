@@ -56,6 +56,18 @@ const OneProductPage = () => {
 
 
   const handleRatingSubmit = async (ratingValue) => {
+    if(!userId){
+      dispatch({
+        type: DO_ERROR_ALERT,
+        errorAlert: "Please login to write review",
+      })
+      setTimeout(() =>{
+        dispatch({
+          type: CLOSE_ALERT,
+        })
+      }, 3000)
+    }
+    else{
     try {
       await addRating({
         variables: { productId: id, rating: ratingValue},
@@ -73,14 +85,22 @@ const OneProductPage = () => {
       
     } catch (err) {
       console.error("Failed to add review", err);
-      alert("Failed to add review");
-    }
+    }}
   };
 
   const handleReviewSubmit = async () => {
     if(!userId){
-      return alert("Please login to submit your rate")
+      dispatch({
+        type: DO_ERROR_ALERT,
+        errorAlert: "Please login to write review",
+      })
+      setTimeout(() =>{
+        dispatch({
+          type: CLOSE_ALERT,
+        })
+      }, 3000)
     }
+    else{
     try {
       await addReview({
         variables: { productId: id, commentText: reviewValue, userId: userId},
@@ -98,8 +118,7 @@ const OneProductPage = () => {
       
     } catch (err) {
       console.error("Failed to add review", err);
-      alert("Failed to add review");
-    }
+    }}
   }
 
 
