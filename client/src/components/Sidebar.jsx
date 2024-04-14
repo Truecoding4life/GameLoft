@@ -89,15 +89,7 @@ export const Sidebar = () => {
             </ListItemButton>
           </ListItem>
 
-          <ListItem >
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemIcon>
-                <Brightness2Icon sx={{ color: 'white' }}/>
-              </ListItemIcon>
-              <Switch />{" "}
-            </ListItemButton>
-          </ListItem>
-
+          
 
 
         </>  ) : null }

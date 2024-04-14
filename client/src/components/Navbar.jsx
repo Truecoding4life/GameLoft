@@ -43,11 +43,11 @@ const Icons = styled(Box)(({ theme }) => ({
 function showLogin() {
   if (Auth.loggedIn()) {
     return (
-      <div>
+      <div >
         <MenuItem>
-              <Link to="./profile">My account</Link>
-            </MenuItem>
-            <Divider />
+          <Link to="./profile">My account</Link>
+        </MenuItem>
+        <Divider />
 
         <MenuItem>
           <a href="/" onClick={() => Auth.logout()}>
@@ -123,22 +123,23 @@ export const Navbar = () => {
 
         <Icons>
           {Auth.loggedIn() ? (
-            <Badge color="success" variant="dot">
+            <Badge color="success" id="account" variant="dot">
               <AccountBoxIcon
+                
                 sx={{ color: 'white' }}
                 onClick={() => {
                   setOpenAccount(true);
                 }}
-                color="action"
               />
             </Badge>
           ) : (
             <AccountBoxIcon
+              id="account"
               sx={{ color: 'white' }}
               onClick={() => {
                 setOpenAccount(true);
               }}
-              color="action"
+
             />
           )}
 
@@ -163,17 +164,20 @@ export const Navbar = () => {
             id="profile-menu"
             aria-labelledby="Login Menu"
             open={openAccount}
+            
             onClose={() => setOpenAccount(false)}
+            anchorEl={document.getElementById("account")}
             anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
+              vertical: "bottom",
+              horizontal: "center",
             }}
             transformOrigin={{
               vertical: "top",
-              horizontal: "right",
+              horizontal: "center",
             }}
-          >
             
+          >
+
             {showLogin()}
           </Menu>
         </Icons>
@@ -186,12 +190,12 @@ export const Navbar = () => {
           Successful, {SuccessAlert}
         </Alert>
       )}
-       {errorAlert && (
+      {errorAlert && (
 
-<Alert className="animate__animated animate__fadeIn" icon={<ErrorOutlineIcon fontSize="inherit" />} severity="error">
-  Error, {errorAlert}
-</Alert>
-)}
+        <Alert className="animate__animated animate__fadeIn" icon={<ErrorOutlineIcon fontSize="inherit" />} severity="error">
+          Error, {errorAlert}
+        </Alert>
+      )}
     </AppBar>
   );
 };
