@@ -128,3 +128,27 @@ export const QUERY_ALL_REVIEWS = gql`
     }
   }
 `;
+
+export const QUERY_USER_LIKED_PRODUCTS = gql`
+query GetAllLikes($userId: ID!) {
+  getAllLiked(userId: $userId) {
+    name
+    _id
+    price
+    rating
+    reviews {
+      userId
+      createdAt
+    }
+    likes {
+      _id
+    }
+    category {
+      name
+    }
+    description
+    image
+    discount_price
+  }
+}
+`;

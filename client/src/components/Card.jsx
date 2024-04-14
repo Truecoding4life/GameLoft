@@ -25,18 +25,21 @@ const handleViewDetail = (id) => {
 };
 
 export function ProductCard({
-  name,
-  _id,
-  price,
-  description,
-  image,
-  ratingArray,
+  product,
   addToCart,
-  discounted_price,
-  likes,
   refetch
 }) {
 
+
+  const _id= product._id
+  const name= product.name
+  const price= product.price
+  const discounted_price= product.discounted_price
+  const ratingArray= product.rating
+  const description= product.description
+  const image= product.image
+  const category= product.category
+  const likes= product.likes
   const [state, dispatch] = useStoreContext();
   let userId;
   if(AuthService.loggedIn()){

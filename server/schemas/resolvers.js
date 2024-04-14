@@ -55,11 +55,7 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    getAllLikes: async (parent, { _id }) => {
-      const product = await Product.findById(_id).populate("likes");
 
-      return product.likes;
-    },
 
     checkout: async (parent, args, context) => {
       try {
@@ -96,6 +92,15 @@ const resolvers = {
         console.log(err);
       }
     },
+    getAllLiked: async (parent, { userId }) => {
+      try{
+        const product = await Product.find({ likes: userId }).populate("likes");
+        return product;
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
   },
 
   Mutation: {

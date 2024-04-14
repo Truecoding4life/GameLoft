@@ -80,18 +80,10 @@ const Feeds = () => {
             {state.products.map((product) => (
               <ProductCard
                 key={product._id}
-                _id={product._id}
-                name={product.name}
-                price={product.price}
-                discounted_price={product.discounted_price}
-                ratingArray={product.rating}
-                description={product.description}
-                image={product.image}
-                category={product.category}
-                addToCart={addToCart}
-                likes={product.likes}
+                product={product}
                 refetch={refetch}
-              
+                addToCart={addToCart}
+
               />
             ))}
           </Box>

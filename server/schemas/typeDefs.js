@@ -78,9 +78,10 @@ const typeDefs = `
     user(email: String!): User
     order(_id: ID!): Order
     checkout(products: [ProductInput]): Checkout
-    getAllLikes: [Product]
     GetReviews: [Product]
     allUsers: [User]
+    getAllLiked(userId: ID!): [Product] 
+
   }
 
   type Mutation {
