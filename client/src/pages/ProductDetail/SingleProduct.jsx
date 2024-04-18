@@ -9,17 +9,16 @@ import {
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../../components/Navbar";
-import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_SINGLE_PRODUCT } from "../../utils/queries";
-import { ADD_RATING, ADD_REVIEW } from "../../utils/mutations";
 import { Sidebar } from "../../components/Sidebar";
 import Review from "../../components/Review";
-import './style.css'
 import '../../components/spiner.css'
-import { useStoreContext } from "../../utils/GlobalState";
-import { DO_SUCCESS_ALERT, CLOSE_ALERT, DO_ERROR_ALERT } from "../../utils/actions";
+import './style.css'
 import Auth from "../../utils/auth";
-
+import {useSelector, useDispatch} from 'react-redux'
+import { QUERY_SINGLE_PRODUCT } from "../../utils/queries";
+import { ADD_RATING, ADD_REVIEW } from "../../utils/mutations";
+import { useQuery, useMutation } from "@apollo/client";
+import { setSuccessAlert, setErrorAlert, clearAlert } from "../../utils/feature/alertSlice";
 
 function randomId(){
   return Math.floor(Math.random() * 1000000000) + 1000000000;
@@ -32,7 +31,7 @@ const OneProductPage = () => {
     userId = Auth.getProfile().data.userId
   }
   const { id } = useParams();
-  const [ state, dispatch ] = useStoreContext();
+  const dispatch = useDispatch()
   const { data, loading, refetch } = useQuery(QUERY_SINGLE_PRODUCT, {
     variables: { id: id },
   });
@@ -40,7 +39,7 @@ const OneProductPage = () => {
   const product = data?.product || {};
   const productRateArray = product?.rating || [];
   const productReviews= product?.reviews || [];
-  
+  const cart = useSelector(state => state.cart.cart)
 
   const [ratingValue, setRating] = useState(null);
   const [ reviewValue, setReview] = useState("");
@@ -57,14 +56,9 @@ const OneProductPage = () => {
 
   const handleRatingSubmit = async (ratingValue) => {
     if(!userId){
-      dispatch({
-        type: DO_ERROR_ALERT,
-        errorAlert: "Please login to write review",
-      })
+      dispatch(setErrorAlert("Please login to write review"))
       setTimeout(() =>{
-        dispatch({
-          type: CLOSE_ALERT,
-        })
+        dispatch(clearAlert())
       }, 3000)
     }
     else{
@@ -73,31 +67,24 @@ const OneProductPage = () => {
         variables: { productId: id, rating: ratingValue},
       });
       refetch()
-      dispatch({
-        type: DO_SUCCESS_ALERT,
-        successAlert: "Thank you for submit your rate",
-      })
+      dispatch(setSuccessAlert("Thank you for submit your rate"))
+      setRating(newValue)
       setTimeout(() =>{
-        dispatch({
-          type: CLOSE_ALERT,
-        })
+        
+        dispatch(clearAlert())
       }, 3000)
       
     } catch (err) {
+      dispatch(setErrorAlert("Failed to add review"))
       console.error("Failed to add review", err);
     }}
   };
 
   const handleReviewSubmit = async () => {
     if(!userId){
-      dispatch({
-        type: DO_ERROR_ALERT,
-        errorAlert: "Please login to write review",
-      })
+      dispatch(setErrorAlert("Please login to write review"))
       setTimeout(() =>{
-        dispatch({
-          type: CLOSE_ALERT,
-        })
+        dispatch(clearAlert())
       }, 3000)
     }
     else{
@@ -105,18 +92,14 @@ const OneProductPage = () => {
       await addReview({
         variables: { productId: id, commentText: reviewValue, userId: userId},
       });
-      dispatch({
-        type: DO_SUCCESS_ALERT,
-        successAlert: "Thank you for submit your review",
-      })
+      dispatch(setSuccessAlert("Thank you for submit your review"))
       refetch();
       setTimeout(() =>{
-        dispatch({
-          type: CLOSE_ALERT,
-        })
+        dispatch(clearAlert())
       }, 3000)
       
     } catch (err) {
+      dispatch(setErrorAlert("Failed to add review"))
       console.error("Failed to add review", err);
     }}
   }
@@ -125,7 +108,7 @@ const OneProductPage = () => {
 
   return (
     <Box className='single-product-page' sx={{ height: '100%' }}>
-      <Navbar cart={state.cart} />
+      <Navbar cart={cart} />
 
       <Stack direction="row" spacing={3} style={{ minHeight: '100vh' }}>
         <Sidebar flex={1} />
@@ -194,7 +177,7 @@ const OneProductPage = () => {
                         value={ratingValue}
 
                         onChange={(event, newValue) => {
-                          setRating(newValue);
+                          
                           handleRatingSubmit(newValue);
                         }}
                       />

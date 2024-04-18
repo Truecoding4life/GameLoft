@@ -10,8 +10,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import TextField from '@mui/material/TextField';
+import { CheckCircleOutline } from "@mui/icons-material";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
@@ -23,8 +23,10 @@ import 'animate.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useStoreContext } from '../../utils/GlobalState.jsx';
 import { ADD_USER } from '../../utils/mutations.js';
-import {DO_SUCCESS_ALERT, CLOSE_ALERT} from '../../utils/actions.js';
 
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setSuccessAlert, clearAlert } from '../../utils/feature/alertSlice.js';
 
 import './style.css'
 
@@ -51,10 +53,10 @@ function generateRandomNumber() {
 const defaultTheme = createTheme();
 
 function Signup() {
-
-  const [state, dispatch] = useStoreContext();
+  const dispatch = useDispatch();
   const [addUser] = useMutation(ADD_USER);
-  const successAlert = state.successAlert;
+  const successAlert = useSelector((state) => state.alert.successAlert);
+  const errorAlert = useSelector((state) => state.alert.errorAlert);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -73,23 +75,19 @@ function Signup() {
         },
       });
       const token = mutationResponse.data.addUser.token;
-      if(token){
-        
+      if (token) {
+
         Auth.login(token);
-        dispatch({
-          type: DO_SUCCESS_ALERT,
-          successAlert: "Please wait while set up your account",
-        })
-        setTimeout(() =>{
-          dispatch({
-            type: CLOSE_ALERT,
-          })
+        dispatch(setSuccessAlert("We are creating your account, please wait..."))
+        setTimeout(() => {
+          dispatch(clearAlert())
           window.location.assign('/');
         }, 3000)
 
       }
-      
+
     } catch (err) {
+      dispatch(setErrorAlert("System Error, Please Try Again Later"));
       console.log(err);
     }
 
@@ -114,10 +112,16 @@ function Signup() {
         }}
       >
 
-{successAlert && ( 
-                  <Alert className='animate__animated animate__fadeIn' icon={<CircularProgress size={20} color="success" />} severity="success">
-          Successful, {successAlert}
-        </Alert>)}
+        {successAlert && (
+          <Alert className='animate__animated animate__fadeIn' icon={<CircularProgress size={20} color="success" />} severity="success">
+            Successful, {successAlert}
+          </Alert>)}
+          {errorAlert && (
+
+<Alert className="animate__animated animate__fadeIn" icon={<ErrorOutlineIcon fontSize="inherit" />} severity="error">
+  Error, {errorAlert}
+</Alert>
+)}
         <Avatar sx={{ m: 1, bgcolor: 'black' }} >
           <LockOutlinedIcon />
 

@@ -21,12 +21,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import Cart from "./Cart/Cart";
-import { useStoreContext } from "../utils/GlobalState";
 import Alert from '@mui/material/Alert';
 import { CheckCircleOutline } from "@mui/icons-material";
-import 'animate.css';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import 'animate.css';
 
+
+
+import {useSelector, useDispatch} from 'react-redux'
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -72,25 +74,28 @@ function showLogin() {
 }
 
 export const Navbar = () => {
+  
+  const cart = useSelector(state => state.cart.cart)
   const [openAccount, setOpenAccount] = useState(false);
   const [openModal, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
-  const [state, dispatch] = useStoreContext();
-  let SuccessAlert = state.successAlert;
-  let errorAlert = state.errorAlert;
+  let SuccessAlert = useSelector(state => state.alert.successAlert);
+  let errorAlert = useSelector(state => state.alert.errorAlert);
+
+
 
   const [cartCount, setCartCount] = useState(0);
   useEffect(() => {
     let count = 0;
-    for (let i = 0; i < state.cart.length; i++) {
-      let product = state.cart[i];
+    for (let i = 0; i < cart.length; i++) {
+      let product = cart[i];
       let quantity = product.purchaseQuantity;
       count += quantity;
     }
     setCartCount(count);
 
 
-  }, [state.cart]);
+  }, [cart]);
 
 
 

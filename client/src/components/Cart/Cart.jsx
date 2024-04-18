@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { QUERY_CHECKOUT, QUERY_USER } from "../../utils/queries";
+import { useLazyQuery } from "@apollo/client";
+import { QUERY_CHECKOUT } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
-import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_MULTIPLE_TO_CART, REMOVE_FROM_CART, CLEAR_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import Auth from "../../utils/auth";
 import {
   Button,
@@ -12,14 +10,18 @@ import {
   Grid,
   Typography,
   List,
-  Modal,
   TextField
 } from "@mui/material";
 import CartItem from "./CartItem";
 import './style.css'
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
-import { SafetyDividerOutlined } from "@mui/icons-material";
 import { forwardRef } from 'react';
+
+
+import {useSelector, useDispatch} from 'react-redux'
+import { updateCartQuantity, addMultipleToCart, removeFromCart, clearCart } from "../../utils/feature/cartSlice";
+
+
 
 const stripePromise = loadStripe(
   "pk_test_51ONTIVHTFh8Wci3c6KmX3ltxyZAHhSTHFY12NMZwUeg6eHfDykwMEYyJvzIr979461JfVxXjBN0Ogl9dcSzcRjaa00X89U6v2w"
@@ -29,11 +31,12 @@ const Cart =  forwardRef( function carted() {
 
 
   const loggedIn = Auth.loggedIn();
-  const [state, dispatch] = useStoreContext();
+  const cart = useSelector(state => state.cart.cart)
+  const dispatch = useDispatch()
   const [getCheckout, { data, error }] = useLazyQuery(QUERY_CHECKOUT);
   const [couponInput, setCouponInput] = useState(0);
   const [discountPercent, setDiscountPercent] = useState(0);
-  let cartItems = JSON.parse(JSON.stringify(state.cart));
+  let cartItems = JSON.parse(JSON.stringify(cart));
   let discountPriceDisplay;
   let totalPriceDisplay = calculateTotal();
   let userFullName = "???";
@@ -56,14 +59,14 @@ const Cart =  forwardRef( function carted() {
   useEffect(() => {
     async function getCart() {
       const cart = await idbPromise("cart", "get");
-      dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
-      if (!state.cart.length) {
+      dispatch(addMultipleToCart(cart));
+      if (!cart.length) {
         getCart();
       }
     }
 
 
-  }, [state.cart.length, dispatch]);
+  }, [cart.length, dispatch]);
 
 
 // Function to calculate total price of all items in the cart
@@ -73,42 +76,36 @@ const Cart =  forwardRef( function carted() {
 
 
 // Function to execute when user click on remove button
-  const removeFromCart = (item) => {
+  const handleRemoveFromCart = (item) => {
     item.discounted_price = null;
     if (item.purchaseQuantity > 1) {
       item.purchaseQuantity = item.purchaseQuantity - 1;
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
+      dispatch(updateCartQuantity({
         _id: item._id,
         purchaseQuantity: item.purchaseQuantity,
-      });
+      }))
     }
     else {
-      dispatch({
-        type: REMOVE_FROM_CART,
+      dispatch(removeFromCart({
         _id: item._id,
-      });
+      }));
       idbPromise("cart", "delete", { ...item });
     }
   };
   const removeAllFromCart = (item) => {
-    dispatch({
-      type: REMOVE_FROM_CART,
-      _id: item._id,
-    });
+    dispatch(clearCart());
     idbPromise("cart", "delete", { ...item });
   };
 
 
 
   // Function to execute when user click on add more quantity button
-  const addToCart = (item) => {
-    item.purchaseQuantity = item.purchaseQuantity + 1;
-    dispatch({
-      type: UPDATE_CART_QUANTITY,
+  const handleAddToCart = (item) => {
+    let purchaseQuantity = item.purchaseQuantity + 1;
+    dispatch(updateCartQuantity({
       _id: item._id,
-      purchaseQuantity: item.purchaseQuantity,
-    })
+      purchaseQuantity: purchaseQuantity,
+    }))
     totalPriceDisplay = calculateTotal();
   }
 
@@ -125,7 +122,7 @@ const Cart =  forwardRef( function carted() {
   };
 
   const handleClearCart = () => {
-    state.cart.forEach(removeAllFromCart);
+    cart.forEach(removeAllFromCart);
   };
 
 
@@ -190,9 +187,9 @@ const Cart =  forwardRef( function carted() {
 
 
       <List disablePadding>
-        {state.cart.length ? (
+        {cart.length ? (
           cartItems.map((product) => (
-            <CartItem key={product._id} product={product} addToCart={addToCart} removeFromCart={removeFromCart} />
+            <CartItem key={product._id} product={product} handleAddToCart={handleAddToCart} handleRemoveFromCart={handleRemoveFromCart} />
           ))
         ) : (
           <Box>

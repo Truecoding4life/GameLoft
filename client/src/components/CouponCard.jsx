@@ -1,31 +1,24 @@
 import React from 'react';
-import { Button, CardActionArea, CardActions, Box } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { useStoreContext } from '../utils/GlobalState';
+import { CardActionArea, CardActions, Box, Card, CardContent, Typography } from '@mui/material';
 import './style.css';
-import { DO_SUCCESS_ALERT, CLOSE_ALERT } from "../utils/actions";
+import { useDispatch } from 'react-redux';
+import { setErrorAlert, clearAlert, setSuccessAlert } from '../utils/feature/alertSlice';
+
 
 const CouponCard = ({ discount, description, coupon }) => {
-  const [state, dispatch] = useStoreContext();
-  const successAlert = state.successAlert;
+  const dispatch = useDispatch();
   const handleCopyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
       .then(() => {
-        dispatch({
-          type: DO_SUCCESS_ALERT,
-          successAlert: "Copied to clipboard!",
-        });
-        setTimeout(() => { 
-          dispatch({
-            type: CLOSE_ALERT,
-          })
-          
-        
+        dispatch(setSuccessAlert('Copied to clipboard!'));
+        setTimeout(() => {
+          dispatch(clearAlert())
+
+
         }, 2000);
       })
       .catch((error) => {
+        dispatch(setErrorAlert('Failed to copy!'));
         console.error('Failed to copy: ', error);
       });
   };

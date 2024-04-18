@@ -15,7 +15,17 @@ import {
     
 } from "./actions";
 
-export const reducer = (state, action) => {
+const initialState = {
+  products: [],
+  cart: [],
+  cartOpen: false,
+  categories: [],
+  currentCategory: '',
+  currentPage: 'Home',
+  successAlert: '',
+  errorAlert: '',
+}
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_CURRENT_PAGE:
       return {

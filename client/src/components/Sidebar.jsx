@@ -5,23 +5,18 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Switch,
 } from "@mui/material";
 import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import SettingsIcon from "@mui/icons-material/Settings";
-import Brightness2Icon from "@mui/icons-material/Brightness2";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-import { Link } from "react-router-dom";
 import LiveSearch from "./LiveSearch";
 import './style.css'
-import { useStoreContext } from "../utils/GlobalState";
-import { TOGGLE_CART } from "../utils/actions";
 
 
-
+import {useSelector, useDispatch} from 'react-redux'
+import { updateCurrentPage } from "../utils/feature/homeSlice";
 
 
 
@@ -29,13 +24,9 @@ export const Sidebar = () => {
   let notHome = window.location.pathname.split("/")[1];
 
   function toggleSidebar(page){
-    dispatch({
-      type: 'UPDATE_CURRENT_PAGE',
-      payload: page,
-    });
+    dispatch(updateCurrentPage(page));
   }
-
-  const [state, dispatch] = useStoreContext();
+  const dispatch = useDispatch()
   const handlePageChange = async (page) => {
     if (notHome) {
       window.location.href = '/';

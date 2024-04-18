@@ -14,27 +14,20 @@ import {  DO_SUCCESS_ALERT, CLOSE_ALERT } from "../../utils/actions";
 import Auth from '../../utils/auth'
 import './style.css'
 
-
+import {useSelector, useDispatch} from 'react-redux'
+import { updateCurrentPage } from "../../utils/feature/homeSlice";
 
 const Home = () => {
   const loggedIn = Auth.loggedIn();
-  const [state, dispatch] = useStoreContext();
-  let currentPage = state.currentPage
-
-
+  const dispatch = useDispatch()
   
-
- 
-  
+  let currentPage = useSelector(state => state.home.currentPage)
 
 
 
 
   const handlePageChange = (page) => {
-    dispatch({
-      type: 'UPDATE_CURRENT_PAGE',
-      payload: page,
-    });
+    dispatch(updateCurrentPage(page));
 
   };
 

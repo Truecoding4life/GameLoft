@@ -4,48 +4,38 @@ import { Box } from "@mui/material";
 import { ProductCard } from "./Card";
 import { QUERY_ALL_PRODUCTS } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import { useStoreContext } from "../utils/GlobalState";
-import { UPDATE_PRODUCTS } from "../utils/actions";
 import { idbPromise } from "../utils/helpers";
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
 import './spiner.css'
+import {useSelector, useDispatch} from 'react-redux'
+import { updateCartQuantity, addToCart } from "../utils/feature/cartSlice";
+import { updateProducts } from "../utils/feature/homeSlice";
 
 const Feeds = () => {
-  const [state, dispatch] = useStoreContext();
-
-  // const { currentCategory } = state;
-
+  const cart = useSelector(state => state.cart.cart)
+  const products = useSelector(state => state.home.products)
+  const dispatch = useDispatch()
   const { loading, data, error, refetch } = useQuery(QUERY_ALL_PRODUCTS);
 
-  // const products = data?.products || [];
   
 
   useEffect(() => {
     if (data) {
-      
-      dispatch({
-        type: UPDATE_PRODUCTS,
-        products: data.products,
-      });
+      dispatch(updateProducts(data.products))
+   
+      updateProducts(data.products)
       data.products.forEach((product) => {
         idbPromise("products", "put", product);
       });
     } else if (!loading) {
-      idbPromise("products", "get").then((products) => {
-        dispatch({
-          type: UPDATE_PRODUCTS,
-          products: products,
-        });
-      });
+      console.log("Error in loading products");
     }
   }, [data, loading, dispatch]);
 
  
-  const { cart } = state;
 
  
 
-  const addToCart = (product) => {
+  const handleAddToCart = (product) => {
     const { _id } = product;
    
 
@@ -53,21 +43,17 @@ const Feeds = () => {
    
     if (itemInCart) {
    
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
+     dispatch(updateCartQuantity({
         _id: _id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
-      });
+     }))
       idbPromise("cart", "put", {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1,
       });
     } else {
 
-      dispatch({
-        type: ADD_TO_CART,
-        cart: { ...product, purchaseQuantity: 1 },
-      });
+      dispatch(addToCart(product));
       idbPromise("cart", "put", { ...product, purchaseQuantity: 1 });
     }
   };
@@ -77,15 +63,14 @@ const Feeds = () => {
       <Box flex={3} p={3} minHeight='100vh'>
         { data ? (
           <Box className="main-display">
-            {state.products.map((product) => (
-              <ProductCard
-                key={product._id}
-                product={product}
-                refetch={refetch}
-                addToCart={addToCart}
-
-              />
-            ))}
+            {products.map((product) => (
+            <ProductCard
+              key={product._id}
+              product={product}
+              refetch={refetch}
+              handleAddToCart={handleAddToCart}
+            />
+          ))}
           </Box>
         ) : (
           <div className="spinner">

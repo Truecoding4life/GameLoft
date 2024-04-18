@@ -14,7 +14,7 @@ import {
   ListItem,
   
 } from "@mui/material";
-const CartItem = ({ product, removeFromCart, addToCart }) => {
+const CartItem = ({ product, handleRemoveFromCart, handleAddToCart }) => {
    const [ quantityCount, setQuantityCount ] = useState(0)
   
    if(product.purchaseQuantity !== quantityCount){
@@ -69,13 +69,13 @@ const CartItem = ({ product, removeFromCart, addToCart }) => {
       
         <CardContent className="cart-item-action-area"  >
          <Typography variant="p" sx={{paddingLeft:'auto'}}> Quantity : {quantityCount}</Typography>
-          <Button sx={{ color: "#f25553" }} onClick={() => {addToCart(product)
+          <Button sx={{ color: "#f25553" }} onClick={() => {handleAddToCart(product)
             setQuantityCount(quantityCount + 1)
           }}>
             <AddIcon />
           </Button>
           <Button sx={{ color: "#f25553" }} onClick={() => {
-            removeFromCart(product) 
+            handleRemoveFromCart(product) 
             if(quantityCount > 1){
               setQuantityCount(quantityCount - 1)
             }

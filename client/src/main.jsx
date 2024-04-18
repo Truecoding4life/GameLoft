@@ -10,9 +10,10 @@ import Login from './pages/Login/Login.jsx';
 import Signup from './pages/Login/Signup.jsx';
 import Success from './pages/Order/Success.jsx';
 import OrderHistory from './pages/Order/OrderHistory.jsx';
-
+import {store} from './utils/store.js';
 import Profile from './pages/MyAccount/Profile.jsx';
 import SingleProductPage from './pages/ProductDetail/SingleProduct.jsx';
+import { Provider } from 'react-redux';
 
 
 const router = createBrowserRouter([
@@ -59,5 +60,8 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <Provider store={store}>
+
+    <RouterProvider router={router} />
+  </Provider>
 )
