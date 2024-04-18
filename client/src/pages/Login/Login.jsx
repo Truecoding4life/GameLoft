@@ -4,7 +4,6 @@ import { LOGIN } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
 
 import {
-  FormControlLabel,
   Box,
   Avatar,
   Button,
@@ -17,14 +16,11 @@ import {
   Typography,
   Alert,
 } from "@mui/material/";
-import { CheckCircleOutline} from "@mui/icons-material";
 import LockIcon from '@mui/icons-material/Lock';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "animate.css";
 import "./style.css";
-
 import { useSelector, useDispatch } from "react-redux";
 import {
   setSuccessAlert,
@@ -41,7 +37,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://jstudio.tech/">
+      <Link color="inherit" href="https://www.jstudio.tech/">
         Jstudio
       </Link>{" "}
       {new Date().getFullYear()}

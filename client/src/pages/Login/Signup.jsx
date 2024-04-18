@@ -1,32 +1,15 @@
 import * as React from 'react';
 import { useMutation } from '@apollo/client';
 import Auth from '../../utils/auth.js';
-
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import {Avatar, Button, Container, Grid, Link, Typography, Box, Alert, CircularProgress } from '@mui/material';
 import { CheckCircleOutline } from "@mui/icons-material";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import CircularProgress from '@mui/material/CircularProgress';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'; import TextField from '@mui/material/TextField';
 import 'animate.css';
-
-
-
+import LockIcon from '@mui/icons-material/Lock';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useStoreContext } from '../../utils/GlobalState.jsx';
 import { ADD_USER } from '../../utils/mutations.js';
-
-
 import { useSelector, useDispatch } from 'react-redux'
-import { setSuccessAlert, clearAlert } from '../../utils/feature/alertSlice.js';
+import { setSuccessAlert, clearAlert, setErrorAlert } from '../../utils/feature/alertSlice.js';
 
 import './style.css'
 
@@ -35,7 +18,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://jstudio.tech/">
+      <Link color="inherit" href="https://www.jstudio.tech/">
         Jstudio
       </Link>
       {" "}{new Date().getFullYear()}
@@ -54,11 +37,12 @@ const defaultTheme = createTheme();
 
 function Signup() {
   const dispatch = useDispatch();
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { data, loading, error }] = useMutation(ADD_USER);
   const successAlert = useSelector((state) => state.alert.successAlert);
   const errorAlert = useSelector((state) => state.alert.errorAlert);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
 
     try {
       const data = new FormData(event.currentTarget);
@@ -87,14 +71,16 @@ function Signup() {
       }
 
     } catch (err) {
-      dispatch(setErrorAlert("System Error, Please Try Again Later"));
+      dispatch(setErrorAlert("System Error while creating account, please try again."));
       console.log(err);
     }
 
 
   };
 
-
+  if (error) {
+    dispatch(setErrorAlert("Please fill out all the fields correctly."))
+  }
 
   return (
 
@@ -116,14 +102,14 @@ function Signup() {
           <Alert className='animate__animated animate__fadeIn' icon={<CircularProgress size={20} color="success" />} severity="success">
             Successful, {successAlert}
           </Alert>)}
-          {errorAlert && (
+        {errorAlert && (
 
-<Alert className="animate__animated animate__fadeIn" icon={<ErrorOutlineIcon fontSize="inherit" />} severity="error">
-  Error, {errorAlert}
-</Alert>
-)}
+          <Alert className="animate__animated animate__fadeIn" icon={<ErrorOutlineIcon fontSize="inherit" />} severity="error">
+            Error, {errorAlert}
+          </Alert>
+        )}
         <Avatar sx={{ m: 1, bgcolor: 'black' }} >
-          <LockOutlinedIcon />
+          <LockIcon />
 
         </Avatar>
         <Typography component="h1" variant="h5" color={'black'} >

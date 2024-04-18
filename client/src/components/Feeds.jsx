@@ -9,6 +9,7 @@ import './spiner.css'
 import {useSelector, useDispatch} from 'react-redux'
 import { updateCartQuantity, addToCart } from "../utils/feature/cartSlice";
 import { updateProducts } from "../utils/feature/homeSlice";
+import { setErrorAlert } from "../utils/feature/alertSlice";
 
 const Feeds = () => {
   const cart = useSelector(state => state.cart.cart)
@@ -16,6 +17,9 @@ const Feeds = () => {
   const dispatch = useDispatch()
   const { loading, data, error, refetch } = useQuery(QUERY_ALL_PRODUCTS);
 
+  if(error){
+    dispatch(setErrorAlert("Error while loading products, please reload the page"))
+  }
   
 
   useEffect(() => {

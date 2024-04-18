@@ -43,6 +43,7 @@ const OneProductPage = () => {
 
   const [ratingValue, setRating] = useState(null);
   const [ reviewValue, setReview] = useState("");
+  const [ rated, setRated] = useState(false);
   const [addRating] = useMutation(ADD_RATING);
   const [addReview] = useMutation(ADD_REVIEW);
   let productRating = () => {
@@ -56,23 +57,23 @@ const OneProductPage = () => {
 
   const handleRatingSubmit = async (ratingValue) => {
     if(!userId){
-      dispatch(setErrorAlert("Please login to write review"))
+      dispatch(setErrorAlert("Please login"))
       setTimeout(() =>{
         dispatch(clearAlert())
-      }, 3000)
+      }, 4000)
     }
     else{
     try {
       await addRating({
         variables: { productId: id, rating: ratingValue},
       });
+      setRated(true);
       refetch()
       dispatch(setSuccessAlert("Thank you for submit your rate"))
-      setRating(newValue)
       setTimeout(() =>{
         
         dispatch(clearAlert())
-      }, 3000)
+      }, 5000)
       
     } catch (err) {
       dispatch(setErrorAlert("Failed to add review"))
@@ -82,10 +83,10 @@ const OneProductPage = () => {
 
   const handleReviewSubmit = async () => {
     if(!userId){
-      dispatch(setErrorAlert("Please login to write review"))
+      dispatch(setErrorAlert("Please login"))
       setTimeout(() =>{
         dispatch(clearAlert())
-      }, 3000)
+      }, 5000)
     }
     else{
     try {
@@ -96,7 +97,7 @@ const OneProductPage = () => {
       refetch();
       setTimeout(() =>{
         dispatch(clearAlert())
-      }, 3000)
+      }, 5000)
       
     } catch (err) {
       dispatch(setErrorAlert("Failed to add review"))
@@ -163,7 +164,7 @@ const OneProductPage = () => {
 
                 <Box className='rating-box'>
                   <Typography variant="p" className="item-review">Give this product a rating </Typography>
-                  {ratingValue ? (
+                  {rated ? (
                     <Typography fontFamily={'Fredoka'} fontSize={20} color='white'> Thank you for submit your rate </Typography>
 
                   ) : (
@@ -179,6 +180,7 @@ const OneProductPage = () => {
                         onChange={(event, newValue) => {
                           
                           handleRatingSubmit(newValue);
+                          setRating(newValue);
                         }}
                       />
                     </div>
